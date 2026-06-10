@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-cream-100 text-pondok-900 antialiased;
+    font-feature-settings: 'cv11', 'ss01';
+  }
+  /* Hilangkan spinner number input */
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}
+
+@layer components {
+  .card {
+    @apply rounded-xl2 bg-white shadow-card;
+  }
+  .btn-primary {
+    @apply rounded-2xl bg-pondok-700 px-5 py-3.5 text-center font-semibold text-cream-50 transition active:scale-[0.98];
+  }
+  .pill {
+    @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium;
+  }
+  .safe-bottom {
+    padding-bottom: calc(env(safe-area-inset-bottom) + 4.5rem);
+  }
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+}
+
+/* Animasi tasbih & progress */
+@keyframes pop {
+  0% { transform: scale(1); }
+  50% { transform: scale(0.93); }
+  100% { transform: scale(1); }
+}
+.animate-pop {
+  animation: pop 0.18s ease-out;
+}
+
+/* Scroll halus & sembunyikan scrollbar horizontal */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
