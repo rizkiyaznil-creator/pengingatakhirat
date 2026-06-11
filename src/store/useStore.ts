@@ -32,8 +32,17 @@ export interface Profile {
 }
 
 // habitLogs[dateKey][habitId] = nilai tercapai (checkbox 0/1, counter, menit)
-type PrayerLogs = Record<string, Partial<Record<PrayerName, PrayerStatus>>>
-type HabitLogs = Record<string, Record<string, number>>
+export type PrayerLogs = Record<string, Partial<Record<PrayerName, PrayerStatus>>>
+export type HabitLogs = Record<string, Record<string, number>>
+
+// Potongan data yang disinkronkan ke cloud (satu dokumen JSON per akun)
+export interface SyncSnapshot {
+  profile: Profile
+  prayerLogs: PrayerLogs
+  habits: Habit[]
+  habitLogs: HabitLogs
+  tasbih: { count: number; target: number; sets: number }
+}
 
 interface State {
   profile: Profile
@@ -61,6 +70,9 @@ interface State {
   tapTasbih: () => void
   resetTasbih: () => void
   setTasbihTarget: (n: number) => void
+
+  // sinkronisasi — ganti seluruh data (mis. hasil merge dari cloud)
+  replaceData: (d: SyncSnapshot) => void
 }
 
 const DEFAULT_HABITS: Habit[] = [
@@ -172,6 +184,15 @@ export const useStore = create<State>()(
 
       setTasbihTarget: (n) =>
         set((s) => ({ tasbih: { ...s.tasbih, target: n, count: 0 } })),
+
+      replaceData: (d) =>
+        set(() => ({
+          profile: d.profile,
+          prayerLogs: d.prayerLogs,
+          habits: d.habits,
+          habitLogs: d.habitLogs,
+          tasbih: d.tasbih,
+        })),
     }),
     {
       name: 'niyatin-store-v1',
@@ -179,6 +200,17 @@ export const useStore = create<State>()(
     },
   ),
 )
+
+// Ambil potongan data yang disinkronkan dari state penuh.
+export function snapshotOf(s: SyncSnapshot): SyncSnapshot {
+  return {
+    profile: s.profile,
+    prayerLogs: s.prayerLogs,
+    habits: s.habits,
+    habitLogs: s.habitLogs,
+    tasbih: s.tasbih,
+  }
+}
 
 // Helper: status habit hari ini selesai atau belum
 export function isHabitDone(habit: Habit, value: number): boolean {

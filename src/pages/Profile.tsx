@@ -7,6 +7,7 @@ import {
   type MadhabKey,
 } from '../lib/prayer'
 import { LocationIcon } from '../components/icons'
+import AccountCard from '../components/AccountCard'
 
 export default function Profile() {
   const profile = useStore((s) => s.profile)
@@ -33,6 +34,8 @@ export default function Profile() {
       <header className="pt-2">
         <h1 className="text-xl font-bold">Profil & Pengaturan</h1>
       </header>
+
+      <AccountCard />
 
       <div className="card px-5 py-5">
         <label className="mb-1.5 block text-sm font-semibold">Nama panggilan</label>
