@@ -1,11 +1,13 @@
-# Niyatin — Pengingat & Habit Tracker Ibadah Muslim
+# Dawam — Pengingat Ibadah & Pencatat Amal Harian Muslim
 
-> **"Hari ini, jadi lebih baik dari kemarin."**
+> **"Jaga amal, rawat istiqamah."**
 > إنّما الأعمال بالنيّات — *"Sesungguhnya amal itu tergantung niatnya"* (HR. Bukhari)
 
-PWA (Progressive Web App) untuk membantu Muslim menjaga konsistensi ibadah —
-terinspirasi aplikasi **Niyatin**. Bisa di-install di **Android, iOS, dan desktop**,
-berjalan **offline**, dan menyimpan data **secara lokal di perangkat** (privat, tanpa server).
+PWA (Progressive Web App) untuk membantu Muslim menjaga konsistensi ibadah.
+Bisa di-install di **Android, iOS, dan desktop**, berjalan **offline**, dan
+menyimpan data **secara lokal di perangkat** (privat, tanpa server).
+
+> Nama *Dawam* dari *ad-dawām* — amalan yang dikerjakan rutin walau sedikit.
 
 ## ✨ Fitur (Fase 1 — MVP)
 
@@ -27,7 +29,7 @@ berjalan **offline**, dan menyimpan data **secara lokal di perangkat** (privat, 
 ## 🛠️ Teknologi
 
 - **React 18 + TypeScript + Vite**
-- **Tailwind CSS** (tema hijau pondok + krem)
+- **Tailwind CSS** (tema Ocean Teal — teal laut + off-white sejuk)
 - **Zustand** (state, persist ke `localStorage`)
 - **adhan** (perhitungan jadwal sholat offline)
 - **vite-plugin-pwa** (installable + offline)

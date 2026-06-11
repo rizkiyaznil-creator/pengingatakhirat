@@ -23,29 +23,29 @@ export default function Habits() {
       <header className="flex items-start justify-between pt-2">
         <div>
           <h1 className="text-xl font-bold">Habit Hari Ini</h1>
-          <p className="text-sm text-pondok-900/60">{tanggalPanjang(now)}</p>
+          <p className="text-sm text-ocean-900/60">{tanggalPanjang(now)}</p>
         </div>
-        <span className="rounded-full bg-pondok-100 px-3 py-1 text-sm font-semibold text-pondok-700">
+        <span className="rounded-full bg-ocean-100 px-3 py-1 text-sm font-semibold text-ocean-700">
           {doneCount}/{habits.length} ✓
         </span>
       </header>
 
       <div className="card overflow-hidden">
-        <div className="flex items-center justify-between border-b border-cream-200 px-4 py-2.5">
-          <p className="text-xs font-semibold uppercase tracking-wide text-pondok-900/45">
+        <div className="flex items-center justify-between border-b border-sand-200 px-4 py-2.5">
+          <p className="text-xs font-semibold uppercase tracking-wide text-ocean-900/45">
             Rutinitas
           </p>
           <button
             onClick={() => setManage((v) => !v)}
-            className="text-xs font-semibold text-pondok-600"
+            className="text-xs font-semibold text-ocean-600"
           >
             {manage ? 'Selesai' : 'Kelola'}
           </button>
         </div>
-        <div className="divide-y divide-cream-200">
+        <div className="divide-y divide-sand-200">
           {habits.length === 0 && (
-            <p className="px-4 py-8 text-center text-sm text-pondok-900/50">
-              Belum ada habit. Tambah satu untuk mulai 🌱
+            <p className="px-4 py-8 text-center text-sm text-ocean-900/50">
+              Belum ada habit. Tambah satu untuk mulai 💧
             </p>
           )}
           {habits.map((h) =>
@@ -56,7 +56,7 @@ export default function Habits() {
         </div>
         <button
           onClick={() => setAdding(true)}
-          className="flex w-full items-center justify-center gap-1.5 border-t border-cream-200 py-3 text-sm font-semibold text-pondok-600 transition active:bg-cream-100"
+          className="flex w-full items-center justify-center gap-1.5 border-t border-sand-200 py-3 text-sm font-semibold text-ocean-600 transition active:bg-sand-100"
         >
           <PlusIcon size={18} /> Tambah habit
         </button>
@@ -111,11 +111,11 @@ function AddHabitSheet({ onClose }: { onClose: () => void }) {
   return (
     <div className="fixed inset-0 z-40 flex items-end justify-center bg-black/40" onClick={onClose}>
       <div
-        className="w-full max-w-md rounded-t-3xl bg-cream-50 p-5 pb-8"
+        className="w-full max-w-md rounded-t-3xl bg-sand-50 p-5 pb-8"
         style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 1.5rem)' }}
         onClick={(e) => e.stopPropagation()}
       >
-        <div className="mx-auto mb-4 h-1.5 w-10 rounded-full bg-cream-300" />
+        <div className="mx-auto mb-4 h-1.5 w-10 rounded-full bg-sand-300" />
         <h2 className="mb-4 text-lg font-bold">Tambah Habit</h2>
 
         <label className="mb-1.5 block text-sm font-semibold">Nama</label>
@@ -123,7 +123,7 @@ function AddHabitSheet({ onClose }: { onClose: () => void }) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="mis. Sholat Dhuha"
-          className="mb-4 w-full rounded-2xl border border-cream-200 bg-white px-4 py-3 outline-none focus:border-pondok-400"
+          className="mb-4 w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
         />
 
         <label className="mb-1.5 block text-sm font-semibold">Ikon</label>
@@ -133,7 +133,7 @@ function AddHabitSheet({ onClose }: { onClose: () => void }) {
               key={e}
               onClick={() => setIcon(e)}
               className={`flex h-10 w-10 items-center justify-center rounded-xl text-xl transition ${
-                icon === e ? 'bg-pondok-100 ring-2 ring-pondok-500' : 'bg-white'
+                icon === e ? 'bg-ocean-100 ring-2 ring-ocean-500' : 'bg-white'
               }`}
             >
               {e}
@@ -148,7 +148,7 @@ function AddHabitSheet({ onClose }: { onClose: () => void }) {
               key={t}
               onClick={() => setType(t)}
               className={`rounded-xl py-2.5 text-sm font-semibold transition ${
-                type === t ? 'bg-pondok-700 text-cream-50' : 'bg-white text-pondok-900/60'
+                type === t ? 'bg-ocean-700 text-sand-50' : 'bg-white text-ocean-900/60'
               }`}
             >
               {t === 'checkbox' ? 'Ceklis' : t === 'counter' ? 'Hitung' : 'Timer'}
@@ -164,7 +164,7 @@ function AddHabitSheet({ onClose }: { onClose: () => void }) {
                 type="number"
                 value={target}
                 onChange={(e) => setTarget(Number(e.target.value))}
-                className="w-full rounded-2xl border border-cream-200 bg-white px-4 py-3 outline-none focus:border-pondok-400"
+                className="w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
               />
             </div>
             <div className="flex-1">
@@ -173,7 +173,7 @@ function AddHabitSheet({ onClose }: { onClose: () => void }) {
                 value={unit}
                 onChange={(e) => setUnit(e.target.value)}
                 placeholder={type === 'timer' ? 'menit' : 'x / hal'}
-                className="w-full rounded-2xl border border-cream-200 bg-white px-4 py-3 outline-none focus:border-pondok-400"
+                className="w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
               />
             </div>
           </div>

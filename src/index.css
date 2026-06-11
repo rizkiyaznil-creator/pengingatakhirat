@@ -7,7 +7,7 @@
     -webkit-tap-highlight-color: transparent;
   }
   body {
-    @apply bg-cream-100 text-pondok-900 antialiased;
+    @apply bg-sand-100 text-ocean-900 antialiased;
     font-feature-settings: 'cv11', 'ss01';
   }
   /* Hilangkan spinner number input */
@@ -23,7 +23,7 @@
     @apply rounded-xl2 bg-white shadow-card;
   }
   .btn-primary {
-    @apply rounded-2xl bg-pondok-700 px-5 py-3.5 text-center font-semibold text-cream-50 transition active:scale-[0.98];
+    @apply rounded-2xl bg-ocean-700 px-5 py-3.5 text-center font-semibold text-sand-50 transition active:scale-[0.98];
   }
   .pill {
     @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium;

@@ -23,14 +23,14 @@ export default function HabitRow({ habit, date }: { habit: Habit; date: string }
         <p className={`font-semibold leading-tight ${done ? 'line-through' : ''}`}>
           {habit.name}
         </p>
-        <div className="mt-0.5 flex items-center gap-2 text-xs text-pondok-900/55">
+        <div className="mt-0.5 flex items-center gap-2 text-xs text-ocean-900/55">
           {habit.type !== 'checkbox' && (
             <span>
               {Math.min(value, habit.target * 3) || value}/{habit.target} {habit.unit}
             </span>
           )}
           {streak > 0 && (
-            <span className="inline-flex items-center gap-0.5 text-gold-600">
+            <span className="inline-flex items-center gap-0.5 text-clay-600">
               <FlameIcon size={13} /> {streak} hari
             </span>
           )}
@@ -60,8 +60,8 @@ function CheckBox({ done, onClick }: { done: boolean; onClick: () => void }) {
       onClick={onClick}
       className={`flex h-9 w-9 items-center justify-center rounded-full border-2 transition active:scale-90 ${
         done
-          ? 'border-pondok-700 bg-pondok-700 text-cream-50'
-          : 'border-cream-300 text-transparent'
+          ? 'border-ocean-700 bg-ocean-700 text-sand-50'
+          : 'border-sand-300 text-transparent'
       }`}
       aria-label="Tandai selesai"
     >
@@ -86,13 +86,13 @@ function Counter({
       <button
         onClick={onMinus}
         disabled={value <= 0}
-        className="h-8 w-8 rounded-full bg-cream-200 text-lg font-bold text-pondok-900/60 transition active:scale-90 disabled:opacity-40"
+        className="h-8 w-8 rounded-full bg-sand-200 text-lg font-bold text-ocean-900/60 transition active:scale-90 disabled:opacity-40"
       >
         −
       </button>
       <button
         onClick={onPlus}
-        className="h-9 w-9 rounded-full bg-pondok-700 text-lg font-bold text-cream-50 transition active:scale-90"
+        className="h-9 w-9 rounded-full bg-ocean-700 text-lg font-bold text-sand-50 transition active:scale-90"
       >
         +
       </button>
@@ -147,8 +147,8 @@ function TimerControl({
         running
           ? 'bg-cheer/10 text-cheer'
           : reached
-            ? 'bg-pondok-100 text-pondok-700'
-            : 'bg-pondok-700 text-cream-50'
+            ? 'bg-ocean-100 text-ocean-700'
+            : 'bg-ocean-700 text-sand-50'
       }`}
     >
       {running ? `⏸ ${fmt(elapsed)}` : reached ? '✓ Selesai' : '▶ Mulai'}

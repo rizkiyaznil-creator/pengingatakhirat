@@ -53,29 +53,29 @@ export default function Dashboard({ onGo }: { onGo: (t: 'sholat' | 'habit') => v
   return (
     <div className="space-y-4">
       <header className="pt-2">
-        <p className="text-sm text-pondok-900/55">{salam(now)},</p>
+        <p className="text-sm text-ocean-900/55">{salam(now)},</p>
         <h1 className="text-2xl font-bold">{profile.name || 'Sahabat'} 👋</h1>
-        <p className="text-xs text-pondok-900/45">{tanggalPanjang(now)}</p>
+        <p className="text-xs text-ocean-900/45">{tanggalPanjang(now)}</p>
       </header>
 
       {/* Insights utama */}
       <div className="card overflow-hidden">
         <div className="flex items-center justify-between px-5 pt-4">
-          <p className="text-xs font-semibold uppercase tracking-wide text-pondok-900/45">
+          <p className="text-xs font-semibold uppercase tracking-wide text-ocean-900/45">
             Insights · 30 hari
           </p>
-          <span className="inline-flex items-center gap-1 rounded-full bg-pondok-100 px-2.5 py-1 text-xs font-semibold text-pondok-700">
+          <span className="inline-flex items-center gap-1 rounded-full bg-ocean-100 px-2.5 py-1 text-xs font-semibold text-ocean-700">
             <FlameIcon size={14} /> Streak {stats.streak}
           </span>
         </div>
 
-        <div className="m-4 rounded-2xl bg-pondok-700 px-5 py-4 text-cream-50">
+        <div className="m-4 rounded-2xl bg-ocean-700 px-5 py-4 text-sand-50">
           <div className="flex items-center justify-between">
-            <p className="text-sm text-cream-50/80">Konsistensi bulan ini</p>
+            <p className="text-sm text-sand-50/80">Konsistensi bulan ini</p>
             {stats.delta !== 0 && (
               <span
                 className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${
-                  stats.delta > 0 ? 'bg-pondok-500/40' : 'bg-cheer/30'
+                  stats.delta > 0 ? 'bg-ocean-500/40' : 'bg-cheer/30'
                 }`}
               >
                 <TrendUpIcon size={13} /> {stats.delta > 0 ? '+' : ''}
@@ -85,24 +85,24 @@ export default function Dashboard({ onGo }: { onGo: (t: 'sholat' | 'habit') => v
           </div>
           <p className="mt-1 text-5xl font-bold">
             {stats.cur}
-            <span className="text-2xl font-medium text-cream-50/70">%</span>
+            <span className="text-2xl font-medium text-sand-50/70">%</span>
           </p>
-          <p className="mt-1 text-xs text-cream-50/70">
+          <p className="mt-1 text-xs text-sand-50/70">
             {stats.prev > 0
               ? `vs ${stats.prev}% bulan lalu — ${
-                  stats.delta >= 0 ? 'kamu lagi naik kelas 🌿' : 'ayo bangkit lagi 💪'
+                  stats.delta >= 0 ? 'grafiknya lagi naik 💧' : 'ayo rapatkan lagi 💪'
                 }`
-              : 'Mulai catat amalmu hari ini 🌱'}
+              : 'Catat amal pertamamu hari ini 💧'}
           </p>
         </div>
 
         {/* Tren 7 hari */}
         <div className="px-5 pb-4">
           <div className="mb-2 flex items-center justify-between">
-            <p className="text-xs font-semibold uppercase tracking-wide text-pondok-900/45">
+            <p className="text-xs font-semibold uppercase tracking-wide text-ocean-900/45">
               Tren 7 hari
             </p>
-            <p className="text-xs text-pondok-900/55">
+            <p className="text-xs text-ocean-900/55">
               Rata {stats.avgTrend.toFixed(1)} / {stats.totalItems} amal
             </p>
           </div>
@@ -115,13 +115,13 @@ export default function Dashboard({ onGo }: { onGo: (t: 'sholat' | 'habit') => v
                   <div className="flex w-full flex-1 items-end">
                     <div
                       className={`w-full rounded-t-md ${
-                        isToday ? 'bg-pondok-600' : 'bg-pondok-200'
+                        isToday ? 'bg-ocean-600' : 'bg-ocean-200'
                       }`}
                       style={{ height: h }}
                       title={`${t.done}/${t.total}`}
                     />
                   </div>
-                  <span className={`text-[10px] ${isToday ? 'font-bold text-pondok-700' : 'text-pondok-900/45'}`}>
+                  <span className={`text-[10px] ${isToday ? 'font-bold text-ocean-700' : 'text-ocean-900/45'}`}>
                     {t.label}
                   </span>
                 </div>
@@ -142,10 +142,10 @@ export default function Dashboard({ onGo }: { onGo: (t: 'sholat' | 'habit') => v
             return (
               <div key={it.label} className="flex items-center gap-3">
                 <span className="w-28 truncate text-sm">{it.label}</span>
-                <div className="h-2 flex-1 overflow-hidden rounded-full bg-cream-200">
-                  <div className="h-full rounded-full bg-pondok-500" style={{ width: `${w}%` }} />
+                <div className="h-2 flex-1 overflow-hidden rounded-full bg-sand-200">
+                  <div className="h-full rounded-full bg-ocean-500" style={{ width: `${w}%` }} />
                 </div>
-                <span className="w-10 text-right text-sm font-semibold text-pondok-700">
+                <span className="w-10 text-right text-sm font-semibold text-ocean-700">
                   {it.days}d
                 </span>
               </div>
@@ -160,20 +160,20 @@ export default function Dashboard({ onGo }: { onGo: (t: 'sholat' | 'habit') => v
           <span className="text-2xl">🕌</span>
           <div>
             <p className="font-semibold leading-tight">Catat Sholat</p>
-            <p className="text-xs text-pondok-900/55">Update hari ini</p>
+            <p className="text-xs text-ocean-900/55">Update hari ini</p>
           </div>
         </button>
         <button onClick={() => onGo('habit')} className="card flex items-center gap-3 px-4 py-4 text-left transition active:scale-[0.98]">
           <span className="text-2xl">✅</span>
           <div>
             <p className="font-semibold leading-tight">Habit</p>
-            <p className="text-xs text-pondok-900/55">Jaga rutinitas</p>
+            <p className="text-xs text-ocean-900/55">Jaga rutinitas</p>
           </div>
         </button>
       </div>
 
-      <p className="px-2 pb-2 text-center text-xs italic text-pondok-900/40">
-        “Tau pasti minggu ini kamu naik atau turun, bukan cuma perasaan.”
+      <p className="px-2 pb-2 text-center text-xs italic text-ocean-900/40">
+        “Lihat progresmu apa adanya — dari catatan, bukan dari perasaan.”
       </p>
     </div>
   )

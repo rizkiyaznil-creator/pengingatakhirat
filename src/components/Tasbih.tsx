@@ -23,8 +23,8 @@ export default function Tasbih() {
     <div className="card px-5 py-5">
       <div className="mb-4 flex items-center justify-between">
         <div>
-          <p className="text-xs uppercase tracking-wide text-pondok-900/45">Tasbih Digital</p>
-          <p className="text-sm text-pondok-900/60">
+          <p className="text-xs uppercase tracking-wide text-ocean-900/45">Tasbih Digital</p>
+          <p className="text-sm text-ocean-900/60">
             {tasbih.sets} set selesai{tasbih.sets > 0 ? ' ✓' : ''}
           </p>
         </div>
@@ -35,8 +35,8 @@ export default function Tasbih() {
               onClick={() => setTarget(n)}
               className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
                 tasbih.target === n
-                  ? 'bg-pondok-700 text-cream-50'
-                  : 'bg-cream-200 text-pondok-900/60'
+                  ? 'bg-ocean-700 text-sand-50'
+                  : 'bg-sand-200 text-ocean-900/60'
               }`}
             >
               {n}
@@ -47,18 +47,18 @@ export default function Tasbih() {
 
       <button
         onClick={onTap}
-        className="relative mx-auto flex h-44 w-44 items-center justify-center rounded-full bg-pondok-50 transition active:scale-[0.97]"
+        className="relative mx-auto flex h-44 w-44 items-center justify-center rounded-full bg-ocean-50 transition active:scale-[0.97]"
         aria-label="Hitung tasbih"
       >
         {/* Ring progress */}
         <svg className="absolute inset-0 -rotate-90" viewBox="0 0 100 100">
-          <circle cx="50" cy="50" r="45" fill="none" stroke="#d6e9dd" strokeWidth="6" />
+          <circle cx="50" cy="50" r="45" fill="none" stroke="#cfe9ea" strokeWidth="6" />
           <circle
             cx="50"
             cy="50"
             r="45"
             fill="none"
-            stroke="#1f4d3a"
+            stroke="#0e5b61"
             strokeWidth="6"
             strokeLinecap="round"
             strokeDasharray={`${(pct / 100) * 283} 283`}
@@ -66,19 +66,19 @@ export default function Tasbih() {
           />
         </svg>
         <div className={`text-center ${pop ? 'animate-pop' : ''}`}>
-          <p className="text-5xl font-bold text-pondok-700">{tasbih.count}</p>
-          <p className="text-sm text-pondok-900/50">/ {tasbih.target}</p>
+          <p className="text-5xl font-bold text-ocean-700">{tasbih.count}</p>
+          <p className="text-sm text-ocean-900/50">/ {tasbih.target}</p>
         </div>
       </button>
 
       <div className="mt-4 flex items-center justify-center gap-3">
         <button
           onClick={reset}
-          className="rounded-xl bg-cream-200 px-4 py-2 text-sm font-medium text-pondok-900/60 transition active:scale-95"
+          className="rounded-xl bg-sand-200 px-4 py-2 text-sm font-medium text-ocean-900/60 transition active:scale-95"
         >
           Reset
         </button>
-        <span className="text-xs text-pondok-900/40">Ketuk lingkaran untuk berdzikir</span>
+        <span className="text-xs text-ocean-900/40">Ketuk lingkaran untuk berdzikir</span>
       </div>
     </div>
   )

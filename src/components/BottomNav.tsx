@@ -18,7 +18,7 @@ export default function BottomNav({
 }) {
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-30 border-t border-cream-200 bg-cream-50/95 backdrop-blur"
+      className="fixed inset-x-0 bottom-0 z-30 border-t border-sand-200 bg-sand-50/95 backdrop-blur"
       style={{ paddingBottom: 'env(safe-area-inset-bottom)' }}
     >
       <div className="mx-auto flex max-w-md items-stretch justify-around px-2 py-1.5">
@@ -29,7 +29,7 @@ export default function BottomNav({
               key={id}
               onClick={() => onChange(id)}
               className={`flex flex-1 flex-col items-center gap-0.5 rounded-xl py-1.5 transition ${
-                on ? 'text-pondok-700' : 'text-pondok-900/40'
+                on ? 'text-ocean-700' : 'text-ocean-900/40'
               }`}
               aria-label={label}
             >

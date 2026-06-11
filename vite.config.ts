@@ -16,12 +16,12 @@ export default defineConfig(({ command }) => {
         registerType: 'autoUpdate',
         includeAssets: ['icon.svg'],
         manifest: {
-          name: 'Niyatin — Pengingat Ibadah',
-          short_name: 'Niyatin',
+          name: 'Dawam — Pengingat Ibadah',
+          short_name: 'Dawam',
           description:
-            'Habit tracker & pengingat ibadah Muslim. Tumbuh jadi pribadi lebih baik.',
-          theme_color: '#1f4d3a',
-          background_color: '#f7f3ea',
+            'Pengingat ibadah & pencatat amal harian Muslim. Jaga amal, rawat istiqamah.',
+          theme_color: '#0e5b61',
+          background_color: '#f4f6f6',
           display: 'standalone',
           orientation: 'portrait',
           lang: 'id',

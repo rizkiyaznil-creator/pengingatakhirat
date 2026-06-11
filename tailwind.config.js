@@ -4,33 +4,33 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Hijau pondok — warna utama Niyatin
-        pondok: {
-          50: '#eef6f1',
-          100: '#d6e9dd',
-          200: '#aed3bd',
-          300: '#7fb697',
-          400: '#509474',
-          500: '#357a5b',
-          600: '#28614a',
-          700: '#1f4d3a', // brand
-          800: '#1a3f30',
-          900: '#142f24',
+        // Teal laut — warna utama Dawam
+        ocean: {
+          50: '#ecf6f6',
+          100: '#cfe9ea',
+          200: '#a3d5d7',
+          300: '#6fb9bd',
+          400: '#3f989e',
+          500: '#1a818a',
+          600: '#136b72',
+          700: '#0e5b61', // brand
+          800: '#0c4a4f',
+          900: '#0a3a3e',
         },
-        // Krem / cream background
-        cream: {
-          50: '#fdfcf8',
-          100: '#f7f3ea',
-          200: '#efe7d6',
-          300: '#e3d6bd',
+        // Off-white sejuk (netral kebiruan tipis)
+        sand: {
+          50: '#fbfcfc',
+          100: '#f4f6f6',
+          200: '#e6eced',
+          300: '#d3dddd',
         },
-        // Aksen emas / gold
-        gold: {
-          400: '#cdb079',
-          500: '#bd9a52',
-          600: '#a3803c',
+        // Aksen clay / karang lembut
+        clay: {
+          400: '#e6a88c',
+          500: '#d98c6a',
+          600: '#c4734f',
         },
-        cheer: '#c43d56',
+        cheer: '#d98c6a',
       },
       fontFamily: {
         sans: ['"Inter"', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],
@@ -40,7 +40,7 @@ export default {
         xl2: '1.25rem',
       },
       boxShadow: {
-        card: '0 1px 3px rgba(20, 47, 36, 0.06), 0 4px 16px rgba(20, 47, 36, 0.05)',
+        card: '0 1px 3px rgba(10, 58, 62, 0.06), 0 4px 16px rgba(10, 58, 62, 0.05)',
       },
     },
   },

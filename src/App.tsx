@@ -14,7 +14,7 @@ export default function App() {
   if (!onboarded) return <Onboarding />
 
   return (
-    <div className="min-h-screen bg-cream-100">
+    <div className="min-h-screen bg-sand-100">
       <main className="safe-top mx-auto max-w-md px-4 pt-3 safe-bottom">
         {tab === 'beranda' && <Dashboard onGo={setTab} />}
         {tab === 'sholat' && <Sholat />}

@@ -41,20 +41,20 @@ export default function Onboarding() {
   return (
     <div className="mx-auto flex min-h-screen max-w-md flex-col px-6 pb-10 pt-16">
       <div className="mb-8 text-center">
-        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-pondok-700 text-3xl">
-          🌱
+        <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-ocean-700 text-3xl">
+          💧
         </div>
-        <p className="font-arabic text-2xl text-pondok-700" dir="rtl">
+        <p className="font-arabic text-2xl text-ocean-700" dir="rtl">
           إنّما الأعمال بالنيّات
         </p>
-        <p className="mt-1 text-sm italic text-pondok-900/60">
+        <p className="mt-1 text-sm italic text-ocean-900/60">
           “Sesungguhnya amal itu tergantung niatnya” — HR. Bukhari
         </p>
         <h1 className="mt-5 text-2xl font-bold leading-tight">
-          Hari ini, jadi <span className="text-pondok-600">lebih baik</span> dari kemarin.
+          Rutin yang kecil, kalau <span className="text-ocean-600">dijaga</span>, jadi besar.
         </h1>
-        <p className="mt-2 text-sm text-pondok-900/60">
-          Yuk kenalan dulu biar pengingat & jadwalmu pas.
+        <p className="mt-2 text-sm text-ocean-900/60">
+          Kenalan dulu, yuk — biar jadwal & pengingatmu pas.
         </p>
       </div>
 
@@ -63,14 +63,14 @@ export default function Onboarding() {
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="mis. Ahmad"
-        className="mb-5 w-full rounded-2xl border border-cream-200 bg-white px-4 py-3.5 outline-none focus:border-pondok-400"
+        className="mb-5 w-full rounded-2xl border border-sand-200 bg-white px-4 py-3.5 outline-none focus:border-ocean-400"
       />
 
       <label className="mb-1.5 block text-sm font-semibold">Lokasi (untuk jadwal sholat)</label>
       <button
         onClick={detect}
         disabled={loading}
-        className="mb-2 flex w-full items-center justify-center gap-2 rounded-2xl border border-pondok-300 bg-pondok-50 px-4 py-3.5 font-medium text-pondok-700 transition active:scale-[0.98] disabled:opacity-60"
+        className="mb-2 flex w-full items-center justify-center gap-2 rounded-2xl border border-ocean-300 bg-ocean-50 px-4 py-3.5 font-medium text-ocean-700 transition active:scale-[0.98] disabled:opacity-60"
       >
         <LocationIcon size={20} />
         {loading ? 'Mendeteksi…' : coords ? 'Lokasi terdeteksi ✓' : 'Deteksi lokasi otomatis'}
@@ -79,11 +79,11 @@ export default function Onboarding() {
         value={city}
         onChange={(e) => setCity(e.target.value)}
         placeholder="Nama kota"
-        className="mb-1 w-full rounded-2xl border border-cream-200 bg-white px-4 py-3.5 outline-none focus:border-pondok-400"
+        className="mb-1 w-full rounded-2xl border border-sand-200 bg-white px-4 py-3.5 outline-none focus:border-ocean-400"
       />
       {err && <p className="mb-2 text-xs text-cheer">{err}</p>}
       {!coords && !err && (
-        <p className="mb-2 text-xs text-pondok-900/50">
+        <p className="mb-2 text-xs text-ocean-900/50">
           Tanpa lokasi, jadwal memakai default kota di atas (Jakarta).
         </p>
       )}
@@ -92,7 +92,7 @@ export default function Onboarding() {
       <select
         value={method}
         onChange={(e) => setMethod(e.target.value as MethodKey)}
-        className="mb-8 w-full rounded-2xl border border-cream-200 bg-white px-4 py-3.5 outline-none focus:border-pondok-400"
+        className="mb-8 w-full rounded-2xl border border-sand-200 bg-white px-4 py-3.5 outline-none focus:border-ocean-400"
       >
         {(Object.keys(METHOD_LABEL) as MethodKey[]).map((m) => (
           <option key={m} value={m}>
@@ -102,7 +102,7 @@ export default function Onboarding() {
       </select>
 
       <button onClick={finish} className="btn-primary mt-auto text-lg">
-        ✨ Mulai tumbuh hari ini
+        Mulai catat amal hari ini
       </button>
     </div>
   )
