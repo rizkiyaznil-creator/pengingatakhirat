@@ -73,6 +73,8 @@ interface State {
 
   // sinkronisasi — ganti seluruh data (mis. hasil merge dari cloud)
   replaceData: (d: SyncSnapshot) => void
+  // reset ke kondisi awal bersih (akun baru / hapus data)
+  resetData: () => void
 }
 
 const DEFAULT_HABITS: Habit[] = [
@@ -193,6 +195,8 @@ export const useStore = create<State>()(
           habitLogs: d.habitLogs,
           tasbih: d.tasbih,
         })),
+
+      resetData: () => set(() => defaultSnapshot()),
     }),
     {
       name: 'niyatin-store-v1',
@@ -200,6 +204,17 @@ export const useStore = create<State>()(
     },
   ),
 )
+
+// Kondisi data awal yang bersih (untuk akun baru / reset).
+export function defaultSnapshot(): SyncSnapshot {
+  return {
+    profile: { ...DEFAULT_PROFILE },
+    prayerLogs: {},
+    habits: DEFAULT_HABITS.map((h) => ({ ...h })),
+    habitLogs: {},
+    tasbih: { count: 0, target: 33, sets: 0 },
+  }
+}
 
 // Ambil potongan data yang disinkronkan dari state penuh.
 export function snapshotOf(s: SyncSnapshot): SyncSnapshot {

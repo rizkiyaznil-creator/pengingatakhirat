@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import type { User } from '@supabase/supabase-js'
 import { supabase, isCloudEnabled } from './supabase'
 import { useStore, snapshotOf } from '../store/useStore'
-import { mergeSnapshots, pullRemote, pushRemote } from './sync'
+import { pullRemote, pushRemote } from './sync'
 
 export type SyncState = 'idle' | 'syncing' | 'synced' | 'error'
 
@@ -50,9 +50,24 @@ export const useAuth = create<AuthStore>((set) => ({
   signOut: async () => {
     if (!supabase) return
     await supabase.auth.signOut()
+    // bersihkan data perangkat agar tak tertinggal untuk akun/pengguna berikutnya
+    useStore.getState().resetData()
     set({ user: null, syncState: 'idle' })
   },
 }))
+
+// Hapus seluruh data: reset lokal + timpa cloud dengan kondisi bersih.
+export async function resetAccountData() {
+  useStore.getState().resetData()
+  const u = useAuth.getState().user
+  if (u && supabase) {
+    try {
+      await pushRemote(u.id, snapshotOf(useStore.getState()))
+    } catch {
+      /* offline — akan tersinkron saat online */
+    }
+  }
+}
 
 function humanize(msg: string): string {
   const m = msg.toLowerCase()
@@ -63,19 +78,24 @@ function humanize(msg: string): string {
   return msg
 }
 
-// Tarik data cloud, gabung dengan lokal, lalu push hasil gabungan.
+// Saat login: data cloud yang dipakai (remote menang). Akun baru → mulai bersih.
+// Data lokal lama TIDAK digabung (sesuai pilihan "akun mulai bersih").
 async function initialSync(userId: string) {
   if (!supabase) return
   syncing = true
   useAuth.setState({ syncState: 'syncing' })
   try {
     const remote = await pullRemote(userId)
-    const local = snapshotOf(useStore.getState())
-    const merged = remote ? mergeSnapshots(local, remote) : local
-    useStore.getState().replaceData(merged)
-    await pushRemote(userId, merged)
+    if (remote) {
+      useStore.getState().replaceData(remote)
+    } else {
+      // akun baru — mulai dari nol, lalu simpan kondisi bersih ke cloud
+      useStore.getState().resetData()
+      await pushRemote(userId, snapshotOf(useStore.getState()))
+    }
     useAuth.setState({ syncState: 'synced', lastSyncedAt: Date.now() })
   } catch {
+    // offline / gagal — pertahankan data lokal yang ada, jangan hapus
     useAuth.setState({ syncState: 'error' })
   } finally {
     syncing = false
