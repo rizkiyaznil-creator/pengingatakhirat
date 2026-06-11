@@ -9,6 +9,7 @@ export default function AuthSheet({ onClose }: { onClose: () => void }) {
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState('')
   const [info, setInfo] = useState('')
+  const [showPw, setShowPw] = useState(false)
 
   async function submit() {
     setErr('')
@@ -70,19 +71,35 @@ export default function AuthSheet({ onClose }: { onClose: () => void }) {
           type="email"
           inputMode="email"
           autoComplete="email"
+          autoCapitalize="none"
+          autoCorrect="off"
+          spellCheck={false}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="email@contoh.com"
           className="mb-3 w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
         />
-        <input
-          type="password"
-          autoComplete={mode === 'in' ? 'current-password' : 'new-password'}
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password (min. 6 karakter)"
-          className="mb-2 w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
-        />
+        <div className="relative mb-2">
+          <input
+            type={showPw ? 'text' : 'password'}
+            autoComplete={mode === 'in' ? 'current-password' : 'new-password'}
+            autoCapitalize="none"
+            autoCorrect="off"
+            spellCheck={false}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            placeholder="Password (min. 6 karakter)"
+            className="w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 pr-14 outline-none focus:border-ocean-400"
+          />
+          <button
+            type="button"
+            onClick={() => setShowPw((v) => !v)}
+            className="absolute inset-y-0 right-0 flex items-center px-4 text-sm font-semibold text-ocean-600"
+            aria-label={showPw ? 'Sembunyikan password' : 'Lihat password'}
+          >
+            {showPw ? 'Tutup' : 'Lihat'}
+          </button>
+        </div>
 
         {err && <p className="mb-2 text-xs text-cheer">{err}</p>}
         {info && <p className="mb-2 text-xs text-ocean-600">{info}</p>}
