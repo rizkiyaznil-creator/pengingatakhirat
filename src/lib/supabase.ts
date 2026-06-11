@@ -2,8 +2,9 @@ import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
 // Kredensial diisi lewat env saat build (lihat .env.example & workflow Actions).
 // Jika kosong, fitur cloud non-aktif dan aplikasi tetap jalan lokal.
-const url = import.meta.env.VITE_SUPABASE_URL as string | undefined
-const anon = import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined
+// .trim() mencegah error fetch akibat spasi/baris-baru yang ikut tersalin ke secret.
+const url = (import.meta.env.VITE_SUPABASE_URL as string | undefined)?.trim().replace(/\/+$/, '')
+const anon = (import.meta.env.VITE_SUPABASE_ANON_KEY as string | undefined)?.trim()
 
 export const supabase: SupabaseClient | null =
   url && anon ? createClient(url, anon, {
