@@ -84,3 +84,12 @@ export const TrendUpIcon = ({ size = 24, ...p }: P) => (
     <path d="M18 7h3v3" />
   </svg>
 )
+
+export const GridIcon = ({ size = 24, ...p }: P) => (
+  <svg {...base(size)} {...p}>
+    <rect x="4" y="4" width="7" height="7" rx="1.5" />
+    <rect x="13" y="4" width="7" height="7" rx="1.5" />
+    <rect x="4" y="13" width="7" height="7" rx="1.5" />
+    <rect x="13" y="13" width="7" height="7" rx="1.5" />
+  </svg>
+)

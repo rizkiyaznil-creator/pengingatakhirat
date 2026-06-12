@@ -35,13 +35,28 @@ export interface Profile {
 export type PrayerLogs = Record<string, Partial<Record<PrayerName, PrayerStatus>>>
 export type HabitLogs = Record<string, Record<string, number>>
 
+// Progres khatam Qur'an (mushaf 604 halaman)
+export interface QuranState {
+  target: number // total halaman khatam (default 604)
+  read: number // halaman terbaca pada khatam berjalan
+  targetMonths: number // target selesai: 1/3/6/12 bulan
+  startedAt: string // dateKey mulai khatam berjalan
+  khatamCount: number // berapa kali khatam selesai
+  lifetime: number // total halaman terbaca seumur pakai
+}
+
+// Tipe Tasbih dipakai di beberapa tempat
+type Tasbih = { count: number; target: number; sets: number }
+
 // Potongan data yang disinkronkan ke cloud (satu dokumen JSON per akun)
 export interface SyncSnapshot {
   profile: Profile
   prayerLogs: PrayerLogs
   habits: Habit[]
   habitLogs: HabitLogs
-  tasbih: { count: number; target: number; sets: number }
+  tasbih: Tasbih
+  quran: QuranState
+  quranDaily: Record<string, number> // halaman dibaca per hari (untuk streak)
 }
 
 interface State {
@@ -49,7 +64,9 @@ interface State {
   prayerLogs: PrayerLogs
   habits: Habit[]
   habitLogs: HabitLogs
-  tasbih: { count: number; target: number; sets: number }
+  tasbih: Tasbih
+  quran: QuranState
+  quranDaily: Record<string, number>
 
   // actions — profil
   setProfile: (p: Partial<Profile>) => void
@@ -70,6 +87,11 @@ interface State {
   tapTasbih: () => void
   resetTasbih: () => void
   setTasbihTarget: (n: number) => void
+
+  // actions — quran
+  addQuranPages: (n: number) => void
+  setQuranTargetMonths: (m: number) => void
+  resetKhatam: () => void
 
   // sinkronisasi — ganti seluruh data (mis. hasil merge dari cloud)
   replaceData: (d: SyncSnapshot) => void
@@ -95,6 +117,19 @@ const DEFAULT_PROFILE: Profile = {
   onboarded: false,
 }
 
+const QURAN_PAGES = 604
+
+function defaultQuran(): QuranState {
+  return {
+    target: QURAN_PAGES,
+    read: 0,
+    targetMonths: 3,
+    startedAt: dateKey(),
+    khatamCount: 0,
+    lifetime: 0,
+  }
+}
+
 export const useStore = create<State>()(
   persist(
     (set) => ({
@@ -103,6 +138,8 @@ export const useStore = create<State>()(
       habits: DEFAULT_HABITS,
       habitLogs: {},
       tasbih: { count: 0, target: 33, sets: 0 },
+      quran: defaultQuran(),
+      quranDaily: {},
 
       setProfile: (p) => set((s) => ({ profile: { ...s.profile, ...p } })),
 
@@ -187,6 +224,33 @@ export const useStore = create<State>()(
       setTasbihTarget: (n) =>
         set((s) => ({ tasbih: { ...s.tasbih, target: n, count: 0 } })),
 
+      addQuranPages: (n) =>
+        set((s) => {
+          const today = dateKey()
+          const dailyVal = Math.max(0, (s.quranDaily[today] ?? 0) + n)
+          let read = s.quran.read + n
+          let { khatamCount, lifetime } = s.quran
+          lifetime = Math.max(0, lifetime + n)
+          let startedAt = s.quran.startedAt
+          // selesai satu khatam → naikkan hitungan & mulai khatam baru
+          while (read >= s.quran.target) {
+            read -= s.quran.target
+            khatamCount += 1
+            startedAt = today
+          }
+          if (read < 0) read = 0
+          return {
+            quran: { ...s.quran, read, khatamCount, lifetime, startedAt },
+            quranDaily: { ...s.quranDaily, [today]: dailyVal },
+          }
+        }),
+
+      setQuranTargetMonths: (m) =>
+        set((s) => ({ quran: { ...s.quran, targetMonths: m } })),
+
+      resetKhatam: () =>
+        set((s) => ({ quran: { ...s.quran, read: 0, startedAt: dateKey() } })),
+
       replaceData: (d) =>
         set(() => ({
           profile: d.profile,
@@ -194,6 +258,8 @@ export const useStore = create<State>()(
           habits: d.habits,
           habitLogs: d.habitLogs,
           tasbih: d.tasbih,
+          quran: d.quran ?? defaultQuran(),
+          quranDaily: d.quranDaily ?? {},
         })),
 
       resetData: () => set(() => defaultSnapshot()),
@@ -213,6 +279,8 @@ export function defaultSnapshot(): SyncSnapshot {
     habits: DEFAULT_HABITS.map((h) => ({ ...h })),
     habitLogs: {},
     tasbih: { count: 0, target: 33, sets: 0 },
+    quran: defaultQuran(),
+    quranDaily: {},
   }
 }
 
@@ -224,6 +292,8 @@ export function snapshotOf(s: SyncSnapshot): SyncSnapshot {
     habits: s.habits,
     habitLogs: s.habitLogs,
     tasbih: s.tasbih,
+    quran: s.quran,
+    quranDaily: s.quranDaily,
   }
 }
 

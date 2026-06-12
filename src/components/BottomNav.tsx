@@ -1,11 +1,12 @@
-import { HomeIcon, MosqueIcon, CheckCircleIcon, UserIcon } from './icons'
+import { HomeIcon, MosqueIcon, CheckCircleIcon, UserIcon, GridIcon } from './icons'
 
-export type Tab = 'beranda' | 'sholat' | 'habit' | 'profil'
+export type Tab = 'beranda' | 'sholat' | 'habit' | 'lainnya' | 'profil'
 
 const TABS: { id: Tab; label: string; Icon: typeof HomeIcon }[] = [
   { id: 'beranda', label: 'Beranda', Icon: HomeIcon },
   { id: 'sholat', label: 'Sholat', Icon: MosqueIcon },
   { id: 'habit', label: 'Habit', Icon: CheckCircleIcon },
+  { id: 'lainnya', label: 'Lainnya', Icon: GridIcon },
   { id: 'profil', label: 'Profil', Icon: UserIcon },
 ]
 

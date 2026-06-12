@@ -8,6 +8,7 @@ import AuthScreen from './pages/AuthScreen'
 import Dashboard from './pages/Dashboard'
 import Sholat from './pages/Sholat'
 import Habits from './pages/Habits'
+import More from './pages/More'
 import Profile from './pages/Profile'
 
 export default function App() {
@@ -30,6 +31,7 @@ export default function App() {
         {tab === 'beranda' && <Dashboard onGo={setTab} />}
         {tab === 'sholat' && <Sholat />}
         {tab === 'habit' && <Habits />}
+        {tab === 'lainnya' && <More />}
         {tab === 'profil' && <Profile />}
       </main>
       <BottomNav active={tab} onChange={setTab} />
