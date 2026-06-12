@@ -8,6 +8,7 @@ import {
 } from '../lib/prayer'
 import { LocationIcon } from '../components/icons'
 import AccountCard from '../components/AccountCard'
+import InstallCard from '../components/InstallCard'
 import type { ThemeMode } from '../store/useStore'
 
 const THEME_OPTS: { id: ThemeMode; label: string; icon: string }[] = [
@@ -45,6 +46,8 @@ export default function Profile() {
       </header>
 
       <AccountCard />
+
+      <InstallCard />
 
       <div className="card px-5 py-5">
         <label className="mb-1.5 block text-sm font-semibold">Nama panggilan</label>
