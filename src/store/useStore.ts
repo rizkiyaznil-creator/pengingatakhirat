@@ -62,6 +62,21 @@ export interface HafalanItem {
   lastReviewed?: string
 }
 
+// Refleksi malam (muhasabah) per tanggal
+export interface MuhasabahEntry {
+  rating: number // 1..5 (mood)
+  syukur: string
+  perbaikan: string
+  niat: string
+  updatedAt: string
+}
+
+// Status pembaca Al-Qur'an
+export interface QuranReaderState {
+  lastRead?: { surah: number; ayah: number }
+  bookmarks: { surah: number; ayah: number }[]
+}
+
 // Potongan data yang disinkronkan ke cloud (satu dokumen JSON per akun)
 export interface SyncSnapshot {
   profile: Profile
@@ -73,6 +88,8 @@ export interface SyncSnapshot {
   quranDaily: Record<string, number> // halaman dibaca per hari (untuk streak)
   hafalan: HafalanItem[]
   setoranDaily: Record<string, number> // jumlah setoran murojaah per hari
+  muhasabah: Record<string, MuhasabahEntry> // refleksi malam per tanggal
+  reader: QuranReaderState
 }
 
 interface State {
@@ -85,6 +102,8 @@ interface State {
   quranDaily: Record<string, number>
   hafalan: HafalanItem[]
   setoranDaily: Record<string, number>
+  muhasabah: Record<string, MuhasabahEntry>
+  reader: QuranReaderState
 
   // actions — profil
   setProfile: (p: Partial<Profile>) => void
@@ -115,6 +134,13 @@ interface State {
   addHafalan: (surah: number, nama: string, fromAyah: number, toAyah: number) => void
   gradeHafalan: (id: string, grade: HafalanGrade) => void
   removeHafalan: (id: string) => void
+
+  // actions — muhasabah
+  setMuhasabah: (date: string, patch: Partial<MuhasabahEntry>) => void
+
+  // actions — quran reader
+  setLastRead: (surah: number, ayah: number) => void
+  toggleBookmark: (surah: number, ayah: number) => void
 
   // sinkronisasi — ganti seluruh data (mis. hasil merge dari cloud)
   replaceData: (d: SyncSnapshot) => void
@@ -165,6 +191,8 @@ export const useStore = create<State>()(
       quranDaily: {},
       hafalan: [],
       setoranDaily: {},
+      muhasabah: {},
+      reader: { bookmarks: [] },
 
       setProfile: (p) => set((s) => ({ profile: { ...s.profile, ...p } })),
 
@@ -309,6 +337,29 @@ export const useStore = create<State>()(
       removeHafalan: (id) =>
         set((s) => ({ hafalan: s.hafalan.filter((h) => h.id !== id) })),
 
+      setMuhasabah: (date, patch) =>
+        set((s) => {
+          const prev = s.muhasabah[date] ?? { rating: 0, syukur: '', perbaikan: '', niat: '', updatedAt: '' }
+          return {
+            muhasabah: {
+              ...s.muhasabah,
+              [date]: { ...prev, ...patch, updatedAt: new Date().toISOString() },
+            },
+          }
+        }),
+
+      setLastRead: (surah, ayah) =>
+        set((s) => ({ reader: { ...s.reader, lastRead: { surah, ayah } } })),
+
+      toggleBookmark: (surah, ayah) =>
+        set((s) => {
+          const exists = s.reader.bookmarks.some((b) => b.surah === surah && b.ayah === ayah)
+          const bookmarks = exists
+            ? s.reader.bookmarks.filter((b) => !(b.surah === surah && b.ayah === ayah))
+            : [...s.reader.bookmarks, { surah, ayah }]
+          return { reader: { ...s.reader, bookmarks } }
+        }),
+
       replaceData: (d) =>
         set(() => ({
           profile: d.profile,
@@ -320,6 +371,8 @@ export const useStore = create<State>()(
           quranDaily: d.quranDaily ?? {},
           hafalan: d.hafalan ?? [],
           setoranDaily: d.setoranDaily ?? {},
+          muhasabah: d.muhasabah ?? {},
+          reader: d.reader ?? { bookmarks: [] },
         })),
 
       resetData: () => set(() => defaultSnapshot()),
@@ -343,6 +396,8 @@ export function defaultSnapshot(): SyncSnapshot {
     quranDaily: {},
     hafalan: [],
     setoranDaily: {},
+    muhasabah: {},
+    reader: { bookmarks: [] },
   }
 }
 
@@ -358,6 +413,8 @@ export function snapshotOf(s: SyncSnapshot): SyncSnapshot {
     quranDaily: s.quranDaily,
     hafalan: s.hafalan,
     setoranDaily: s.setoranDaily,
+    muhasabah: s.muhasabah,
+    reader: s.reader,
   }
 }
 
