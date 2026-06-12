@@ -2,10 +2,13 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { useStore } from '../store/useStore'
 import { SURAH_LIST } from '../data/surahList'
 import { fetchSurah, type Ayah } from '../lib/quranApi'
+import StickyBack from '../components/StickyBack'
+import { useBackable } from '../lib/navStack'
 
 export default function QuranReader() {
   const [surah, setSurah] = useState<number | null>(null)
-  if (surah) return <Reader surah={surah} onBack={() => setSurah(null)} />
+  useBackable(surah !== null, () => setSurah(null))
+  if (surah) return <Reader surah={surah} />
   return <SurahList onOpen={setSurah} />
 }
 
@@ -23,6 +26,7 @@ function SurahList({ onOpen }: { onOpen: (n: number) => void }) {
 
   return (
     <div className="space-y-4">
+      <StickyBack label="Lainnya" />
       <header className="pt-2">
         <h1 className="text-xl font-bold">Al-Qur’an</h1>
         <p className="text-sm text-ocean-900/60">114 surah · teks Utsmani</p>
@@ -92,7 +96,7 @@ function SurahList({ onOpen }: { onOpen: (n: number) => void }) {
   )
 }
 
-function Reader({ surah, onBack }: { surah: number; onBack: () => void }) {
+function Reader({ surah }: { surah: number }) {
   const meta = SURAH_LIST.find((s) => s.no === surah)!
   const setLastRead = useStore((s) => s.setLastRead)
   const toggleBookmark = useStore((s) => s.toggleBookmark)
@@ -129,17 +133,17 @@ function Reader({ surah, onBack }: { surah: number; onBack: () => void }) {
 
   return (
     <div className="space-y-4 pb-4">
-      <div className="flex items-center justify-between pt-2">
-        <button onClick={onBack} className="flex items-center gap-1 text-sm font-semibold text-ocean-600">
-          ← Daftar surah
-        </button>
-        <button
-          onClick={() => setShowTerjemah((v) => !v)}
-          className="rounded-lg bg-sand-200 px-3 py-1.5 text-xs font-semibold text-ocean-600"
-        >
-          {showTerjemah ? 'Sembunyikan terjemah' : 'Tampilkan terjemah'}
-        </button>
-      </div>
+      <StickyBack
+        label="Daftar surah"
+        right={
+          <button
+            onClick={() => setShowTerjemah((v) => !v)}
+            className="rounded-lg bg-sand-200 px-3 py-1.5 text-xs font-semibold text-ocean-600"
+          >
+            {showTerjemah ? 'Sembunyikan terjemah' : 'Tampilkan terjemah'}
+          </button>
+        }
+      />
 
       <header className="text-center">
         <h1 className="text-xl font-bold">{meta.nama}</h1>

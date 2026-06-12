@@ -5,6 +5,7 @@ import { useNow } from '../lib/useNow'
 import HabitRow from '../components/HabitRow'
 import Tasbih from '../components/Tasbih'
 import { PlusIcon, TrashIcon } from '../components/icons'
+import { useBackable, navBack } from '../lib/navStack'
 
 export default function Habits() {
   const now = useNow(60_000)
@@ -13,6 +14,7 @@ export default function Habits() {
   const habitLogs = useStore((s) => s.habitLogs)
   const [adding, setAdding] = useState(false)
   const [manage, setManage] = useState(false)
+  useBackable(adding, () => setAdding(false))
 
   const doneCount = habits.filter((h) =>
     isHabitDone(h, habitLogs[today]?.[h.id] ?? 0),
@@ -64,7 +66,7 @@ export default function Habits() {
 
       <Tasbih />
 
-      {adding && <AddHabitSheet onClose={() => setAdding(false)} />}
+      {adding && <AddHabitSheet onClose={navBack} />}
     </div>
   )
 }

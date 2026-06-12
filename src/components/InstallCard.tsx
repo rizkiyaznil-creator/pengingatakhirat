@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { usePwaInstall } from '../lib/pwaInstall'
+import { useBackable, navBack } from '../lib/navStack'
 
 export default function InstallCard() {
   const { canPrompt, promptInstall, isIOS, isIOSSafari, isStandalone } = usePwaInstall()
   const [sheet, setSheet] = useState<null | 'ios' | 'android'>(null)
   const [msg, setMsg] = useState('')
+  useBackable(sheet !== null, () => setSheet(null))
 
   // Sudah dibuka dari ikon home screen → sudah terpasang
   if (isStandalone) {
@@ -63,8 +65,8 @@ export default function InstallCard() {
         {msg && <p className="mt-2 text-center text-xs text-ocean-900/55">{msg}</p>}
       </div>
 
-      {sheet === 'ios' && <IosSheet onClose={() => setSheet(null)} />}
-      {sheet === 'android' && <AndroidSheet onClose={() => setSheet(null)} />}
+      {sheet === 'ios' && <IosSheet onClose={navBack} />}
+      {sheet === 'android' && <AndroidSheet onClose={navBack} />}
     </>
   )
 }

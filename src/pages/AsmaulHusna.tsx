@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { ASMAUL_HUSNA } from '../data/asmaulHusna'
+import StickyBack from '../components/StickyBack'
 
 export default function AsmaulHusna() {
   const [q, setQ] = useState('')
@@ -13,6 +14,7 @@ export default function AsmaulHusna() {
 
   return (
     <div className="space-y-4">
+      <StickyBack label="Lainnya" />
       <header className="pt-2">
         <h1 className="text-xl font-bold">99 Asmaul Husna</h1>
         <p className="text-sm text-ocean-900/60">Nama-nama indah milik Allah ﷻ</p>

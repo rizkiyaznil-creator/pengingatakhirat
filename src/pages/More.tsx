@@ -8,6 +8,7 @@ import Kalender from './Kalender'
 import AsmaulHusna from './AsmaulHusna'
 import HaditsArbain from './HaditsArbain'
 import { ChevronRight } from '../components/icons'
+import { useBackable } from '../lib/navStack'
 
 type Sub = 'baca' | 'quran' | 'hafalan' | 'muhasabah' | 'doa' | 'kalender' | 'asma' | 'hadits'
 
@@ -24,16 +25,12 @@ const MENU: { id: Sub; icon: string; title: string; sub: string }[] = [
 
 export default function More() {
   const [sub, setSub] = useState<Sub | null>(null)
+  // Tombol back perangkat menutup sub-halaman ini (kembali ke menu Lainnya).
+  useBackable(sub !== null, () => setSub(null))
 
   if (sub) {
     return (
       <div>
-        <button
-          onClick={() => setSub(null)}
-          className="mb-1 flex items-center gap-1 pt-2 text-sm font-semibold text-ocean-600"
-        >
-          ← Menu
-        </button>
         {sub === 'baca' && <QuranReader />}
         {sub === 'quran' && <Quran />}
         {sub === 'hafalan' && <Hafalan />}

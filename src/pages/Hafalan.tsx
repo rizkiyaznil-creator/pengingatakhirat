@@ -11,6 +11,8 @@ import {
   type HafalanGrade,
 } from '../lib/hafalan'
 import { FlameIcon, PlusIcon, TrashIcon } from '../components/icons'
+import StickyBack from '../components/StickyBack'
+import { useBackable, navBack } from '../lib/navStack'
 
 export default function Hafalan() {
   const hafalan = useStore((s) => s.hafalan)
@@ -20,8 +22,11 @@ export default function Hafalan() {
 
   const streak = useMemo(() => setoranStreak(setoranDaily), [setoranDaily])
 
-  if (review) return <Review item={review} onDone={() => setReview(null)} />
-  if (view === 'add') return <AddHafalan onClose={() => setView('list')} />
+  useBackable(review !== null, () => setReview(null))
+  useBackable(view === 'add', () => setView('list'))
+
+  if (review) return <Review item={review} />
+  if (view === 'add') return <AddHafalan />
 
   const due = hafalan.filter((h) => isDue(h.nextDue))
   const groups: Record<HafalanCategory, HafalanItem[]> = { sabaq: [], sabqi: [], manzil: [] }
@@ -29,6 +34,7 @@ export default function Hafalan() {
 
   return (
     <div className="space-y-4">
+      <StickyBack label="Lainnya" />
       <header className="flex items-start justify-between pt-2">
         <div>
           <h1 className="text-xl font-bold">Hafalan Qur’an</h1>
@@ -130,7 +136,7 @@ function AllRow({ item }: { item: HafalanItem }) {
 }
 
 // ---------- Tambah hafalan ----------
-function AddHafalan({ onClose }: { onClose: () => void }) {
+function AddHafalan() {
   const addHafalan = useStore((s) => s.addHafalan)
   const [surah, setSurah] = useState(114) // default An-Nas
   const [from, setFrom] = useState(1)
@@ -154,14 +160,12 @@ function AddHafalan({ onClose }: { onClose: () => void }) {
     const f = Math.max(1, Math.min(from, meta.ayat))
     const t = Math.max(f, Math.min(to, meta.ayat))
     addHafalan(surah, meta.nama, f, t)
-    onClose()
+    navBack()
   }
 
   return (
     <div className="space-y-4">
-      <button onClick={onClose} className="flex items-center gap-1 pt-2 text-sm font-semibold text-ocean-600">
-        ← Kembali
-      </button>
+      <StickyBack label="Hafalan" />
       <h1 className="text-xl font-bold">Tambah Hafalan</h1>
 
       <div className="card px-4 py-4">
@@ -228,7 +232,7 @@ function AddHafalan({ onClose }: { onClose: () => void }) {
 }
 
 // ---------- Review / setoran ----------
-function Review({ item, onDone }: { item: HafalanItem; onDone: () => void }) {
+function Review({ item }: { item: HafalanItem }) {
   const grade = useStore((s) => s.gradeHafalan)
   const [ayat, setAyat] = useState<Ayah[] | null>(null)
   const [err, setErr] = useState('')
@@ -292,14 +296,12 @@ function Review({ item, onDone }: { item: HafalanItem; onDone: () => void }) {
   function doGrade(g: HafalanGrade) {
     audioRef.current?.pause()
     grade(item.id, g)
-    onDone()
+    navBack()
   }
 
   return (
     <div className="space-y-4 pb-4">
-      <button onClick={onDone} className="flex items-center gap-1 pt-2 text-sm font-semibold text-ocean-600">
-        ← Selesai nanti
-      </button>
+      <StickyBack label="Selesai nanti" />
 
       <header>
         <h1 className="text-xl font-bold">{item.nama}</h1>

@@ -3,6 +3,7 @@ import { useStore } from '../store/useStore'
 import { dateKey, lastNDays, tanggalPanjang, fromKey, namaHari } from '../lib/date'
 import { useNow } from '../lib/useNow'
 import { addDays } from '../lib/date'
+import StickyBack from '../components/StickyBack'
 
 const MOODS = ['😔', '😕', '😐', '🙂', '😄']
 const RATING_BG = ['bg-sand-200', 'bg-ocean-200', 'bg-ocean-300', 'bg-ocean-400', 'bg-ocean-500', 'bg-ocean-700']
@@ -38,6 +39,7 @@ export default function Muhasabah() {
 
   return (
     <div className="space-y-4">
+      <StickyBack label="Lainnya" />
       <header className="pt-2">
         <h1 className="text-xl font-bold">Muhasabah Malam</h1>
         <p className="text-sm text-ocean-900/60">{tanggalPanjang(now)}</p>

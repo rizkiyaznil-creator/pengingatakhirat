@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useNow } from '../lib/useNow'
 import { tanggalPanjang } from '../lib/date'
 import { toHijri, upcomingEvents, kindLabel, dayAwayLabel, type EventKind } from '../lib/hijri'
+import StickyBack from '../components/StickyBack'
 
 const KIND_STYLE: Record<EventKind, string> = {
   utama: 'bg-ocean-100 text-ocean-600',
@@ -19,6 +20,7 @@ export default function Kalender() {
 
   return (
     <div className="space-y-4">
+      <StickyBack label="Lainnya" />
       <header className="pt-2">
         <h1 className="text-xl font-bold">Kalender Hijriah</h1>
         <p className="text-sm text-ocean-900/60">{tanggalPanjang(now)}</p>

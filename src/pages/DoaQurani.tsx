@@ -3,6 +3,8 @@ import { useStore } from '../store/useStore'
 import { DOA_QURANI, DOA_KATEGORI, type DoaRef } from '../data/doaQurani'
 import { SURAH_LIST } from '../data/surahList'
 import { fetchSurah, type Ayah } from '../lib/quranApi'
+import StickyBack from '../components/StickyBack'
+import { useBackable } from '../lib/navStack'
 
 function surahName(n: number) {
   return SURAH_LIST.find((s) => s.no === n)?.nama ?? `Surah ${n}`
@@ -17,8 +19,9 @@ export default function DoaQurani() {
   const [kat, setKat] = useState<string>('Semua')
   const [favOnly, setFavOnly] = useState(false)
   const doaFav = useStore((s) => s.doaFav)
+  useBackable(open !== null, () => setOpen(null))
 
-  if (open) return <Detail doa={open} onBack={() => setOpen(null)} />
+  if (open) return <Detail doa={open} />
 
   const list = DOA_QURANI.filter((d) => {
     if (favOnly && !doaFav.includes(d.id)) return false
@@ -30,6 +33,7 @@ export default function DoaQurani() {
 
   return (
     <div className="space-y-4">
+      <StickyBack label="Lainnya" />
       <header className="pt-2">
         <h1 className="text-xl font-bold">Doa dari Al-Qur’an</h1>
         <p className="text-sm text-ocean-900/60">{DOA_QURANI.length} doa pilihan · teks dari mushaf</p>
@@ -86,7 +90,7 @@ function Chip({ active, onClick, children }: { active: boolean; onClick: () => v
   )
 }
 
-function Detail({ doa, onBack }: { doa: DoaRef; onBack: () => void }) {
+function Detail({ doa }: { doa: DoaRef }) {
   const doaFav = useStore((s) => s.doaFav)
   const toggleFav = useStore((s) => s.toggleDoaFav)
   const isFav = doaFav.includes(doa.id)
@@ -107,15 +111,17 @@ function Detail({ doa, onBack }: { doa: DoaRef; onBack: () => void }) {
 
   return (
     <div className="space-y-4 pb-4">
-      <div className="flex items-center justify-between pt-2">
-        <button onClick={onBack} className="flex items-center gap-1 text-sm font-semibold text-ocean-600">← Daftar doa</button>
-        <button
-          onClick={() => toggleFav(doa.id)}
-          className={`rounded-lg px-3 py-1.5 text-sm font-semibold ${isFav ? 'bg-clay-400/20 text-clay-600' : 'bg-sand-200 text-ocean-900/55'}`}
-        >
-          {isFav ? '★ Favorit' : '☆ Favoritkan'}
-        </button>
-      </div>
+      <StickyBack
+        label="Daftar doa"
+        right={
+          <button
+            onClick={() => toggleFav(doa.id)}
+            className={`rounded-lg px-3 py-1.5 text-sm font-semibold ${isFav ? 'bg-clay-400/20 text-clay-600' : 'bg-sand-200 text-ocean-900/55'}`}
+          >
+            {isFav ? '★ Favorit' : '☆ Favoritkan'}
+          </button>
+        }
+      />
 
       <header>
         <h1 className="text-xl font-bold">{doa.judul}</h1>

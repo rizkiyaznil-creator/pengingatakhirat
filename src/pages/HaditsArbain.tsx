@@ -1,14 +1,18 @@
 import { useState } from 'react'
 import { HADITS_ARBAIN, type Hadits } from '../data/haditsArbain'
 import { ChevronRight } from '../components/icons'
+import StickyBack from '../components/StickyBack'
+import { useBackable } from '../lib/navStack'
 
 export default function HaditsArbain() {
   const [open, setOpen] = useState<Hadits | null>(null)
+  useBackable(open !== null, () => setOpen(null))
 
-  if (open) return <Detail hadits={open} onBack={() => setOpen(null)} />
+  if (open) return <Detail hadits={open} />
 
   return (
     <div className="space-y-4">
+      <StickyBack label="Lainnya" />
       <header className="pt-2">
         <h1 className="text-xl font-bold">Hadits Arba’in</h1>
         <p className="text-sm text-ocean-900/60">42 hadits pilihan Imam An-Nawawi</p>
@@ -44,12 +48,10 @@ export default function HaditsArbain() {
   )
 }
 
-function Detail({ hadits, onBack }: { hadits: Hadits; onBack: () => void }) {
+function Detail({ hadits }: { hadits: Hadits }) {
   return (
     <div className="space-y-4">
-      <button onClick={onBack} className="flex items-center gap-1 pt-2 text-sm font-semibold text-ocean-600">
-        ← Kembali
-      </button>
+      <StickyBack label="Hadits Arba’in" />
 
       <div className="card px-5 py-5">
         <div className="mb-3 flex items-center gap-2">

@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useStore } from '../store/useStore'
 import { addDays, dateKey } from '../lib/date'
 import { FlameIcon } from '../components/icons'
+import StickyBack from '../components/StickyBack'
 
 const MONTH_OPTIONS = [1, 3, 6, 12]
 
@@ -33,6 +34,7 @@ export default function Quran() {
 
   return (
     <div className="space-y-4">
+      <StickyBack label="Lainnya" />
       <header className="pt-2">
         <h1 className="text-xl font-bold">Khatam Qur’an</h1>
         <p className="text-sm text-ocean-900/60">Mushaf standar Madinah · 604 halaman</p>
