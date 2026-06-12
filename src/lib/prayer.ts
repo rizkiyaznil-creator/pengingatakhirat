@@ -31,6 +31,25 @@ export const METHOD_LABEL: Record<MethodKey, string> = {
 
 export type MadhabKey = 'syafii' | 'hanafi'
 
+// Sholat sunnah rawatib muakkadah (yang ditekankan), terikat ke sholat fardhu.
+export type RawatibJenis = 'qobliyah' | 'badiyah'
+export interface RawatibSlot {
+  key: string
+  prayer: PrayerName
+  jenis: RawatibJenis
+  rakaat: number
+}
+
+export const RAWATIB: RawatibSlot[] = [
+  { key: 'subuh_q', prayer: 'subuh', jenis: 'qobliyah', rakaat: 2 },
+  { key: 'dzuhur_q', prayer: 'dzuhur', jenis: 'qobliyah', rakaat: 2 },
+  { key: 'dzuhur_b', prayer: 'dzuhur', jenis: 'badiyah', rakaat: 2 },
+  { key: 'maghrib_b', prayer: 'maghrib', jenis: 'badiyah', rakaat: 2 },
+  { key: 'isya_b', prayer: 'isya', jenis: 'badiyah', rakaat: 2 },
+]
+
+export const RAWATIB_TOTAL = RAWATIB.length
+
 function buildParams(method: MethodKey, madhab: MadhabKey): CalculationParameters {
   let params: CalculationParameters
   switch (method) {

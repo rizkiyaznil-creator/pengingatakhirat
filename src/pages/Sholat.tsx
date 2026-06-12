@@ -5,11 +5,24 @@ import {
   countdown,
   PRAYERS,
   PRAYER_LABEL,
+  RAWATIB,
+  RAWATIB_TOTAL,
+  type PrayerName,
+  type RawatibSlot,
 } from '../lib/prayer'
 import { dateKey, jam, tanggalPanjang } from '../lib/date'
 import { useNow } from '../lib/useNow'
-import { prayerStreak } from '../lib/stats'
+import { prayerStreak, rawatibStreak } from '../lib/stats'
 import { FlameIcon } from '../components/icons'
+
+const RAWATIB_KEYS = RAWATIB.map((r) => r.key)
+const RAWATIB_BY_PRAYER = PRAYERS.reduce(
+  (acc, p) => {
+    acc[p] = RAWATIB.filter((r) => r.prayer === p)
+    return acc
+  },
+  {} as Record<PrayerName, RawatibSlot[]>,
+)
 
 const STATUS_STYLE: Record<PrayerStatus, { label: string; cls: string; dot: string }> = {
   pending: { label: 'Belum', cls: 'bg-sand-200 text-ocean-900/50', dot: 'bg-ocean-900/20' },
@@ -23,6 +36,8 @@ export default function Sholat() {
   const profile = useStore((s) => s.profile)
   const prayerLogs = useStore((s) => s.prayerLogs)
   const cyclePrayer = useStore((s) => s.cyclePrayer)
+  const rawatibLogs = useStore((s) => s.rawatibLogs)
+  const toggleRawatib = useStore((s) => s.toggleRawatib)
   const today = dateKey(now)
 
   const schedule = useMemo(
@@ -36,6 +51,10 @@ export default function Sholat() {
   const onTimeRate = done === 0 ? 0 : Math.round((onTime / done) * 100)
   const qadhaCount = PRAYERS.filter((p) => log[p] === 'qadha').length
   const streak = prayerStreak(prayerLogs, now)
+
+  const rawatibToday = rawatibLogs[today] ?? {}
+  const rawatibDone = RAWATIB_KEYS.filter((k) => rawatibToday[k]).length
+  const rStreak = rawatibStreak(rawatibLogs, RAWATIB_KEYS, now)
 
   return (
     <div className="space-y-4">
@@ -76,11 +95,12 @@ export default function Sholat() {
             const st = (log[p] ?? 'pending') as PrayerStatus
             const style = STATUS_STYLE[st]
             const isCurrent = schedule.current === p && schedule.next !== p
+            const slots = RAWATIB_BY_PRAYER[p]
             return (
-              <li key={p}>
+              <li key={p} className="px-5 py-2.5">
                 <button
                   onClick={() => cyclePrayer(today, p)}
-                  className="flex w-full items-center gap-3 px-5 py-3.5 text-left transition active:bg-sand-100"
+                  className="flex w-full items-center gap-3 rounded-xl py-1 text-left transition active:bg-sand-100"
                 >
                   <span className={`h-2.5 w-2.5 rounded-full ${style.dot}`} />
                   <div className="flex-1">
@@ -96,13 +116,48 @@ export default function Sholat() {
                   </div>
                   <span className={`pill ${style.cls}`}>{style.label}</span>
                 </button>
+
+                {/* Chip rawatib */}
+                {slots.length > 0 && (
+                  <div className="mt-1.5 flex flex-wrap gap-1.5 pl-5">
+                    {slots.map((r) => {
+                      const on = !!rawatibToday[r.key]
+                      return (
+                        <button
+                          key={r.key}
+                          onClick={() => toggleRawatib(today, r.key)}
+                          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-medium transition active:scale-95 ${
+                            on ? 'bg-ocean-100 text-ocean-700' : 'bg-sand-100 text-ocean-900/45'
+                          }`}
+                        >
+                          <span>{on ? '✓' : '+'}</span>
+                          {r.jenis === 'qobliyah' ? 'Qobliyah' : 'Ba’diyah'}
+                        </button>
+                      )
+                    })}
+                  </div>
+                )}
               </li>
             )
           })}
         </ul>
         <p className="px-5 py-2.5 text-center text-[11px] text-ocean-900/40">
-          Ketuk tiap sholat untuk ganti status: Belum → Tepat → Telat → Qadha
+          Ketuk sholat untuk ganti status · ketuk chip untuk catat sunnah rawatib
         </p>
+      </div>
+
+      {/* Ringkasan rawatib */}
+      <div className="card flex items-center gap-3 px-5 py-4">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ocean-100 text-base font-bold text-ocean-700">
+          {rawatibDone}/{RAWATIB_TOTAL}
+        </div>
+        <div className="flex-1">
+          <p className="font-semibold leading-tight">Sunnah rawatib hari ini</p>
+          <p className="text-xs text-ocean-900/55">
+            {rawatibDone === RAWATIB_TOTAL ? 'Lengkap, masyaAllah! 🌿' : `${RAWATIB_TOTAL - rawatibDone} sunnah lagi`}
+            {rStreak > 0 && ` · streak ${rStreak} hari`}
+          </p>
+        </div>
       </div>
 
       {/* Statistik kecil */}

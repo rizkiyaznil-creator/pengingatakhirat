@@ -115,6 +115,24 @@ export function prayerStreak(prayerLogs: PrayerLogs, today = new Date()): number
   return streak
 }
 
+// Streak rawatib muakkadah lengkap (ke-5 slot tercentang) berturut-turut.
+export function rawatibStreak(
+  rawatibLogs: Record<string, Record<string, boolean>>,
+  keys: string[],
+  today = new Date(),
+): number {
+  let streak = 0
+  for (let i = 0; i < 400; i++) {
+    const key = dateKey(addDays(today, -i))
+    const day = rawatibLogs[key] ?? {}
+    const all = keys.length > 0 && keys.every((k) => day[k])
+    if (all) streak++
+    else if (i === 0) continue
+    else break
+  }
+  return streak
+}
+
 // Konsistensi rata-rata (%) selama n hari terakhir.
 export function consistency(
   n: number,

@@ -90,6 +90,7 @@ export interface SyncSnapshot {
   setoranDaily: Record<string, number> // jumlah setoran murojaah per hari
   muhasabah: Record<string, MuhasabahEntry> // refleksi malam per tanggal
   reader: QuranReaderState
+  rawatibLogs: Record<string, Record<string, boolean>> // dateKey → slotKey → done
 }
 
 interface State {
@@ -104,6 +105,7 @@ interface State {
   setoranDaily: Record<string, number>
   muhasabah: Record<string, MuhasabahEntry>
   reader: QuranReaderState
+  rawatibLogs: Record<string, Record<string, boolean>>
 
   // actions — profil
   setProfile: (p: Partial<Profile>) => void
@@ -111,6 +113,7 @@ interface State {
   // actions — sholat
   setPrayer: (date: string, prayer: PrayerName, status: PrayerStatus) => void
   cyclePrayer: (date: string, prayer: PrayerName) => void
+  toggleRawatib: (date: string, key: string) => void
 
   // actions — habit
   addHabit: (h: Omit<Habit, 'id' | 'order'>) => void
@@ -193,6 +196,7 @@ export const useStore = create<State>()(
       setoranDaily: {},
       muhasabah: {},
       reader: { bookmarks: [] },
+      rawatibLogs: {},
 
       setProfile: (p) => set((s) => ({ profile: { ...s.profile, ...p } })),
 
@@ -213,6 +217,17 @@ export const useStore = create<State>()(
             prayerLogs: {
               ...s.prayerLogs,
               [date]: { ...s.prayerLogs[date], [prayer]: next },
+            },
+          }
+        }),
+
+      toggleRawatib: (date, key) =>
+        set((s) => {
+          const day = s.rawatibLogs[date] ?? {}
+          return {
+            rawatibLogs: {
+              ...s.rawatibLogs,
+              [date]: { ...day, [key]: !day[key] },
             },
           }
         }),
@@ -373,6 +388,7 @@ export const useStore = create<State>()(
           setoranDaily: d.setoranDaily ?? {},
           muhasabah: d.muhasabah ?? {},
           reader: d.reader ?? { bookmarks: [] },
+          rawatibLogs: d.rawatibLogs ?? {},
         })),
 
       resetData: () => set(() => defaultSnapshot()),
@@ -398,6 +414,7 @@ export function defaultSnapshot(): SyncSnapshot {
     setoranDaily: {},
     muhasabah: {},
     reader: { bookmarks: [] },
+    rawatibLogs: {},
   }
 }
 
@@ -415,6 +432,7 @@ export function snapshotOf(s: SyncSnapshot): SyncSnapshot {
     setoranDaily: s.setoranDaily,
     muhasabah: s.muhasabah,
     reader: s.reader,
+    rawatibLogs: s.rawatibLogs,
   }
 }
 
