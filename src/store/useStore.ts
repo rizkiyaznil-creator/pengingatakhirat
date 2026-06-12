@@ -3,6 +3,7 @@ import { persist } from 'zustand/middleware'
 import type { PrayerName } from '../lib/prayer'
 import type { MethodKey, MadhabKey } from '../lib/prayer'
 import { dateKey } from '../lib/date'
+import { applyGrade, type HafalanGrade } from '../lib/hafalan'
 
 // ---- Tipe data ----
 
@@ -48,6 +49,19 @@ export interface QuranState {
 // Tipe Tasbih dipakai di beberapa tempat
 type Tasbih = { count: number; target: number; sets: number }
 
+// Satu item hafalan (rentang ayat dalam sebuah surah) dengan box Leitner.
+export interface HafalanItem {
+  id: string
+  surah: number
+  nama: string
+  fromAyah: number
+  toAyah: number
+  box: number // 1..5
+  nextDue: string // dateKey jatuh tempo murojaah
+  addedAt: string
+  lastReviewed?: string
+}
+
 // Potongan data yang disinkronkan ke cloud (satu dokumen JSON per akun)
 export interface SyncSnapshot {
   profile: Profile
@@ -57,6 +71,8 @@ export interface SyncSnapshot {
   tasbih: Tasbih
   quran: QuranState
   quranDaily: Record<string, number> // halaman dibaca per hari (untuk streak)
+  hafalan: HafalanItem[]
+  setoranDaily: Record<string, number> // jumlah setoran murojaah per hari
 }
 
 interface State {
@@ -67,6 +83,8 @@ interface State {
   tasbih: Tasbih
   quran: QuranState
   quranDaily: Record<string, number>
+  hafalan: HafalanItem[]
+  setoranDaily: Record<string, number>
 
   // actions — profil
   setProfile: (p: Partial<Profile>) => void
@@ -92,6 +110,11 @@ interface State {
   addQuranPages: (n: number) => void
   setQuranTargetMonths: (m: number) => void
   resetKhatam: () => void
+
+  // actions — hafalan
+  addHafalan: (surah: number, nama: string, fromAyah: number, toAyah: number) => void
+  gradeHafalan: (id: string, grade: HafalanGrade) => void
+  removeHafalan: (id: string) => void
 
   // sinkronisasi — ganti seluruh data (mis. hasil merge dari cloud)
   replaceData: (d: SyncSnapshot) => void
@@ -140,6 +163,8 @@ export const useStore = create<State>()(
       tasbih: { count: 0, target: 33, sets: 0 },
       quran: defaultQuran(),
       quranDaily: {},
+      hafalan: [],
+      setoranDaily: {},
 
       setProfile: (p) => set((s) => ({ profile: { ...s.profile, ...p } })),
 
@@ -251,6 +276,39 @@ export const useStore = create<State>()(
       resetKhatam: () =>
         set((s) => ({ quran: { ...s.quran, read: 0, startedAt: dateKey() } })),
 
+      addHafalan: (surah, nama, fromAyah, toAyah) =>
+        set((s) => {
+          const today = dateKey()
+          const item: HafalanItem = {
+            id: `hf-${Date.now().toString(36)}`,
+            surah,
+            nama,
+            fromAyah,
+            toAyah,
+            box: 1,
+            nextDue: today, // langsung jadi setoran hari ini
+            addedAt: today,
+          }
+          return { hafalan: [...s.hafalan, item] }
+        }),
+
+      gradeHafalan: (id, grade) =>
+        set((s) => {
+          const today = dateKey()
+          const hafalan = s.hafalan.map((h) => {
+            if (h.id !== id) return h
+            const { box, nextDue } = applyGrade(h.box, grade)
+            return { ...h, box, nextDue, lastReviewed: today }
+          })
+          return {
+            hafalan,
+            setoranDaily: { ...s.setoranDaily, [today]: (s.setoranDaily[today] ?? 0) + 1 },
+          }
+        }),
+
+      removeHafalan: (id) =>
+        set((s) => ({ hafalan: s.hafalan.filter((h) => h.id !== id) })),
+
       replaceData: (d) =>
         set(() => ({
           profile: d.profile,
@@ -260,6 +318,8 @@ export const useStore = create<State>()(
           tasbih: d.tasbih,
           quran: d.quran ?? defaultQuran(),
           quranDaily: d.quranDaily ?? {},
+          hafalan: d.hafalan ?? [],
+          setoranDaily: d.setoranDaily ?? {},
         })),
 
       resetData: () => set(() => defaultSnapshot()),
@@ -281,6 +341,8 @@ export function defaultSnapshot(): SyncSnapshot {
     tasbih: { count: 0, target: 33, sets: 0 },
     quran: defaultQuran(),
     quranDaily: {},
+    hafalan: [],
+    setoranDaily: {},
   }
 }
 
@@ -294,6 +356,8 @@ export function snapshotOf(s: SyncSnapshot): SyncSnapshot {
     tasbih: s.tasbih,
     quran: s.quran,
     quranDaily: s.quranDaily,
+    hafalan: s.hafalan,
+    setoranDaily: s.setoranDaily,
   }
 }
 
