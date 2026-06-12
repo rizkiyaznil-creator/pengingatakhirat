@@ -91,6 +91,7 @@ export interface SyncSnapshot {
   muhasabah: Record<string, MuhasabahEntry> // refleksi malam per tanggal
   reader: QuranReaderState
   rawatibLogs: Record<string, Record<string, boolean>> // dateKey → slotKey → done
+  doaFav: string[] // id doa Qur'ani yang difavoritkan
 }
 
 interface State {
@@ -106,6 +107,7 @@ interface State {
   muhasabah: Record<string, MuhasabahEntry>
   reader: QuranReaderState
   rawatibLogs: Record<string, Record<string, boolean>>
+  doaFav: string[]
 
   // actions — profil
   setProfile: (p: Partial<Profile>) => void
@@ -144,6 +146,9 @@ interface State {
   // actions — quran reader
   setLastRead: (surah: number, ayah: number) => void
   toggleBookmark: (surah: number, ayah: number) => void
+
+  // actions — doa
+  toggleDoaFav: (id: string) => void
 
   // sinkronisasi — ganti seluruh data (mis. hasil merge dari cloud)
   replaceData: (d: SyncSnapshot) => void
@@ -197,6 +202,7 @@ export const useStore = create<State>()(
       muhasabah: {},
       reader: { bookmarks: [] },
       rawatibLogs: {},
+      doaFav: [],
 
       setProfile: (p) => set((s) => ({ profile: { ...s.profile, ...p } })),
 
@@ -375,6 +381,11 @@ export const useStore = create<State>()(
           return { reader: { ...s.reader, bookmarks } }
         }),
 
+      toggleDoaFav: (id) =>
+        set((s) => ({
+          doaFav: s.doaFav.includes(id) ? s.doaFav.filter((x) => x !== id) : [...s.doaFav, id],
+        })),
+
       replaceData: (d) =>
         set(() => ({
           profile: d.profile,
@@ -389,6 +400,7 @@ export const useStore = create<State>()(
           muhasabah: d.muhasabah ?? {},
           reader: d.reader ?? { bookmarks: [] },
           rawatibLogs: d.rawatibLogs ?? {},
+          doaFav: d.doaFav ?? [],
         })),
 
       resetData: () => set(() => defaultSnapshot()),
@@ -415,6 +427,7 @@ export function defaultSnapshot(): SyncSnapshot {
     muhasabah: {},
     reader: { bookmarks: [] },
     rawatibLogs: {},
+    doaFav: [],
   }
 }
 
@@ -433,6 +446,7 @@ export function snapshotOf(s: SyncSnapshot): SyncSnapshot {
     muhasabah: s.muhasabah,
     reader: s.reader,
     rawatibLogs: s.rawatibLogs,
+    doaFav: s.doaFav,
   }
 }
 
