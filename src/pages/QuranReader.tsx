@@ -68,7 +68,7 @@ function SurahList({ onOpen }: { onOpen: (n: number) => void }) {
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Cari surah / nomor…"
-        className="w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
+        className="w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3 outline-none focus:border-ocean-400"
       />
 
       <div className="card overflow-hidden">
@@ -76,7 +76,7 @@ function SurahList({ onOpen }: { onOpen: (n: number) => void }) {
           {list.map((s) => (
             <li key={s.no}>
               <button onClick={() => onOpen(s.no)} className="flex w-full items-center gap-3 px-4 py-3 text-left transition active:bg-sand-100">
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ocean-100 text-xs font-bold text-ocean-700">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ocean-100 text-xs font-bold text-ocean-600">
                   {s.no}
                 </div>
                 <div className="min-w-0 flex-1">
@@ -135,7 +135,7 @@ function Reader({ surah, onBack }: { surah: number; onBack: () => void }) {
         </button>
         <button
           onClick={() => setShowTerjemah((v) => !v)}
-          className="rounded-lg bg-sand-200 px-3 py-1.5 text-xs font-semibold text-ocean-700"
+          className="rounded-lg bg-sand-200 px-3 py-1.5 text-xs font-semibold text-ocean-600"
         >
           {showTerjemah ? 'Sembunyikan terjemah' : 'Tampilkan terjemah'}
         </button>
@@ -159,7 +159,7 @@ function Reader({ surah, onBack }: { surah: number; onBack: () => void }) {
           <div className="mb-2 flex items-center justify-between">
             <button
               onClick={() => playAyah(a)}
-              className="flex h-7 w-7 items-center justify-center rounded-full bg-ocean-100 text-xs font-bold text-ocean-700"
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-ocean-100 text-xs font-bold text-ocean-600"
               aria-label={`Putar ayat ${a.no}`}
             >
               ▶
@@ -173,7 +173,7 @@ function Reader({ surah, onBack }: { surah: number; onBack: () => void }) {
               {isMarked(a.no) ? '🔖' : '🏷️'}
             </button>
           </div>
-          <p className="font-arabic text-right text-2xl leading-loose text-ocean-800" dir="rtl">{a.arab}</p>
+          <p className="font-arabic text-right text-2xl leading-loose text-ocean-900" dir="rtl">{a.arab}</p>
           {showTerjemah && <p className="mt-2 text-sm leading-relaxed text-ocean-900/70">{a.terjemah}</p>}
         </div>
       ))}

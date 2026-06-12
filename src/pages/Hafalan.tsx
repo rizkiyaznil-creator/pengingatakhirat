@@ -64,7 +64,7 @@ export default function Hafalan() {
                       onClick={() => setReview(h)}
                       className="flex w-full items-center gap-3 px-4 py-3 text-left transition active:bg-sand-100"
                     >
-                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ocean-100 text-xs font-bold text-ocean-700">
+                      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ocean-100 text-xs font-bold text-ocean-600">
                         {h.surah}
                       </div>
                       <div className="min-w-0 flex-1">
@@ -109,7 +109,7 @@ function AllRow({ item }: { item: HafalanItem }) {
   const remove = useStore((s) => s.removeHafalan)
   return (
     <div className="flex items-center gap-3 px-4 py-3">
-      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sand-200 text-xs font-bold text-ocean-700">
+      <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-sand-200 text-xs font-bold text-ocean-600">
         {item.surah}
       </div>
       <div className="min-w-0 flex-1">
@@ -166,14 +166,14 @@ function AddHafalan({ onClose }: { onClose: () => void }) {
 
       <div className="card px-4 py-4">
         <p className="mb-2 text-sm font-semibold">Pilih surah</p>
-        <p className="mb-2 rounded-xl bg-ocean-100 px-3 py-2 text-sm font-semibold text-ocean-700">
+        <p className="mb-2 rounded-xl bg-ocean-100 px-3 py-2 text-sm font-semibold text-ocean-600">
           {meta.no}. {meta.nama} — {meta.arti} ({meta.ayat} ayat)
         </p>
         <input
           value={q}
           onChange={(e) => setQ(e.target.value)}
           placeholder="Cari surah / nomor…"
-          className="mb-2 w-full rounded-xl border border-sand-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-ocean-400"
+          className="mb-2 w-full rounded-xl border border-sand-200 bg-sand-50 px-3 py-2.5 text-sm outline-none focus:border-ocean-400"
         />
         <div className="max-h-48 overflow-y-auto rounded-xl border border-sand-200">
           {filtered.map((s) => (
@@ -203,7 +203,7 @@ function AddHafalan({ onClose }: { onClose: () => void }) {
               max={meta.ayat}
               value={from}
               onChange={(e) => setFrom(Number(e.target.value))}
-              className="w-full rounded-xl border border-sand-200 bg-white px-3 py-2.5 outline-none focus:border-ocean-400"
+              className="w-full rounded-xl border border-sand-200 bg-sand-50 px-3 py-2.5 outline-none focus:border-ocean-400"
             />
           </label>
           <label className="flex-1 text-sm">
@@ -214,7 +214,7 @@ function AddHafalan({ onClose }: { onClose: () => void }) {
               max={meta.ayat}
               value={to}
               onChange={(e) => setTo(Number(e.target.value))}
-              className="w-full rounded-xl border border-sand-200 bg-white px-3 py-2.5 outline-none focus:border-ocean-400"
+              className="w-full rounded-xl border border-sand-200 bg-sand-50 px-3 py-2.5 outline-none focus:border-ocean-400"
             />
           </label>
         </div>
@@ -312,14 +312,14 @@ function Review({ item, onDone }: { item: HafalanItem; onDone: () => void }) {
           <button
             onClick={togglePlay}
             disabled={loading || !!err}
-            className="flex items-center gap-2 rounded-xl bg-ocean-700 px-4 py-2.5 text-sm font-semibold text-sand-50 transition active:scale-95 disabled:opacity-50"
+            className="flex items-center gap-2 rounded-xl bg-ocean-700 px-4 py-2.5 text-sm font-semibold text-white transition active:scale-95 disabled:opacity-50"
           >
             {playing ? '⏸ Jeda' : '▶ Talqin'}
           </button>
           <button
             onClick={() => setRepeat((v) => !v)}
             className={`rounded-xl px-3 py-2 text-xs font-semibold transition ${
-              repeat ? 'bg-ocean-100 text-ocean-700' : 'bg-sand-200 text-ocean-900/55'
+              repeat ? 'bg-ocean-100 text-ocean-600' : 'bg-sand-200 text-ocean-900/55'
             }`}
           >
             🔁 Ulang terus {repeat ? 'on' : 'off'}
@@ -329,7 +329,7 @@ function Review({ item, onDone }: { item: HafalanItem; onDone: () => void }) {
         <div className="mt-4">
           <div className="mb-1 flex items-center justify-between text-xs text-ocean-900/55">
             <span>Hitungan ulang</span>
-            <span className="font-semibold text-ocean-700">{count}/20</span>
+            <span className="font-semibold text-ocean-600">{count}/20</span>
           </div>
           <div className="h-2 w-full overflow-hidden rounded-full bg-sand-200">
             <div className="h-full rounded-full bg-clay-500 transition-all" style={{ width: `${(count / 20) * 100}%` }} />
@@ -364,7 +364,7 @@ function Review({ item, onDone }: { item: HafalanItem; onDone: () => void }) {
           <div className="mb-3 flex justify-end">
             <button
               onClick={() => setShowTerjemah((v) => !v)}
-              className="rounded-lg bg-sand-200 px-3 py-1.5 text-xs font-semibold text-ocean-700"
+              className="rounded-lg bg-sand-200 px-3 py-1.5 text-xs font-semibold text-ocean-600"
             >
               {showTerjemah ? 'Sembunyikan terjemah' : 'Tampilkan terjemah'}
             </button>
@@ -375,12 +375,12 @@ function Review({ item, onDone }: { item: HafalanItem; onDone: () => void }) {
                 <div className="flex items-start gap-2">
                   <button
                     onClick={() => playFrom(i)}
-                    className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ocean-100 text-[11px] font-bold text-ocean-700"
+                    className="mt-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ocean-100 text-[11px] font-bold text-ocean-600"
                     aria-label={`Putar ayat ${a.no}`}
                   >
                     {a.no}
                   </button>
-                  <p className="font-arabic flex-1 text-right text-2xl leading-loose text-ocean-800" dir="rtl">
+                  <p className="font-arabic flex-1 text-right text-2xl leading-loose text-ocean-900" dir="rtl">
                     {a.arab}
                   </p>
                 </div>
@@ -406,7 +406,7 @@ function Review({ item, onDone }: { item: HafalanItem; onDone: () => void }) {
           <button onClick={() => doGrade('ragu')} className="rounded-xl bg-clay-400/20 py-3 text-sm font-semibold text-clay-600 transition active:scale-95">
             Ragu
           </button>
-          <button onClick={() => doGrade('lancar')} className="rounded-xl bg-ocean-700 py-3 text-sm font-semibold text-sand-50 transition active:scale-95">
+          <button onClick={() => doGrade('lancar')} className="rounded-xl bg-ocean-700 py-3 text-sm font-semibold text-white transition active:scale-95">
             Lancar
           </button>
         </div>

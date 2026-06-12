@@ -8,10 +8,19 @@ import {
 } from '../lib/prayer'
 import { LocationIcon } from '../components/icons'
 import AccountCard from '../components/AccountCard'
+import type { ThemeMode } from '../store/useStore'
+
+const THEME_OPTS: { id: ThemeMode; label: string; icon: string }[] = [
+  { id: 'system', label: 'Sistem', icon: '🖥️' },
+  { id: 'light', label: 'Terang', icon: '☀️' },
+  { id: 'dark', label: 'Gelap', icon: '🌙' },
+]
 
 export default function Profile() {
   const profile = useStore((s) => s.profile)
   const setProfile = useStore((s) => s.setProfile)
+  const theme = useStore((s) => s.theme)
+  const setTheme = useStore((s) => s.setTheme)
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState('')
 
@@ -42,7 +51,7 @@ export default function Profile() {
         <input
           value={profile.name}
           onChange={(e) => setProfile({ name: e.target.value })}
-          className="w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
+          className="w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3 outline-none focus:border-ocean-400"
         />
       </div>
 
@@ -52,13 +61,13 @@ export default function Profile() {
           <input
             value={profile.city}
             onChange={(e) => setProfile({ city: e.target.value })}
-            className="w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
+            className="w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3 outline-none focus:border-ocean-400"
           />
         </div>
         <button
           onClick={relocate}
           disabled={busy}
-          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-ocean-300 bg-ocean-50 px-4 py-3 font-medium text-ocean-700 transition active:scale-[0.98] disabled:opacity-60"
+          className="flex w-full items-center justify-center gap-2 rounded-2xl border border-ocean-300 bg-ocean-50 px-4 py-3 font-medium text-ocean-600 transition active:scale-[0.98] disabled:opacity-60"
         >
           <LocationIcon size={20} />
           {busy ? 'Mendeteksi…' : 'Perbarui lokasi otomatis'}
@@ -75,7 +84,7 @@ export default function Profile() {
           <select
             value={profile.method}
             onChange={(e) => setProfile({ method: e.target.value as MethodKey })}
-            className="w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
+            className="w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3 outline-none focus:border-ocean-400"
           >
             {(Object.keys(METHOD_LABEL) as MethodKey[]).map((m) => (
               <option key={m} value={m}>
@@ -93,14 +102,32 @@ export default function Profile() {
                 onClick={() => setProfile({ madhab: m })}
                 className={`rounded-2xl py-3 text-sm font-semibold transition ${
                   profile.madhab === m
-                    ? 'bg-ocean-700 text-sand-50'
-                    : 'bg-white text-ocean-900/60 ring-1 ring-sand-200'
+                    ? 'bg-ocean-700 text-white'
+                    : 'bg-sand-50 text-ocean-900/60 ring-1 ring-sand-200'
                 }`}
               >
                 {m === 'syafii' ? 'Syafi’i' : 'Hanafi'}
               </button>
             ))}
           </div>
+        </div>
+      </div>
+
+      <div className="card px-5 py-5">
+        <p className="mb-2 text-sm font-semibold">Tampilan</p>
+        <div className="grid grid-cols-3 gap-2">
+          {THEME_OPTS.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setTheme(t.id)}
+              className={`flex flex-col items-center gap-1 rounded-2xl py-3 text-sm font-semibold transition ${
+                theme === t.id ? 'bg-ocean-700 text-white' : 'bg-sand-200 text-ocean-900/60'
+              }`}
+            >
+              <span className="text-lg">{t.icon}</span>
+              {t.label}
+            </button>
+          ))}
         </div>
       </div>
 

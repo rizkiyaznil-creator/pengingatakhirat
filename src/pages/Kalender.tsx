@@ -4,11 +4,11 @@ import { tanggalPanjang } from '../lib/date'
 import { toHijri, upcomingEvents, kindLabel, dayAwayLabel, type EventKind } from '../lib/hijri'
 
 const KIND_STYLE: Record<EventKind, string> = {
-  utama: 'bg-ocean-100 text-ocean-700',
+  utama: 'bg-ocean-100 text-ocean-600',
   sunnah: 'bg-ocean-50 text-ocean-600',
   rutin: 'bg-sand-200 text-ocean-900/60',
   mulia: 'bg-clay-400/20 text-clay-600',
-  raya: 'bg-ocean-700 text-sand-50',
+  raya: 'bg-ocean-700 text-white',
   larangan: 'bg-cheer/10 text-cheer',
 }
 
@@ -26,8 +26,8 @@ export default function Kalender() {
 
       {/* Tanggal Hijriah hari ini */}
       <div className="card overflow-hidden">
-        <div className="bg-ocean-700 px-5 py-5 text-center text-sand-50">
-          <p className="text-xs uppercase tracking-wide text-sand-50/70">Hari ini</p>
+        <div className="bg-ocean-700 px-5 py-5 text-center text-white">
+          <p className="text-xs uppercase tracking-wide text-white/70">Hari ini</p>
           <p className="mt-1 text-4xl font-bold">{h.day}</p>
           <p className="text-lg font-medium">{h.monthName} {h.year} H</p>
         </div>
@@ -42,7 +42,7 @@ export default function Kalender() {
           {events.map((e) => (
             <li key={e.key} className="flex items-center gap-3 px-5 py-3">
               <div className="flex h-12 w-12 shrink-0 flex-col items-center justify-center rounded-xl bg-sand-100 leading-none">
-                <span className="text-base font-bold text-ocean-700">
+                <span className="text-base font-bold text-ocean-600">
                   {e.date.getDate()}
                 </span>
                 <span className="mt-0.5 text-[9px] uppercase text-ocean-900/45">

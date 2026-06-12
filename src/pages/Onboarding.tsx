@@ -44,7 +44,7 @@ export default function Onboarding() {
         <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl bg-ocean-700 text-3xl">
           💧
         </div>
-        <p className="font-arabic text-2xl text-ocean-700" dir="rtl">
+        <p className="font-arabic text-2xl text-ocean-600" dir="rtl">
           إنّما الأعمال بالنيّات
         </p>
         <p className="mt-1 text-sm italic text-ocean-900/60">
@@ -63,14 +63,14 @@ export default function Onboarding() {
         value={name}
         onChange={(e) => setName(e.target.value)}
         placeholder="mis. Ahmad"
-        className="mb-5 w-full rounded-2xl border border-sand-200 bg-white px-4 py-3.5 outline-none focus:border-ocean-400"
+        className="mb-5 w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3.5 outline-none focus:border-ocean-400"
       />
 
       <label className="mb-1.5 block text-sm font-semibold">Lokasi (untuk jadwal sholat)</label>
       <button
         onClick={detect}
         disabled={loading}
-        className="mb-2 flex w-full items-center justify-center gap-2 rounded-2xl border border-ocean-300 bg-ocean-50 px-4 py-3.5 font-medium text-ocean-700 transition active:scale-[0.98] disabled:opacity-60"
+        className="mb-2 flex w-full items-center justify-center gap-2 rounded-2xl border border-ocean-300 bg-ocean-50 px-4 py-3.5 font-medium text-ocean-600 transition active:scale-[0.98] disabled:opacity-60"
       >
         <LocationIcon size={20} />
         {loading ? 'Mendeteksi…' : coords ? 'Lokasi terdeteksi ✓' : 'Deteksi lokasi otomatis'}
@@ -79,7 +79,7 @@ export default function Onboarding() {
         value={city}
         onChange={(e) => setCity(e.target.value)}
         placeholder="Nama kota"
-        className="mb-1 w-full rounded-2xl border border-sand-200 bg-white px-4 py-3.5 outline-none focus:border-ocean-400"
+        className="mb-1 w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3.5 outline-none focus:border-ocean-400"
       />
       {err && <p className="mb-2 text-xs text-cheer">{err}</p>}
       {!coords && !err && (
@@ -92,7 +92,7 @@ export default function Onboarding() {
       <select
         value={method}
         onChange={(e) => setMethod(e.target.value as MethodKey)}
-        className="mb-8 w-full rounded-2xl border border-sand-200 bg-white px-4 py-3.5 outline-none focus:border-ocean-400"
+        className="mb-8 w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3.5 outline-none focus:border-ocean-400"
       >
         {(Object.keys(METHOD_LABEL) as MethodKey[]).map((m) => (
           <option key={m} value={m}>

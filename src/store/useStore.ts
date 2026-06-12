@@ -77,6 +77,8 @@ export interface QuranReaderState {
   bookmarks: { surah: number; ayah: number }[]
 }
 
+export type ThemeMode = 'system' | 'light' | 'dark'
+
 // Potongan data yang disinkronkan ke cloud (satu dokumen JSON per akun)
 export interface SyncSnapshot {
   profile: Profile
@@ -108,9 +110,11 @@ interface State {
   reader: QuranReaderState
   rawatibLogs: Record<string, Record<string, boolean>>
   doaFav: string[]
+  theme: ThemeMode // preferensi tampilan (lokal perangkat, tidak disinkron)
 
   // actions — profil
   setProfile: (p: Partial<Profile>) => void
+  setTheme: (t: ThemeMode) => void
 
   // actions — sholat
   setPrayer: (date: string, prayer: PrayerName, status: PrayerStatus) => void
@@ -203,8 +207,10 @@ export const useStore = create<State>()(
       reader: { bookmarks: [] },
       rawatibLogs: {},
       doaFav: [],
+      theme: 'system',
 
       setProfile: (p) => set((s) => ({ profile: { ...s.profile, ...p } })),
+      setTheme: (t) => set(() => ({ theme: t })),
 
       setPrayer: (date, prayer, status) =>
         set((s) => ({

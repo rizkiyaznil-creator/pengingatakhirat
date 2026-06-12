@@ -22,7 +22,7 @@ export default function HaditsArbain() {
                 onClick={() => setOpen(hd)}
                 className="flex w-full items-center gap-3 px-4 py-3 text-left transition active:bg-sand-100"
               >
-                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ocean-100 text-sm font-bold text-ocean-700">
+                <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ocean-100 text-sm font-bold text-ocean-600">
                   {hd.no}
                 </div>
                 <div className="min-w-0 flex-1">
@@ -53,13 +53,13 @@ function Detail({ hadits, onBack }: { hadits: Hadits; onBack: () => void }) {
 
       <div className="card px-5 py-5">
         <div className="mb-3 flex items-center gap-2">
-          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ocean-100 text-sm font-bold text-ocean-700">
+          <span className="flex h-8 w-8 items-center justify-center rounded-full bg-ocean-100 text-sm font-bold text-ocean-600">
             {hadits.no}
           </span>
           <h2 className="text-lg font-bold">{hadits.judul}</h2>
         </div>
 
-        <p className="font-arabic text-2xl leading-loose text-ocean-800" dir="rtl">
+        <p className="font-arabic text-2xl leading-loose text-ocean-900" dir="rtl">
           {hadits.arab}
         </p>
 

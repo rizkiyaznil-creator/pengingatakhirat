@@ -2,6 +2,54 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ===== Palet warna (RGB triplet) — token Tailwind merujuk ke variabel ini ===== */
+:root {
+  --ocean-50: 236 246 246;
+  --ocean-100: 207 233 234;
+  --ocean-200: 163 213 215;
+  --ocean-300: 111 185 189;
+  --ocean-400: 63 152 158;
+  --ocean-500: 26 129 138;
+  --ocean-600: 19 107 114;
+  --ocean-700: 14 91 97;
+  --ocean-800: 12 74 79;
+  --ocean-900: 10 58 62;
+
+  --sand-50: 251 252 252;
+  --sand-100: 244 246 246;
+  --sand-200: 230 236 237;
+  --sand-300: 211 221 221;
+
+  --clay-400: 230 168 140;
+  --clay-500: 217 140 106;
+  --clay-600: 196 115 79;
+  --cheer: 217 140 106;
+}
+
+.dark {
+  /* Teal disesuaikan agar kontras baik di atas permukaan gelap */
+  --ocean-50: 16 38 39;
+  --ocean-100: 20 60 62;
+  --ocean-200: 37 90 92;
+  --ocean-300: 63 152 158;
+  --ocean-400: 90 180 184;
+  --ocean-500: 111 185 189;
+  --ocean-600: 130 205 210;   /* teks aksen/link → terang */
+  --ocean-700: 23 130 138;    /* bg tombol/hero → teal */
+  --ocean-800: 10 60 64;      /* overlay dalam hero */
+  --ocean-900: 224 236 235;   /* teks utama → terang */
+
+  --sand-50: 24 32 32;        /* permukaan: kartu/input/sheet/nav */
+  --sand-100: 13 19 19;       /* latar halaman */
+  --sand-200: 38 48 48;       /* muted/border */
+  --sand-300: 55 68 67;       /* border lebih tegas */
+
+  --clay-400: 230 168 140;
+  --clay-500: 224 150 116;
+  --clay-600: 230 160 130;
+  --cheer: 232 150 120;
+}
+
 @layer base {
   html {
     -webkit-tap-highlight-color: transparent;
@@ -20,10 +68,13 @@
 
 @layer components {
   .card {
-    @apply rounded-xl2 bg-white shadow-card;
+    @apply rounded-xl2 bg-sand-50 shadow-card;
+  }
+  .dark .card {
+    @apply shadow-none ring-1 ring-sand-200;
   }
   .btn-primary {
-    @apply rounded-2xl bg-ocean-700 px-5 py-3.5 text-center font-semibold text-sand-50 transition active:scale-[0.98];
+    @apply rounded-2xl bg-ocean-700 px-5 py-3.5 text-center font-semibold text-white transition active:scale-[0.98];
   }
   .pill {
     @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium;

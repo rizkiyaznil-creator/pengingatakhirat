@@ -22,20 +22,20 @@ export default function AsmaulHusna() {
         value={q}
         onChange={(e) => setQ(e.target.value)}
         placeholder="Cari nama atau arti…"
-        className="w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
+        className="w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3 outline-none focus:border-ocean-400"
       />
 
       <div className="grid grid-cols-1 gap-2.5">
         {list.map((a) => (
           <div key={a.no} className="card flex items-center gap-3 px-4 py-3">
-            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ocean-100 text-sm font-bold text-ocean-700">
+            <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-ocean-100 text-sm font-bold text-ocean-600">
               {a.no}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="font-semibold leading-tight text-ocean-800">{a.latin}</p>
+              <p className="font-semibold leading-tight text-ocean-900">{a.latin}</p>
               <p className="text-xs text-ocean-900/55">{a.arti}</p>
             </div>
-            <p className="font-arabic text-2xl text-ocean-700" dir="rtl">{a.arab}</p>
+            <p className="font-arabic text-2xl text-ocean-600" dir="rtl">{a.arab}</p>
           </div>
         ))}
         {list.length === 0 && (

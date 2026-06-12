@@ -35,7 +35,7 @@ export default function AccountCard() {
   return (
     <div className="card px-5 py-5">
       <div className="flex items-center gap-3">
-        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-ocean-100 text-lg font-bold uppercase text-ocean-700">
+        <div className="flex h-11 w-11 items-center justify-center rounded-full bg-ocean-100 text-lg font-bold uppercase text-ocean-600">
           {(user.email ?? '?').charAt(0)}
         </div>
         <div className="min-w-0 flex-1">

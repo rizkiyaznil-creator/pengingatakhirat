@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { useStore } from './store/useStore'
 import { useAuth } from './lib/useAuth'
+import { useTheme } from './lib/useTheme'
 import { isCloudEnabled } from './lib/supabase'
 import BottomNav, { type Tab } from './components/BottomNav'
 import Onboarding from './pages/Onboarding'
@@ -12,6 +13,7 @@ import More from './pages/More'
 import Profile from './pages/Profile'
 
 export default function App() {
+  useTheme()
   const onboarded = useStore((s) => s.profile.onboarded)
   const ready = useAuth((s) => s.ready)
   const user = useAuth((s) => s.user)

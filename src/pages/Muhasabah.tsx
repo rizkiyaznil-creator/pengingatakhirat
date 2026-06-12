@@ -142,7 +142,7 @@ export default function Muhasabah() {
 function Stat({ label, value, sub }: { label: string; value: string; sub: string }) {
   return (
     <div className="card px-3 py-3 text-center">
-      <p className="text-2xl font-bold leading-none text-ocean-700">{value}</p>
+      <p className="text-2xl font-bold leading-none text-ocean-600">{value}</p>
       <p className="mt-1 text-[11px] text-ocean-900/55">{label} · {sub}</p>
     </div>
   )
@@ -156,7 +156,7 @@ function Field({ label, value, onChange }: { label: string; value: string; onCha
         value={value}
         onChange={(e) => onChange(e.target.value)}
         rows={2}
-        className="w-full resize-none rounded-xl border border-sand-200 bg-white px-3 py-2.5 text-sm outline-none focus:border-ocean-400"
+        className="w-full resize-none rounded-xl border border-sand-200 bg-sand-50 px-3 py-2.5 text-sm outline-none focus:border-ocean-400"
         placeholder="Tulis singkat…"
       />
     </label>

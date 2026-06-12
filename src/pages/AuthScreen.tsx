@@ -9,7 +9,7 @@ export default function AuthScreen() {
           💧
         </div>
         <h1 className="text-2xl font-bold">Dawam</h1>
-        <p className="font-arabic mt-2 text-xl text-ocean-700" dir="rtl">
+        <p className="font-arabic mt-2 text-xl text-ocean-600" dir="rtl">
           إنّما الأعمال بالنيّات
         </p>
         <p className="mt-1 text-sm italic text-ocean-900/60">

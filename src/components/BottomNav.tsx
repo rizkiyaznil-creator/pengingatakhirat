@@ -30,7 +30,7 @@ export default function BottomNav({
               key={id}
               onClick={() => onChange(id)}
               className={`flex flex-1 flex-col items-center gap-0.5 rounded-xl py-1.5 transition ${
-                on ? 'text-ocean-700' : 'text-ocean-900/40'
+                on ? 'text-ocean-600' : 'text-ocean-900/40'
               }`}
               aria-label={label}
             >

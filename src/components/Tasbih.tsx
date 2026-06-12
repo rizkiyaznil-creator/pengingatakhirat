@@ -35,7 +35,7 @@ export default function Tasbih() {
               onClick={() => setTarget(n)}
               className={`rounded-lg px-2.5 py-1 text-xs font-semibold transition ${
                 tasbih.target === n
-                  ? 'bg-ocean-700 text-sand-50'
+                  ? 'bg-ocean-700 text-white'
                   : 'bg-sand-200 text-ocean-900/60'
               }`}
             >
@@ -66,7 +66,7 @@ export default function Tasbih() {
           />
         </svg>
         <div className={`text-center ${pop ? 'animate-pop' : ''}`}>
-          <p className="text-5xl font-bold text-ocean-700">{tasbih.count}</p>
+          <p className="text-5xl font-bold text-ocean-600">{tasbih.count}</p>
           <p className="text-sm text-ocean-900/50">/ {tasbih.target}</p>
         </div>
       </button>

@@ -60,7 +60,7 @@ function CheckBox({ done, onClick }: { done: boolean; onClick: () => void }) {
       onClick={onClick}
       className={`flex h-9 w-9 items-center justify-center rounded-full border-2 transition active:scale-90 ${
         done
-          ? 'border-ocean-700 bg-ocean-700 text-sand-50'
+          ? 'border-ocean-700 bg-ocean-700 text-white'
           : 'border-sand-300 text-transparent'
       }`}
       aria-label="Tandai selesai"
@@ -92,7 +92,7 @@ function Counter({
       </button>
       <button
         onClick={onPlus}
-        className="h-9 w-9 rounded-full bg-ocean-700 text-lg font-bold text-sand-50 transition active:scale-90"
+        className="h-9 w-9 rounded-full bg-ocean-700 text-lg font-bold text-white transition active:scale-90"
       >
         +
       </button>
@@ -147,8 +147,8 @@ function TimerControl({
         running
           ? 'bg-cheer/10 text-cheer'
           : reached
-            ? 'bg-ocean-100 text-ocean-700'
-            : 'bg-ocean-700 text-sand-50'
+            ? 'bg-ocean-100 text-ocean-600'
+            : 'bg-ocean-700 text-white'
       }`}
     >
       {running ? `⏸ ${fmt(elapsed)}` : reached ? '✓ Selesai' : '▶ Mulai'}

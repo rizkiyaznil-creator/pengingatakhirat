@@ -11,6 +11,18 @@
     <meta name="apple-mobile-web-app-title" content="Dawam" />
     <meta name="description" content="Pengingat ibadah & pencatat amal harian Muslim. Jaga amal, rawat istiqamah." />
     <title>Dawam — Pengingat Ibadah</title>
+    <script>
+      // Set tema sedini mungkin agar tidak ada kedip saat memuat
+      try {
+        var raw = localStorage.getItem('niyatin-store-v1')
+        var theme = raw ? JSON.parse(raw).state.theme : 'system'
+        var dark =
+          theme === 'dark' ||
+          ((theme === 'system' || !theme) &&
+            window.matchMedia('(prefers-color-scheme: dark)').matches)
+        if (dark) document.documentElement.classList.add('dark')
+      } catch (e) {}
+    </script>
   </head>
   <body>
     <div id="root"></div>

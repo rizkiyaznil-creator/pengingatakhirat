@@ -42,7 +42,7 @@ export default function AuthForm({ onSignedIn }: { onSignedIn?: () => void }) {
       <button
         onClick={google}
         disabled={busy}
-        className="mb-3 flex w-full items-center justify-center gap-2.5 rounded-2xl border border-sand-300 bg-white px-4 py-3.5 font-semibold text-ocean-900 transition active:scale-[0.98] disabled:opacity-60"
+        className="mb-3 flex w-full items-center justify-center gap-2.5 rounded-2xl border border-sand-300 bg-sand-50 px-4 py-3.5 font-semibold text-ocean-900 transition active:scale-[0.98] disabled:opacity-60"
       >
         <GoogleIcon /> Lanjut dengan Google
       </button>
@@ -61,7 +61,7 @@ export default function AuthForm({ onSignedIn }: { onSignedIn?: () => void }) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         placeholder="email@contoh.com"
-        className="mb-3 w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
+        className="mb-3 w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3 outline-none focus:border-ocean-400"
       />
       <div className="relative mb-2">
         <input
@@ -73,7 +73,7 @@ export default function AuthForm({ onSignedIn }: { onSignedIn?: () => void }) {
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password (min. 6 karakter)"
-          className="w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 pr-16 outline-none focus:border-ocean-400"
+          className="w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3 pr-16 outline-none focus:border-ocean-400"
         />
         <button
           type="button"

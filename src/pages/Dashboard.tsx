@@ -64,14 +64,14 @@ export default function Dashboard({ onGo }: { onGo: (t: 'sholat' | 'habit') => v
           <p className="text-xs font-semibold uppercase tracking-wide text-ocean-900/45">
             Insights · 30 hari
           </p>
-          <span className="inline-flex items-center gap-1 rounded-full bg-ocean-100 px-2.5 py-1 text-xs font-semibold text-ocean-700">
+          <span className="inline-flex items-center gap-1 rounded-full bg-ocean-100 px-2.5 py-1 text-xs font-semibold text-ocean-600">
             <FlameIcon size={14} /> Streak {stats.streak}
           </span>
         </div>
 
-        <div className="m-4 rounded-2xl bg-ocean-700 px-5 py-4 text-sand-50">
+        <div className="m-4 rounded-2xl bg-ocean-700 px-5 py-4 text-white">
           <div className="flex items-center justify-between">
-            <p className="text-sm text-sand-50/80">Konsistensi bulan ini</p>
+            <p className="text-sm text-white/80">Konsistensi bulan ini</p>
             {stats.delta !== 0 && (
               <span
                 className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-semibold ${
@@ -85,9 +85,9 @@ export default function Dashboard({ onGo }: { onGo: (t: 'sholat' | 'habit') => v
           </div>
           <p className="mt-1 text-5xl font-bold">
             {stats.cur}
-            <span className="text-2xl font-medium text-sand-50/70">%</span>
+            <span className="text-2xl font-medium text-white/70">%</span>
           </p>
-          <p className="mt-1 text-xs text-sand-50/70">
+          <p className="mt-1 text-xs text-white/70">
             {stats.prev > 0
               ? `vs ${stats.prev}% bulan lalu — ${
                   stats.delta >= 0 ? 'grafiknya lagi naik 💧' : 'ayo rapatkan lagi 💪'
@@ -121,7 +121,7 @@ export default function Dashboard({ onGo }: { onGo: (t: 'sholat' | 'habit') => v
                       title={`${t.done}/${t.total}`}
                     />
                   </div>
-                  <span className={`text-[10px] ${isToday ? 'font-bold text-ocean-700' : 'text-ocean-900/45'}`}>
+                  <span className={`text-[10px] ${isToday ? 'font-bold text-ocean-600' : 'text-ocean-900/45'}`}>
                     {t.label}
                   </span>
                 </div>
@@ -145,7 +145,7 @@ export default function Dashboard({ onGo }: { onGo: (t: 'sholat' | 'habit') => v
                 <div className="h-2 flex-1 overflow-hidden rounded-full bg-sand-200">
                   <div className="h-full rounded-full bg-ocean-500" style={{ width: `${w}%` }} />
                 </div>
-                <span className="w-10 text-right text-sm font-semibold text-ocean-700">
+                <span className="w-10 text-right text-sm font-semibold text-ocean-600">
                   {it.days}d
                 </span>
               </div>

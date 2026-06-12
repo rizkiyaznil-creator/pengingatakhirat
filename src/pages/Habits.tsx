@@ -25,7 +25,7 @@ export default function Habits() {
           <h1 className="text-xl font-bold">Habit Hari Ini</h1>
           <p className="text-sm text-ocean-900/60">{tanggalPanjang(now)}</p>
         </div>
-        <span className="rounded-full bg-ocean-100 px-3 py-1 text-sm font-semibold text-ocean-700">
+        <span className="rounded-full bg-ocean-100 px-3 py-1 text-sm font-semibold text-ocean-600">
           {doneCount}/{habits.length} ✓
         </span>
       </header>
@@ -123,7 +123,7 @@ function AddHabitSheet({ onClose }: { onClose: () => void }) {
           value={name}
           onChange={(e) => setName(e.target.value)}
           placeholder="mis. Sholat Dhuha"
-          className="mb-4 w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
+          className="mb-4 w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3 outline-none focus:border-ocean-400"
         />
 
         <label className="mb-1.5 block text-sm font-semibold">Ikon</label>
@@ -133,7 +133,7 @@ function AddHabitSheet({ onClose }: { onClose: () => void }) {
               key={e}
               onClick={() => setIcon(e)}
               className={`flex h-10 w-10 items-center justify-center rounded-xl text-xl transition ${
-                icon === e ? 'bg-ocean-100 ring-2 ring-ocean-500' : 'bg-white'
+                icon === e ? 'bg-ocean-100 ring-2 ring-ocean-500' : 'bg-sand-50'
               }`}
             >
               {e}
@@ -148,7 +148,7 @@ function AddHabitSheet({ onClose }: { onClose: () => void }) {
               key={t}
               onClick={() => setType(t)}
               className={`rounded-xl py-2.5 text-sm font-semibold transition ${
-                type === t ? 'bg-ocean-700 text-sand-50' : 'bg-white text-ocean-900/60'
+                type === t ? 'bg-ocean-700 text-white' : 'bg-sand-50 text-ocean-900/60'
               }`}
             >
               {t === 'checkbox' ? 'Ceklis' : t === 'counter' ? 'Hitung' : 'Timer'}
@@ -164,7 +164,7 @@ function AddHabitSheet({ onClose }: { onClose: () => void }) {
                 type="number"
                 value={target}
                 onChange={(e) => setTarget(Number(e.target.value))}
-                className="w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
+                className="w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3 outline-none focus:border-ocean-400"
               />
             </div>
             <div className="flex-1">
@@ -173,7 +173,7 @@ function AddHabitSheet({ onClose }: { onClose: () => void }) {
                 value={unit}
                 onChange={(e) => setUnit(e.target.value)}
                 placeholder={type === 'timer' ? 'menit' : 'x / hal'}
-                className="w-full rounded-2xl border border-sand-200 bg-white px-4 py-3 outline-none focus:border-ocean-400"
+                className="w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3 outline-none focus:border-ocean-400"
               />
             </div>
           </div>

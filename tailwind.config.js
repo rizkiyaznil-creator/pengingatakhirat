@@ -1,36 +1,37 @@
 /** @type {import('tailwindcss').Config} */
+const v = (name) => `rgb(var(${name}) / <alpha-value>)`
+
 export default {
+  darkMode: 'class',
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
       colors: {
-        // Teal laut — warna utama Dawam
+        // Token berbasis CSS variable → otomatis membalik di mode gelap (.dark)
         ocean: {
-          50: '#ecf6f6',
-          100: '#cfe9ea',
-          200: '#a3d5d7',
-          300: '#6fb9bd',
-          400: '#3f989e',
-          500: '#1a818a',
-          600: '#136b72',
-          700: '#0e5b61', // brand
-          800: '#0c4a4f',
-          900: '#0a3a3e',
+          50: v('--ocean-50'),
+          100: v('--ocean-100'),
+          200: v('--ocean-200'),
+          300: v('--ocean-300'),
+          400: v('--ocean-400'),
+          500: v('--ocean-500'),
+          600: v('--ocean-600'),
+          700: v('--ocean-700'),
+          800: v('--ocean-800'),
+          900: v('--ocean-900'),
         },
-        // Off-white sejuk (netral kebiruan tipis)
         sand: {
-          50: '#fbfcfc',
-          100: '#f4f6f6',
-          200: '#e6eced',
-          300: '#d3dddd',
+          50: v('--sand-50'),
+          100: v('--sand-100'),
+          200: v('--sand-200'),
+          300: v('--sand-300'),
         },
-        // Aksen clay / karang lembut
         clay: {
-          400: '#e6a88c',
-          500: '#d98c6a',
-          600: '#c4734f',
+          400: v('--clay-400'),
+          500: v('--clay-500'),
+          600: v('--clay-600'),
         },
-        cheer: '#d98c6a',
+        cheer: v('--cheer'),
       },
       fontFamily: {
         sans: ['"Inter"', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'sans-serif'],

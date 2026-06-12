@@ -26,7 +26,7 @@ const RAWATIB_BY_PRAYER = PRAYERS.reduce(
 
 const STATUS_STYLE: Record<PrayerStatus, { label: string; cls: string; dot: string }> = {
   pending: { label: 'Belum', cls: 'bg-sand-200 text-ocean-900/50', dot: 'bg-ocean-900/20' },
-  ontime: { label: 'Tepat', cls: 'bg-ocean-100 text-ocean-700', dot: 'bg-ocean-500' },
+  ontime: { label: 'Tepat', cls: 'bg-ocean-100 text-ocean-600', dot: 'bg-ocean-500' },
   late: { label: 'Telat', cls: 'bg-amber-100 text-amber-700', dot: 'bg-amber-500' },
   qadha: { label: 'Qadha', cls: 'bg-cheer/10 text-cheer', dot: 'bg-cheer' },
 }
@@ -65,23 +65,23 @@ export default function Sholat() {
 
       {/* Kartu ringkasan hari ini */}
       <div className="card overflow-hidden">
-        <div className="bg-ocean-700 px-5 py-4 text-sand-50">
+        <div className="bg-ocean-700 px-5 py-4 text-white">
           <div className="flex items-end justify-between">
             <div>
-              <p className="text-xs uppercase tracking-wide text-sand-50/70">Hari ini</p>
+              <p className="text-xs uppercase tracking-wide text-white/70">Hari ini</p>
               <p className="text-3xl font-bold">
                 {done}
-                <span className="text-lg font-medium text-sand-50/70">/5 sholat</span>
+                <span className="text-lg font-medium text-white/70">/5 sholat</span>
               </p>
             </div>
             <div className="text-right">
-              <p className="text-xs text-sand-50/70">On-time rate</p>
+              <p className="text-xs text-white/70">On-time rate</p>
               <p className="text-2xl font-bold">{onTimeRate}%</p>
             </div>
           </div>
           {schedule.next && (
             <div className="mt-3 flex items-center justify-between rounded-xl bg-ocean-800/60 px-3 py-2 text-sm">
-              <span className="text-sand-50/80">
+              <span className="text-white/80">
                 Berikutnya: <b>{PRAYER_LABEL[schedule.next]}</b> {jam(schedule.nextTime!)}
               </span>
               <span className="font-semibold">{countdown(schedule.nextTime, now)}</span>
@@ -127,7 +127,7 @@ export default function Sholat() {
                           key={r.key}
                           onClick={() => toggleRawatib(today, r.key)}
                           className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-medium transition active:scale-95 ${
-                            on ? 'bg-ocean-100 text-ocean-700' : 'bg-sand-100 text-ocean-900/45'
+                            on ? 'bg-ocean-100 text-ocean-600' : 'bg-sand-100 text-ocean-900/45'
                           }`}
                         >
                           <span>{on ? '✓' : '+'}</span>
@@ -148,7 +148,7 @@ export default function Sholat() {
 
       {/* Ringkasan rawatib */}
       <div className="card flex items-center gap-3 px-5 py-4">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ocean-100 text-base font-bold text-ocean-700">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ocean-100 text-base font-bold text-ocean-600">
           {rawatibDone}/{RAWATIB_TOTAL}
         </div>
         <div className="flex-1">

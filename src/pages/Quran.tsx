@@ -40,9 +40,9 @@ export default function Quran() {
 
       {/* Kartu progres */}
       <div className="card overflow-hidden">
-        <div className="bg-ocean-700 px-5 py-4 text-sand-50">
+        <div className="bg-ocean-700 px-5 py-4 text-white">
           <div className="flex items-center justify-between">
-            <p className="text-xs uppercase tracking-wide text-sand-50/70">Khatam berjalan</p>
+            <p className="text-xs uppercase tracking-wide text-white/70">Khatam berjalan</p>
             {streak > 0 && (
               <span className="inline-flex items-center gap-1 rounded-full bg-ocean-800/60 px-2.5 py-1 text-xs font-semibold">
                 <FlameIcon size={13} /> {streak} hari
@@ -51,12 +51,12 @@ export default function Quran() {
           </div>
           <p className="mt-1 text-4xl font-bold">
             {quran.read}
-            <span className="text-xl font-medium text-sand-50/70"> / {quran.target} hal</span>
+            <span className="text-xl font-medium text-white/70"> / {quran.target} hal</span>
           </p>
           <div className="mt-3 h-2.5 w-full overflow-hidden rounded-full bg-ocean-800/50">
             <div className="h-full rounded-full bg-sand-50 transition-all" style={{ width: `${pct}%` }} />
           </div>
-          <p className="mt-1.5 text-xs text-sand-50/70">
+          <p className="mt-1.5 text-xs text-white/70">
             {pct}% selesai · sisa {remaining} halaman · hari ini {todayPages} hal
           </p>
         </div>
@@ -71,7 +71,7 @@ export default function Quran() {
               <button
                 key={n}
                 onClick={() => addPages(n)}
-                className="rounded-xl bg-ocean-100 py-3 text-sm font-bold text-ocean-700 transition active:scale-95"
+                className="rounded-xl bg-ocean-100 py-3 text-sm font-bold text-ocean-600 transition active:scale-95"
               >
                 +{n} hal
               </button>
@@ -97,7 +97,7 @@ export default function Quran() {
               key={m}
               onClick={() => setMonths(m)}
               className={`rounded-xl py-2.5 text-sm font-semibold transition ${
-                quran.targetMonths === m ? 'bg-ocean-700 text-sand-50' : 'bg-sand-200 text-ocean-900/60'
+                quran.targetMonths === m ? 'bg-ocean-700 text-white' : 'bg-sand-200 text-ocean-900/60'
               }`}
             >
               {m} bln
@@ -112,11 +112,11 @@ export default function Quran() {
       {/* Statistik */}
       <div className="grid grid-cols-2 gap-3">
         <div className="card px-4 py-3.5">
-          <p className="text-2xl font-bold leading-none text-ocean-700">{quran.khatamCount}×</p>
+          <p className="text-2xl font-bold leading-none text-ocean-600">{quran.khatamCount}×</p>
           <p className="mt-1 text-xs text-ocean-900/55">khatam selesai</p>
         </div>
         <div className="card px-4 py-3.5">
-          <p className="text-2xl font-bold leading-none text-ocean-700">{quran.lifetime}</p>
+          <p className="text-2xl font-bold leading-none text-ocean-600">{quran.lifetime}</p>
           <p className="mt-1 text-xs text-ocean-900/55">total halaman seumur pakai</p>
         </div>
       </div>
