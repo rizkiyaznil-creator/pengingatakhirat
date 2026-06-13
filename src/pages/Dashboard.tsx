@@ -1,5 +1,6 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useStore } from '../store/useStore'
+import { useUi } from '../lib/useUi'
 import { useNow } from '../lib/useNow'
 import { addDays, tanggalPanjang } from '../lib/date'
 import {
@@ -9,7 +10,9 @@ import {
   habitStreak,
   trend7,
 } from '../lib/stats'
-import { FlameIcon, TrendUpIcon } from '../components/icons'
+import { FlameIcon, TrendUpIcon, PlusIcon } from '../components/icons'
+import { SHORTCUTS, SHORTCUT_BY_ID, type Shortcut } from '../lib/shortcuts'
+import { useBackable, navBack } from '../lib/navStack'
 
 function salam(d: Date): string {
   const h = d.getHours()
@@ -20,12 +23,24 @@ function salam(d: Date): string {
   return 'Selamat malam'
 }
 
-export default function Dashboard({ onGo }: { onGo: (t: 'sholat' | 'habit') => void }) {
+export default function Dashboard() {
   const now = useNow(60_000)
   const profile = useStore((s) => s.profile)
   const prayerLogs = useStore((s) => s.prayerLogs)
   const habitLogs = useStore((s) => s.habitLogs)
   const habits = useStore((s) => s.habits)
+  const shortcutIds = useStore((s) => s.dashboardShortcuts)
+  const setTab = useUi((s) => s.setTab)
+  const goSub = useUi((s) => s.goSub)
+  const [editing, setEditing] = useState(false)
+  useBackable(editing, () => setEditing(false))
+
+  function goShortcut(sc: Shortcut) {
+    if (sc.kind === 'tab') setTab(sc.target as 'sholat' | 'habit')
+    else goSub(sc.target)
+  }
+
+  const shortcuts = shortcutIds.map((id) => SHORTCUT_BY_ID[id]).filter(Boolean) as Shortcut[]
 
   const stats = useMemo(() => {
     const cur = consistency(30, prayerLogs, habitLogs, habits, now)
@@ -155,26 +170,96 @@ export default function Dashboard({ onGo }: { onGo: (t: 'sholat' | 'habit') => v
       </div>
 
       {/* Aksi cepat */}
-      <div className="grid grid-cols-2 gap-3">
-        <button onClick={() => onGo('sholat')} className="card flex items-center gap-3 px-4 py-4 text-left transition active:scale-[0.98]">
-          <span className="text-2xl">🕌</span>
-          <div>
-            <p className="font-semibold leading-tight">Catat Sholat</p>
-            <p className="text-xs text-ocean-900/55">Update hari ini</p>
-          </div>
+      {/* Akses cepat (favorit yang bisa diatur) */}
+      <div className="flex items-center justify-between px-1">
+        <p className="text-xs font-semibold uppercase tracking-wide text-ocean-900/45">
+          ⚡ Akses cepat
+        </p>
+        <button onClick={() => setEditing(true)} className="text-xs font-semibold text-ocean-600">
+          Atur
         </button>
-        <button onClick={() => onGo('habit')} className="card flex items-center gap-3 px-4 py-4 text-left transition active:scale-[0.98]">
-          <span className="text-2xl">✅</span>
-          <div>
-            <p className="font-semibold leading-tight">Habit</p>
-            <p className="text-xs text-ocean-900/55">Jaga rutinitas</p>
-          </div>
+      </div>
+      <div className="grid grid-cols-2 gap-3">
+        {shortcuts.map((sc) => (
+          <button
+            key={sc.id}
+            onClick={() => goShortcut(sc)}
+            className="card flex items-center gap-3 px-4 py-4 text-left transition active:scale-[0.98]"
+          >
+            <span className="text-2xl">{sc.icon}</span>
+            <div className="min-w-0">
+              <p className="font-semibold leading-tight">{sc.label}</p>
+              <p className="truncate text-xs text-ocean-900/55">{sc.sub}</p>
+            </div>
+          </button>
+        ))}
+        <button
+          onClick={() => setEditing(true)}
+          className="flex items-center justify-center gap-1.5 rounded-xl2 border border-dashed border-sand-300 px-4 py-4 text-sm font-semibold text-ocean-600 transition active:scale-[0.98]"
+        >
+          <PlusIcon size={18} /> Tambah
         </button>
       </div>
 
       <p className="px-2 pb-2 text-center text-xs italic text-ocean-900/40">
         “Lihat progresmu apa adanya — dari catatan, bukan dari perasaan.”
       </p>
+
+      {editing && <EditShortcuts onClose={navBack} />}
+    </div>
+  )
+}
+
+function EditShortcuts({ onClose }: { onClose: () => void }) {
+  const selected = useStore((s) => s.dashboardShortcuts)
+  const setShortcuts = useStore((s) => s.setDashboardShortcuts)
+
+  function toggle(id: string) {
+    if (selected.includes(id)) setShortcuts(selected.filter((x) => x !== id))
+    else setShortcuts([...selected, id])
+  }
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-end justify-center bg-black/40" onClick={onClose}>
+      <div
+        className="max-h-[85vh] w-full max-w-md overflow-y-auto rounded-t-3xl bg-sand-50 p-5"
+        style={{ paddingBottom: 'calc(env(safe-area-inset-bottom) + 1.5rem)' }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="mx-auto mb-4 h-1.5 w-10 rounded-full bg-sand-300" />
+        <h2 className="text-lg font-bold">Atur akses cepat</h2>
+        <p className="mb-4 mt-0.5 text-sm text-ocean-900/60">Pilih pintasan yang muncul di Beranda.</p>
+
+        <div className="space-y-2">
+          {SHORTCUTS.map((sc) => {
+            const on = selected.includes(sc.id)
+            return (
+              <button
+                key={sc.id}
+                onClick={() => toggle(sc.id)}
+                className="flex w-full items-center gap-3 rounded-2xl bg-sand-100 px-4 py-3 text-left transition active:scale-[0.99]"
+              >
+                <span className="text-2xl">{sc.icon}</span>
+                <div className="min-w-0 flex-1">
+                  <p className="font-semibold leading-tight">{sc.label}</p>
+                  <p className="truncate text-xs text-ocean-900/55">{sc.sub}</p>
+                </div>
+                <span
+                  className={`flex h-7 w-7 items-center justify-center rounded-full border-2 ${
+                    on ? 'border-ocean-700 bg-ocean-700 text-white' : 'border-sand-300 text-transparent'
+                  }`}
+                >
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="m5 12 5 5 9-10" />
+                  </svg>
+                </span>
+              </button>
+            )
+          })}
+        </div>
+
+        <button onClick={onClose} className="btn-primary mt-5 w-full">Selesai</button>
+      </div>
     </div>
   )
 }

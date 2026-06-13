@@ -1,4 +1,5 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { useUi } from '../lib/useUi'
 import Quran from './Quran'
 import QuranReader from './QuranReader'
 import Hafalan from './Hafalan'
@@ -25,6 +26,12 @@ const MENU: { id: Sub; icon: string; title: string; sub: string }[] = [
 
 export default function More() {
   const [sub, setSub] = useState<Sub | null>(null)
+  const consumeSub = useUi((s) => s.consumeSub)
+  // Buka modul yang diminta lewat pintasan Beranda.
+  useEffect(() => {
+    const target = consumeSub()
+    if (target) setSub(target as Sub)
+  }, [consumeSub])
   // Tombol back perangkat menutup sub-halaman ini (kembali ke menu Lainnya).
   useBackable(sub !== null, () => setSub(null))
 

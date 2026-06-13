@@ -1,6 +1,7 @@
 import { HomeIcon, MosqueIcon, CheckCircleIcon, UserIcon, GridIcon } from './icons'
+import type { Tab } from '../lib/useUi'
 
-export type Tab = 'beranda' | 'sholat' | 'habit' | 'lainnya' | 'profil'
+export type { Tab }
 
 const TABS: { id: Tab; label: string; Icon: typeof HomeIcon }[] = [
   { id: 'beranda', label: 'Beranda', Icon: HomeIcon },

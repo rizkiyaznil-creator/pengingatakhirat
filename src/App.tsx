@@ -1,9 +1,9 @@
-import { useState } from 'react'
 import { useStore } from './store/useStore'
 import { useAuth } from './lib/useAuth'
 import { useTheme } from './lib/useTheme'
+import { useUi } from './lib/useUi'
 import { isCloudEnabled } from './lib/supabase'
-import BottomNav, { type Tab } from './components/BottomNav'
+import BottomNav from './components/BottomNav'
 import Onboarding from './pages/Onboarding'
 import AuthScreen from './pages/AuthScreen'
 import Dashboard from './pages/Dashboard'
@@ -17,7 +17,8 @@ export default function App() {
   const onboarded = useStore((s) => s.profile.onboarded)
   const ready = useAuth((s) => s.ready)
   const user = useAuth((s) => s.user)
-  const [tab, setTab] = useState<Tab>('beranda')
+  const tab = useUi((s) => s.tab)
+  const setTab = useUi((s) => s.setTab)
 
   // Wajib login (saat cloud aktif): tampilkan layar login dulu bila belum masuk.
   if (isCloudEnabled) {
@@ -30,7 +31,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-sand-100">
       <main className="safe-top mx-auto max-w-md px-4 pt-3 safe-bottom">
-        {tab === 'beranda' && <Dashboard onGo={setTab} />}
+        {tab === 'beranda' && <Dashboard />}
         {tab === 'sholat' && <Sholat />}
         {tab === 'habit' && <Habits />}
         {tab === 'lainnya' && <More />}

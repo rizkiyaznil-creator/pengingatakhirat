@@ -94,6 +94,7 @@ export interface SyncSnapshot {
   reader: QuranReaderState
   rawatibLogs: Record<string, Record<string, boolean>> // dateKey → slotKey → done
   doaFav: string[] // id doa Qur'ani yang difavoritkan
+  dashboardShortcuts: string[] // id pintasan di "Akses cepat" Beranda
 }
 
 interface State {
@@ -110,6 +111,7 @@ interface State {
   reader: QuranReaderState
   rawatibLogs: Record<string, Record<string, boolean>>
   doaFav: string[]
+  dashboardShortcuts: string[]
   theme: ThemeMode // preferensi tampilan (lokal perangkat, tidak disinkron)
 
   // actions — profil
@@ -153,6 +155,9 @@ interface State {
 
   // actions — doa
   toggleDoaFav: (id: string) => void
+
+  // actions — beranda
+  setDashboardShortcuts: (ids: string[]) => void
 
   // sinkronisasi — ganti seluruh data (mis. hasil merge dari cloud)
   replaceData: (d: SyncSnapshot) => void
@@ -207,10 +212,12 @@ export const useStore = create<State>()(
       reader: { bookmarks: [] },
       rawatibLogs: {},
       doaFav: [],
+      dashboardShortcuts: ['sholat', 'habit'],
       theme: 'system',
 
       setProfile: (p) => set((s) => ({ profile: { ...s.profile, ...p } })),
       setTheme: (t) => set(() => ({ theme: t })),
+      setDashboardShortcuts: (ids) => set(() => ({ dashboardShortcuts: ids })),
 
       setPrayer: (date, prayer, status) =>
         set((s) => ({
@@ -407,6 +414,7 @@ export const useStore = create<State>()(
           reader: d.reader ?? { bookmarks: [] },
           rawatibLogs: d.rawatibLogs ?? {},
           doaFav: d.doaFav ?? [],
+          dashboardShortcuts: d.dashboardShortcuts ?? ['sholat', 'habit'],
         })),
 
       resetData: () => set(() => defaultSnapshot()),
@@ -434,6 +442,7 @@ export function defaultSnapshot(): SyncSnapshot {
     reader: { bookmarks: [] },
     rawatibLogs: {},
     doaFav: [],
+    dashboardShortcuts: ['sholat', 'habit'],
   }
 }
 
@@ -453,6 +462,7 @@ export function snapshotOf(s: SyncSnapshot): SyncSnapshot {
     reader: s.reader,
     rawatibLogs: s.rawatibLogs,
     doaFav: s.doaFav,
+    dashboardShortcuts: s.dashboardShortcuts,
   }
 }
 
