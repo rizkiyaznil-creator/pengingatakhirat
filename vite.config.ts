@@ -40,6 +40,8 @@ export default defineConfig(({ command }) => {
         workbox: {
           globPatterns: ['**/*.{js,css,html,svg,png,woff2}'],
           navigateFallback: `${base}index.html`,
+          // Handler Web Push adzan (push & notificationclick)
+          importScripts: ['push-sw.js'],
         },
       }),
     ],

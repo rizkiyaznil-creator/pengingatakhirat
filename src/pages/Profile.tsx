@@ -9,6 +9,7 @@ import {
 import { LocationIcon } from '../components/icons'
 import AccountCard from '../components/AccountCard'
 import InstallCard from '../components/InstallCard'
+import NotifCard from '../components/NotifCard'
 import type { ThemeMode } from '../store/useStore'
 
 const THEME_OPTS: { id: ThemeMode; label: string; icon: string }[] = [
@@ -48,6 +49,8 @@ export default function Profile() {
       <AccountCard />
 
       <InstallCard />
+
+      <NotifCard />
 
       <div className="card px-5 py-5">
         <label className="mb-1.5 block text-sm font-semibold">Nama panggilan</label>

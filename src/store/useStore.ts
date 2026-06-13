@@ -79,6 +79,15 @@ export interface QuranReaderState {
 
 export type ThemeMode = 'system' | 'light' | 'dark'
 
+// Pengaturan notifikasi adzan
+export interface NotifSettings {
+  enabled: boolean
+  prayers: PrayerName[] // sholat yang diingatkan
+  minutesBefore: number // 0 = tepat waktu adzan
+  sound: boolean // putar audio adzan saat app terbuka
+  adzanUrl: string // URL audio adzan kustom (opsional)
+}
+
 // Potongan data yang disinkronkan ke cloud (satu dokumen JSON per akun)
 export interface SyncSnapshot {
   profile: Profile
@@ -95,6 +104,7 @@ export interface SyncSnapshot {
   rawatibLogs: Record<string, Record<string, boolean>> // dateKey → slotKey → done
   doaFav: string[] // id doa Qur'ani yang difavoritkan
   dashboardShortcuts: string[] // id pintasan di "Akses cepat" Beranda
+  notif: NotifSettings
 }
 
 interface State {
@@ -112,6 +122,7 @@ interface State {
   rawatibLogs: Record<string, Record<string, boolean>>
   doaFav: string[]
   dashboardShortcuts: string[]
+  notif: NotifSettings
   theme: ThemeMode // preferensi tampilan (lokal perangkat, tidak disinkron)
 
   // actions — profil
@@ -159,6 +170,9 @@ interface State {
   // actions — beranda
   setDashboardShortcuts: (ids: string[]) => void
 
+  // actions — notifikasi
+  setNotif: (patch: Partial<NotifSettings>) => void
+
   // sinkronisasi — ganti seluruh data (mis. hasil merge dari cloud)
   replaceData: (d: SyncSnapshot) => void
   // reset ke kondisi awal bersih (akun baru / hapus data)
@@ -181,6 +195,14 @@ const DEFAULT_PROFILE: Profile = {
   method: 'Kemenag',
   madhab: 'syafii',
   onboarded: false,
+}
+
+const DEFAULT_NOTIF: NotifSettings = {
+  enabled: false,
+  prayers: ['subuh', 'dzuhur', 'ashar', 'maghrib', 'isya'],
+  minutesBefore: 0,
+  sound: true,
+  adzanUrl: '',
 }
 
 const QURAN_PAGES = 604
@@ -213,11 +235,13 @@ export const useStore = create<State>()(
       rawatibLogs: {},
       doaFav: [],
       dashboardShortcuts: ['sholat', 'habit'],
+      notif: { ...DEFAULT_NOTIF },
       theme: 'system',
 
       setProfile: (p) => set((s) => ({ profile: { ...s.profile, ...p } })),
       setTheme: (t) => set(() => ({ theme: t })),
       setDashboardShortcuts: (ids) => set(() => ({ dashboardShortcuts: ids })),
+      setNotif: (patch) => set((s) => ({ notif: { ...s.notif, ...patch } })),
 
       setPrayer: (date, prayer, status) =>
         set((s) => ({
@@ -415,6 +439,7 @@ export const useStore = create<State>()(
           rawatibLogs: d.rawatibLogs ?? {},
           doaFav: d.doaFav ?? [],
           dashboardShortcuts: d.dashboardShortcuts ?? ['sholat', 'habit'],
+          notif: { ...DEFAULT_NOTIF, ...(d.notif ?? {}) },
         })),
 
       resetData: () => set(() => defaultSnapshot()),
@@ -443,6 +468,7 @@ export function defaultSnapshot(): SyncSnapshot {
     rawatibLogs: {},
     doaFav: [],
     dashboardShortcuts: ['sholat', 'habit'],
+    notif: { ...DEFAULT_NOTIF },
   }
 }
 
@@ -463,6 +489,7 @@ export function snapshotOf(s: SyncSnapshot): SyncSnapshot {
     rawatibLogs: s.rawatibLogs,
     doaFav: s.doaFav,
     dashboardShortcuts: s.dashboardShortcuts,
+    notif: s.notif,
   }
 }
 
