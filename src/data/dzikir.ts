@@ -183,7 +183,7 @@ export const DZIKIR: Dzikir[] = [
   },
   {
     no: 16,
-    judul: 'Doa Perlindungan (Petang)',
+    judul: 'Doa Perlindungan',
     arab: 'اللَّهُمَّ عَالِمَ الْغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَاوَاتِ وَالْأَرْضِ، رَبَّ كُلِّ شَيْءٍ وَمَلِيكَهُ، أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا أَنْتَ، أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي، وَمِنْ شَرِّ الشَّيْطَانِ وَشِرْكِهِ، وَأَنْ أَقْتَرِفَ عَلَى نَفْسِي سُوءًا أَوْ أَجُرَّهُ إِلَى مُسْلِمٍ',
     latin:
       'Allāhumma ‘ālimal-ghaibi wasy-syahādah, fāṭiras-samāwāti wal-arḍ, rabba kulli syai’in wa malīkah, asyhadu an lā ilāha illā anta, a‘ūżu bika min syarri nafsī, wa min syarrisy-syaiṭāni wa syirkih, wa an aqtarifa ‘alā nafsī sū’an au ajurrahū ilā muslim.',
@@ -191,6 +191,6 @@ export const DZIKIR: Dzikir[] = [
       'Ya Allah Yang Maha Mengetahui yang gaib dan yang nyata, wahai Rabb pencipta langit dan bumi, Rabb dan Raja segala sesuatu. Aku bersaksi tiada tuhan yang berhak disembah kecuali Engkau. Aku berlindung kepada-Mu dari kejahatan diriku, dari kejahatan setan dan ajakan syiriknya, serta dari berbuat kejelekan atas diriku atau menyeret seorang muslim kepadanya.',
     ulang: 1,
     catatan: 'Diajarkan Nabi ﷺ kepada Abu Bakar: dibaca pagi, petang, dan menjelang tidur. HR. Al-Bukhari (Al-Adabul Mufrad 1202), at-Tirmidzi no. 3392 — shahih.',
-    waktu: 'petang',
+    waktu: 'both',
   },
 ]
