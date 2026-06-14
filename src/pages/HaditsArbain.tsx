@@ -61,7 +61,7 @@ function Detail({ hadits }: { hadits: Hadits }) {
           <h2 className="text-lg font-bold">{hadits.judul}</h2>
         </div>
 
-        <p className="font-arabic text-2xl leading-loose text-ocean-900" dir="rtl">
+        <p className="font-arabic arabic-text leading-loose text-ocean-900" dir="rtl">
           {hadits.arab}
         </p>
 

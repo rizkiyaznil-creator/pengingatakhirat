@@ -23,3 +23,14 @@ export function useTheme() {
     }
   }, [theme])
 }
+
+// Terapkan ukuran teks: skala UI (root font-size) & skala tambahan teks Arab.
+export function useDisplayScale() {
+  const uiScale = useStore((s) => s.uiScale)
+  const arabicScale = useStore((s) => s.arabicScale)
+  useEffect(() => {
+    const root = document.documentElement
+    root.style.fontSize = `${16 * (uiScale || 1)}px`
+    root.style.setProperty('--arabic-scale', String(arabicScale || 1))
+  }, [uiScale, arabicScale])
+}

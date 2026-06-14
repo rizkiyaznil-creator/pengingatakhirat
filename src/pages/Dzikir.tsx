@@ -84,7 +84,7 @@ export default function Dzikir() {
                 {finished && <span className="text-ocean-600">✓</span>}
               </div>
 
-              <p className="mt-3 font-arabic text-right text-2xl leading-loose text-ocean-900" dir="rtl">
+              <p className="mt-3 font-arabic arabic-text text-right leading-loose text-ocean-900" dir="rtl">
                 {d.arab}
               </p>
               <p className="mt-2 text-xs italic leading-relaxed text-ocean-900/55">{d.latin}</p>

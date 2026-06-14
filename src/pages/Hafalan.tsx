@@ -382,7 +382,7 @@ function Review({ item }: { item: HafalanItem }) {
                   >
                     {a.no}
                   </button>
-                  <p className="font-arabic flex-1 text-right text-2xl leading-loose text-ocean-900" dir="rtl">
+                  <p className="font-arabic arabic-text flex-1 text-right leading-loose text-ocean-900" dir="rtl">
                     {a.arab}
                   </p>
                 </div>

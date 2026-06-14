@@ -1,6 +1,6 @@
 import { useStore } from './store/useStore'
 import { useAuth } from './lib/useAuth'
-import { useTheme } from './lib/useTheme'
+import { useTheme, useDisplayScale } from './lib/useTheme'
 import { useUi } from './lib/useUi'
 import { useAdzanForeground } from './lib/useAdzanForeground'
 import { isCloudEnabled } from './lib/supabase'
@@ -16,6 +16,7 @@ import Profile from './pages/Profile'
 
 export default function App() {
   useTheme()
+  useDisplayScale()
   const onboarded = useStore((s) => s.profile.onboarded)
   const ready = useAuth((s) => s.ready)
   const user = useAuth((s) => s.user)

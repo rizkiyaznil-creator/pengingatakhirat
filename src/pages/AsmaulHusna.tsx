@@ -37,7 +37,7 @@ export default function AsmaulHusna() {
               <p className="font-semibold leading-tight text-ocean-900">{a.latin}</p>
               <p className="text-xs text-ocean-900/55">{a.arti}</p>
             </div>
-            <p className="font-arabic text-2xl text-ocean-600" dir="rtl">{a.arab}</p>
+            <p className="font-arabic arabic-text text-ocean-600" dir="rtl">{a.arab}</p>
           </div>
         ))}
         {list.length === 0 && (

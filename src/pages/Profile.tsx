@@ -18,11 +18,29 @@ const THEME_OPTS: { id: ThemeMode; label: string; icon: string }[] = [
   { id: 'dark', label: 'Gelap', icon: '🌙' },
 ]
 
+const UI_SCALES: { v: number; label: string }[] = [
+  { v: 0.9, label: 'Kecil' },
+  { v: 1, label: 'Normal' },
+  { v: 1.15, label: 'Besar' },
+  { v: 1.3, label: 'Lebih' },
+  { v: 1.45, label: 'Jumbo' },
+]
+const ARABIC_SCALES: { v: number; label: string }[] = [
+  { v: 1, label: 'Normal' },
+  { v: 1.25, label: 'Besar' },
+  { v: 1.5, label: 'Lebih' },
+  { v: 1.8, label: 'Jumbo' },
+]
+
 export default function Profile() {
   const profile = useStore((s) => s.profile)
   const setProfile = useStore((s) => s.setProfile)
   const theme = useStore((s) => s.theme)
   const setTheme = useStore((s) => s.setTheme)
+  const uiScale = useStore((s) => s.uiScale)
+  const setUiScale = useStore((s) => s.setUiScale)
+  const arabicScale = useStore((s) => s.arabicScale)
+  const setArabicScale = useStore((s) => s.setArabicScale)
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState('')
 
@@ -134,6 +152,50 @@ export default function Profile() {
               {t.label}
             </button>
           ))}
+        </div>
+      </div>
+
+      {/* Ukuran teks — aksesibilitas */}
+      <div className="card px-5 py-5">
+        <p className="text-sm font-semibold">Ukuran teks</p>
+        <p className="mt-0.5 text-xs text-ocean-900/55">Perbesar agar nyaman dibaca.</p>
+
+        <p className="mb-1.5 mt-4 text-xs font-semibold text-ocean-900/60">Teks aplikasi</p>
+        <div className="grid grid-cols-5 gap-1.5">
+          {UI_SCALES.map((s) => (
+            <button
+              key={s.v}
+              onClick={() => setUiScale(s.v)}
+              className={`rounded-xl py-2 text-xs font-semibold transition ${
+                uiScale === s.v ? 'bg-ocean-700 text-white' : 'bg-sand-200 text-ocean-900/60'
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+
+        <p className="mb-1.5 mt-4 text-xs font-semibold text-ocean-900/60">Teks Arab</p>
+        <div className="grid grid-cols-4 gap-1.5">
+          {ARABIC_SCALES.map((s) => (
+            <button
+              key={s.v}
+              onClick={() => setArabicScale(s.v)}
+              className={`rounded-xl py-2 text-xs font-semibold transition ${
+                arabicScale === s.v ? 'bg-ocean-700 text-white' : 'bg-sand-200 text-ocean-900/60'
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Pratinjau */}
+        <div className="mt-4 rounded-2xl bg-sand-100 px-4 py-3">
+          <p className="font-arabic arabic-text text-right leading-loose text-ocean-900" dir="rtl">
+            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+          </p>
+          <p className="mt-1 text-sm text-ocean-900/70">Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang.</p>
         </div>
       </div>
 

@@ -139,7 +139,7 @@ function Detail({ doa }: { doa: DoaRef }) {
         <div className="card px-5 py-5">
           {ayat.map((a) => (
             <div key={a.no} className="mb-4 border-b border-sand-200 pb-4 last:mb-0 last:border-0 last:pb-0">
-              <p className="font-arabic text-right text-2xl leading-loose text-ocean-900" dir="rtl">{a.arab}</p>
+              <p className="font-arabic arabic-text text-right leading-loose text-ocean-900" dir="rtl">{a.arab}</p>
               <p className="mt-2 text-sm leading-relaxed text-ocean-900/75">{a.terjemah}</p>
               <p className="mt-1 text-[11px] text-ocean-900/40">{surahName(doa.surah)} : {a.no}</p>
             </div>

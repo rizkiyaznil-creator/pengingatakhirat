@@ -124,10 +124,14 @@ interface State {
   dashboardShortcuts: string[]
   notif: NotifSettings
   theme: ThemeMode // preferensi tampilan (lokal perangkat, tidak disinkron)
+  uiScale: number // skala teks & UI keseluruhan (lokal perangkat)
+  arabicScale: number // skala tambahan khusus teks Arab (lokal perangkat)
 
   // actions — profil
   setProfile: (p: Partial<Profile>) => void
   setTheme: (t: ThemeMode) => void
+  setUiScale: (n: number) => void
+  setArabicScale: (n: number) => void
 
   // actions — sholat
   setPrayer: (date: string, prayer: PrayerName, status: PrayerStatus) => void
@@ -237,9 +241,13 @@ export const useStore = create<State>()(
       dashboardShortcuts: ['sholat', 'habit'],
       notif: { ...DEFAULT_NOTIF },
       theme: 'system',
+      uiScale: 1,
+      arabicScale: 1,
 
       setProfile: (p) => set((s) => ({ profile: { ...s.profile, ...p } })),
       setTheme: (t) => set(() => ({ theme: t })),
+      setUiScale: (n) => set(() => ({ uiScale: n })),
+      setArabicScale: (n) => set(() => ({ arabicScale: n })),
       setDashboardShortcuts: (ids) => set(() => ({ dashboardShortcuts: ids })),
       setNotif: (patch) => set((s) => ({ notif: { ...s.notif, ...patch } })),
 

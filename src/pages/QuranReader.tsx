@@ -177,7 +177,7 @@ function Reader({ surah }: { surah: number }) {
               {isMarked(a.no) ? '🔖' : '🏷️'}
             </button>
           </div>
-          <p className="font-arabic text-right text-2xl leading-loose text-ocean-900" dir="rtl">{a.arab}</p>
+          <p className="font-arabic arabic-text text-right leading-loose text-ocean-900" dir="rtl">{a.arab}</p>
           {showTerjemah && <p className="mt-2 text-sm leading-relaxed text-ocean-900/70">{a.terjemah}</p>}
         </div>
       ))}

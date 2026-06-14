@@ -79,6 +79,10 @@
   .pill {
     @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium;
   }
+  /* Teks Arab dengan ukuran yang bisa diatur (basis 1.5rem ≈ text-2xl). */
+  .arabic-text {
+    font-size: calc(1.5rem * var(--arabic-scale, 1));
+  }
   .safe-bottom {
     padding-bottom: calc(env(safe-area-inset-bottom) + 4.5rem);
   }
