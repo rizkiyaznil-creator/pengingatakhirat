@@ -102,6 +102,7 @@ export interface SyncSnapshot {
   muhasabah: Record<string, MuhasabahEntry> // refleksi malam per tanggal
   reader: QuranReaderState
   rawatibLogs: Record<string, Record<string, boolean>> // dateKey → slotKey → done
+  dzikirLogs: Record<string, Record<string, boolean>> // dateKey → prayer → done (dzikir ba'da sholat)
   doaFav: string[] // id doa Qur'ani yang difavoritkan
   dashboardShortcuts: string[] // id pintasan di "Akses cepat" Beranda
   notif: NotifSettings
@@ -120,6 +121,7 @@ interface State {
   muhasabah: Record<string, MuhasabahEntry>
   reader: QuranReaderState
   rawatibLogs: Record<string, Record<string, boolean>>
+  dzikirLogs: Record<string, Record<string, boolean>>
   doaFav: string[]
   dashboardShortcuts: string[]
   notif: NotifSettings
@@ -137,6 +139,7 @@ interface State {
   setPrayer: (date: string, prayer: PrayerName, status: PrayerStatus) => void
   cyclePrayer: (date: string, prayer: PrayerName) => void
   toggleRawatib: (date: string, key: string) => void
+  toggleDzikirSholat: (date: string, prayer: PrayerName) => void
 
   // actions — habit
   addHabit: (h: Omit<Habit, 'id' | 'order'>) => void
@@ -237,6 +240,7 @@ export const useStore = create<State>()(
       muhasabah: {},
       reader: { bookmarks: [] },
       rawatibLogs: {},
+      dzikirLogs: {},
       doaFav: [],
       dashboardShortcuts: ['sholat', 'habit'],
       notif: { ...DEFAULT_NOTIF },
@@ -279,6 +283,17 @@ export const useStore = create<State>()(
             rawatibLogs: {
               ...s.rawatibLogs,
               [date]: { ...day, [key]: !day[key] },
+            },
+          }
+        }),
+
+      toggleDzikirSholat: (date, prayer) =>
+        set((s) => {
+          const day = s.dzikirLogs[date] ?? {}
+          return {
+            dzikirLogs: {
+              ...s.dzikirLogs,
+              [date]: { ...day, [prayer]: !day[prayer] },
             },
           }
         }),
@@ -445,6 +460,7 @@ export const useStore = create<State>()(
           muhasabah: d.muhasabah ?? {},
           reader: d.reader ?? { bookmarks: [] },
           rawatibLogs: d.rawatibLogs ?? {},
+          dzikirLogs: d.dzikirLogs ?? {},
           doaFav: d.doaFav ?? [],
           dashboardShortcuts: d.dashboardShortcuts ?? ['sholat', 'habit'],
           notif: { ...DEFAULT_NOTIF, ...(d.notif ?? {}) },
@@ -474,6 +490,7 @@ export function defaultSnapshot(): SyncSnapshot {
     muhasabah: {},
     reader: { bookmarks: [] },
     rawatibLogs: {},
+    dzikirLogs: {},
     doaFav: [],
     dashboardShortcuts: ['sholat', 'habit'],
     notif: { ...DEFAULT_NOTIF },
@@ -495,6 +512,7 @@ export function snapshotOf(s: SyncSnapshot): SyncSnapshot {
     muhasabah: s.muhasabah,
     reader: s.reader,
     rawatibLogs: s.rawatibLogs,
+    dzikirLogs: s.dzikirLogs,
     doaFav: s.doaFav,
     dashboardShortcuts: s.dashboardShortcuts,
     notif: s.notif,

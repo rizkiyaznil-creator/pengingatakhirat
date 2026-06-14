@@ -38,6 +38,8 @@ export default function Sholat() {
   const cyclePrayer = useStore((s) => s.cyclePrayer)
   const rawatibLogs = useStore((s) => s.rawatibLogs)
   const toggleRawatib = useStore((s) => s.toggleRawatib)
+  const dzikirLogs = useStore((s) => s.dzikirLogs)
+  const toggleDzikirSholat = useStore((s) => s.toggleDzikirSholat)
   const today = dateKey(now)
 
   const schedule = useMemo(
@@ -55,6 +57,10 @@ export default function Sholat() {
   const rawatibToday = rawatibLogs[today] ?? {}
   const rawatibDone = RAWATIB_KEYS.filter((k) => rawatibToday[k]).length
   const rStreak = rawatibStreak(rawatibLogs, RAWATIB_KEYS, now)
+
+  const dzikirToday = dzikirLogs[today] ?? {}
+  const dzikirDone = PRAYERS.filter((p) => dzikirToday[p]).length
+  const dStreak = rawatibStreak(dzikirLogs, PRAYERS, now)
 
   return (
     <div className="space-y-4">
@@ -117,32 +123,44 @@ export default function Sholat() {
                   <span className={`pill ${style.cls}`}>{style.label}</span>
                 </button>
 
-                {/* Chip rawatib */}
-                {slots.length > 0 && (
-                  <div className="mt-1.5 flex flex-wrap gap-1.5 pl-5">
-                    {slots.map((r) => {
-                      const on = !!rawatibToday[r.key]
-                      return (
-                        <button
-                          key={r.key}
-                          onClick={() => toggleRawatib(today, r.key)}
-                          className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-medium transition active:scale-95 ${
-                            on ? 'bg-ocean-100 text-ocean-600' : 'bg-sand-100 text-ocean-900/45'
-                          }`}
-                        >
-                          <span>{on ? '✓' : '+'}</span>
-                          {r.jenis === 'qobliyah' ? 'Qobliyah' : 'Ba’diyah'}
-                        </button>
-                      )
-                    })}
-                  </div>
-                )}
+                {/* Chip sunnah rawatib & dzikir ba'da sholat */}
+                <div className="mt-1.5 flex flex-wrap gap-1.5 pl-5">
+                  {slots.map((r) => {
+                    const on = !!rawatibToday[r.key]
+                    return (
+                      <button
+                        key={r.key}
+                        onClick={() => toggleRawatib(today, r.key)}
+                        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-medium transition active:scale-95 ${
+                          on ? 'bg-ocean-100 text-ocean-600' : 'bg-sand-100 text-ocean-900/45'
+                        }`}
+                      >
+                        <span>{on ? '✓' : '+'}</span>
+                        {r.jenis === 'qobliyah' ? 'Qobliyah' : 'Ba’diyah'}
+                      </button>
+                    )
+                  })}
+                  {(() => {
+                    const on = !!dzikirToday[p]
+                    return (
+                      <button
+                        onClick={() => toggleDzikirSholat(today, p)}
+                        className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-medium transition active:scale-95 ${
+                          on ? 'bg-clay-400/20 text-clay-600' : 'bg-sand-100 text-ocean-900/45'
+                        }`}
+                      >
+                        <span>{on ? '✓' : '+'}</span>
+                        Dzikir
+                      </button>
+                    )
+                  })()}
+                </div>
               </li>
             )
           })}
         </ul>
         <p className="px-5 py-2.5 text-center text-[11px] text-ocean-900/40">
-          Ketuk sholat untuk ganti status · ketuk chip untuk catat sunnah rawatib
+          Ketuk sholat untuk ganti status · ketuk chip untuk catat rawatib & dzikir
         </p>
       </div>
 
@@ -156,6 +174,20 @@ export default function Sholat() {
           <p className="text-xs text-ocean-900/55">
             {rawatibDone === RAWATIB_TOTAL ? 'Lengkap, masyaAllah! 🌿' : `${RAWATIB_TOTAL - rawatibDone} sunnah lagi`}
             {rStreak > 0 && ` · streak ${rStreak} hari`}
+          </p>
+        </div>
+      </div>
+
+      {/* Ringkasan dzikir ba'da sholat */}
+      <div className="card flex items-center gap-3 px-5 py-4">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-clay-400/20 text-base font-bold text-clay-600">
+          {dzikirDone}/5
+        </div>
+        <div className="flex-1">
+          <p className="font-semibold leading-tight">Dzikir setelah sholat</p>
+          <p className="text-xs text-ocean-900/55">
+            {dzikirDone === 5 ? 'Lengkap, masyaAllah! 📿' : `${5 - dzikirDone} sholat lagi`}
+            {dStreak > 0 && ` · streak ${dStreak} hari`}
           </p>
         </div>
       </div>

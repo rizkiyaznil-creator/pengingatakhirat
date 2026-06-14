@@ -6,13 +6,14 @@ import Hafalan from './Hafalan'
 import Muhasabah from './Muhasabah'
 import DoaQurani from './DoaQurani'
 import Dzikir from './Dzikir'
+import DzikirSholat from './DzikirSholat'
 import Kalender from './Kalender'
 import AsmaulHusna from './AsmaulHusna'
 import HaditsArbain from './HaditsArbain'
 import { ChevronRight } from '../components/icons'
 import { useBackable } from '../lib/navStack'
 
-type Sub = 'baca' | 'quran' | 'hafalan' | 'muhasabah' | 'doa' | 'dzikir' | 'kalender' | 'asma' | 'hadits'
+type Sub = 'baca' | 'quran' | 'hafalan' | 'muhasabah' | 'doa' | 'dzikir' | 'dzikirsholat' | 'kalender' | 'asma' | 'hadits'
 
 const MENU: { id: Sub; icon: string; title: string; sub: string }[] = [
   { id: 'baca', icon: '📕', title: 'Baca Al-Qur’an', sub: '114 surah · audio · penanda' },
@@ -20,6 +21,7 @@ const MENU: { id: Sub; icon: string; title: string; sub: string }[] = [
   { id: 'hafalan', icon: '🧠', title: 'Hafalan Qur’an', sub: 'Sabaq–Sabqi–Manzil + talqin' },
   { id: 'doa', icon: '🤲', title: 'Doa dari Al-Qur’an', sub: '36 doa pilihan · teks dari mushaf' },
   { id: 'dzikir', icon: '🌅', title: 'Dzikir Pagi & Petang', sub: 'Dzikir masyhur + penghitung' },
+  { id: 'dzikirsholat', icon: '📿', title: 'Dzikir Setelah Sholat', sub: 'Bacaan ba’da sholat fardhu' },
   { id: 'muhasabah', icon: '🌙', title: 'Muhasabah Malam', sub: 'Refleksi & heatmap mood' },
   { id: 'kalender', icon: '🗓️', title: 'Kalender Hijriah', sub: 'Tanggal Hijriah & puasa sunnah' },
   { id: 'asma', icon: '✨', title: '99 Asmaul Husna', sub: 'Nama-nama indah Allah' },
@@ -45,6 +47,7 @@ export default function More() {
         {sub === 'hafalan' && <Hafalan />}
         {sub === 'doa' && <DoaQurani />}
         {sub === 'dzikir' && <Dzikir />}
+        {sub === 'dzikirsholat' && <DzikirSholat />}
         {sub === 'muhasabah' && <Muhasabah />}
         {sub === 'kalender' && <Kalender />}
         {sub === 'asma' && <AsmaulHusna />}
