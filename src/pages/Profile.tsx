@@ -10,6 +10,7 @@ import { LocationIcon } from '../components/icons'
 import AccountCard from '../components/AccountCard'
 import InstallCard from '../components/InstallCard'
 import NotifCard from '../components/NotifCard'
+import ShareCard from '../components/ShareCard'
 import type { ThemeMode } from '../store/useStore'
 
 const THEME_OPTS: { id: ThemeMode; label: string; icon: string }[] = [
@@ -125,6 +126,8 @@ export default function Profile() {
           <p className="mt-1 text-sm text-ocean-900/70">Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang.</p>
         </div>
       </div>
+
+      <ShareCard />
 
       <AccountCard />
 
