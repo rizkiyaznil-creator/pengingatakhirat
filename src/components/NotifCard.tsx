@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useStore } from '../store/useStore'
 import { PRAYERS, PRAYER_LABEL, type PrayerName } from '../lib/prayer'
 import { isCloudEnabled } from '../lib/supabase'
+import { ADZAN_PRESETS, previewAdzan, stopPreview } from '../lib/adzan'
 import {
   pushSupported,
   enableAdzanPush,
@@ -18,6 +19,31 @@ export default function NotifCard() {
   const setNotif = useStore((s) => s.setNotif)
   const [busy, setBusy] = useState(false)
   const [msg, setMsg] = useState('')
+  const [preview, setPreview] = useState(false)
+
+  const isCustomUrl =
+    !!notif.adzanUrl && !ADZAN_PRESETS.some((p) => p.url === notif.adzanUrl)
+
+  function pickPreset(url: string) {
+    setNotif({ adzanUrl: url })
+    if (notif.enabled) void syncSubscription()
+  }
+
+  async function doPreview() {
+    if (preview) {
+      stopPreview()
+      setPreview(false)
+      return
+    }
+    setMsg('')
+    setPreview(true)
+    try {
+      await previewAdzan(notif.adzanUrl, () => setPreview(false))
+    } catch {
+      setPreview(false)
+      setMsg('Audio tidak bisa diputar. Cek URL atau pakai nada bawaan.')
+    }
+  }
 
   async function toggleEnabled() {
     setMsg('')
@@ -147,13 +173,47 @@ export default function NotifCard() {
               className="h-5 w-5 accent-ocean-700"
             />
           </label>
+
           {notif.sound && (
-            <input
-              value={notif.adzanUrl}
-              onChange={(e) => setNotif({ adzanUrl: e.target.value.trim() })}
-              placeholder="URL audio adzan (opsional) — kosongkan untuk nada bawaan"
-              className="w-full rounded-xl border border-sand-200 bg-sand-50 px-3 py-2.5 text-xs outline-none focus:border-ocean-400"
-            />
+            <div className="space-y-2.5">
+              <p className="text-xs font-semibold text-ocean-900/60">Suara adzan</p>
+              <div className="flex flex-wrap gap-1.5">
+                {ADZAN_PRESETS.map((p) => {
+                  const on = notif.adzanUrl === p.url
+                  return (
+                    <button
+                      key={p.id}
+                      onClick={() => pickPreset(p.url)}
+                      className={`rounded-full px-3 py-1.5 text-xs font-semibold transition ${
+                        on ? 'bg-ocean-100 text-ocean-600' : 'bg-sand-200 text-ocean-900/45'
+                      }`}
+                    >
+                      {on ? '✓ ' : ''}
+                      {p.label}
+                    </button>
+                  )
+                })}
+                {isCustomUrl && (
+                  <span className="rounded-full bg-ocean-100 px-3 py-1.5 text-xs font-semibold text-ocean-600">
+                    ✓ URL sendiri
+                  </span>
+                )}
+              </div>
+
+              <button
+                onClick={doPreview}
+                className="rounded-xl border border-ocean-300 bg-ocean-50 px-3 py-1.5 text-xs font-semibold text-ocean-600 transition active:scale-[0.98]"
+              >
+                {preview ? '■ Hentikan' : '▶︎ Dengar'}
+              </button>
+
+              <input
+                value={notif.adzanUrl}
+                onChange={(e) => setNotif({ adzanUrl: e.target.value.trim() })}
+                placeholder="atau tempel URL audio adzan sendiri (.mp3)"
+                className="w-full rounded-xl border border-sand-200 bg-sand-50 px-3 py-2.5 text-xs outline-none focus:border-ocean-400"
+              />
+            </div>
           )}
 
           {!isCloudEnabled && (

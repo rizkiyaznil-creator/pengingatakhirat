@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { useStore } from '../store/useStore'
 import { getSchedule, PRAYERS, PRAYER_LABEL, type PrayerName } from './prayer'
 import { dateKey, jam } from './date'
+import { playAdzan } from './adzan'
 
 export interface AdzanAlert {
   prayer: PrayerName
@@ -54,40 +55,4 @@ export function useAdzanForeground(): { alert: AdzanAlert | null; dismiss: () =>
   ])
 
   return { alert, dismiss: () => setAlert(null) }
-}
-
-function playAdzan(sound: boolean, url: string) {
-  if (!sound) return
-  if (url) {
-    const a = new Audio(url)
-    a.play().catch(() => chime())
-  } else {
-    chime()
-  }
-}
-
-// Nada panggilan singkat (tanpa berkas) bila tak ada URL audio adzan.
-function chime() {
-  try {
-    const Ctx = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext
-    const ctx = new Ctx()
-    const notes = [523.25, 659.25, 783.99, 659.25] // C-E-G-E
-    notes.forEach((f, i) => {
-      const o = ctx.createOscillator()
-      const g = ctx.createGain()
-      o.type = 'sine'
-      o.frequency.value = f
-      o.connect(g)
-      g.connect(ctx.destination)
-      const start = ctx.currentTime + i * 0.28
-      g.gain.setValueAtTime(0.0001, start)
-      g.gain.exponentialRampToValueAtTime(0.25, start + 0.04)
-      g.gain.exponentialRampToValueAtTime(0.0001, start + 0.26)
-      o.start(start)
-      o.stop(start + 0.28)
-    })
-    setTimeout(() => ctx.close(), 1600)
-  } catch {
-    /* audio diblokir — abaikan */
-  }
 }
