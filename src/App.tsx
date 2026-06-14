@@ -6,6 +6,7 @@ import { useAdzanForeground } from './lib/useAdzanForeground'
 import { isCloudEnabled } from './lib/supabase'
 import BottomNav from './components/BottomNav'
 import AdzanBanner from './components/AdzanBanner'
+import GenderGate from './components/GenderGate'
 import Onboarding from './pages/Onboarding'
 import AuthScreen from './pages/AuthScreen'
 import Dashboard from './pages/Dashboard'
@@ -18,6 +19,7 @@ export default function App() {
   useTheme()
   useDisplayScale()
   const onboarded = useStore((s) => s.profile.onboarded)
+  const gender = useStore((s) => s.profile.gender)
   const ready = useAuth((s) => s.ready)
   const user = useAuth((s) => s.user)
   const tab = useUi((s) => s.tab)
@@ -43,6 +45,7 @@ export default function App() {
         {tab === 'profil' && <Profile />}
       </main>
       <BottomNav active={tab} onChange={setTab} />
+      {!gender && <GenderGate />}
     </div>
   )
 }

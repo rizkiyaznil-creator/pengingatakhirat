@@ -119,7 +119,16 @@ export default function Onboarding() {
         ))}
       </select>
 
-      <button onClick={finish} className="btn-primary mt-auto text-lg">
+      {!gender && (
+        <p className="mb-2 mt-auto text-center text-xs text-clay-600">
+          Pilih jenis kelamin dulu untuk melanjutkan.
+        </p>
+      )}
+      <button
+        onClick={finish}
+        disabled={!gender}
+        className={`btn-primary text-lg disabled:opacity-50 ${gender ? 'mt-auto' : ''}`}
+      >
         Mulai catat amal hari ini
       </button>
     </div>
