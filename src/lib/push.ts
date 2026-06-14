@@ -99,6 +99,23 @@ export async function disableAdzanPush() {
   }
 }
 
+// Minta server (Edge Function) mengirim push ke perangkat ini — uji jalur lengkap.
+export async function testServerPush(): Promise<string | null> {
+  if (!isCloudEnabled || !supabase) return 'Server cloud belum aktif.'
+  try {
+    const { data, error } = await supabase.functions.invoke('send-adzan', {
+      body: { test: true },
+    })
+    if (error) return error.message || 'Gagal memanggil server push.'
+    const tested = (data as { tested?: number } | null)?.tested ?? 0
+    if (tested === 0)
+      return 'Server jalan, tapi belum ada langganan. Aktifkan notifikasi dulu, lalu coba lagi.'
+    return null
+  } catch (e) {
+    return e instanceof Error ? e.message : 'Gagal memanggil server push.'
+  }
+}
+
 // Tampilkan notifikasi uji lokal (tanpa server) untuk memastikan izin & SW jalan.
 export async function testNotification(): Promise<string | null> {
   if (!pushSupported) return 'Perangkat/browser ini tidak mendukung notifikasi.'

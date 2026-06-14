@@ -8,6 +8,7 @@ import {
   disableAdzanPush,
   syncSubscription,
   testNotification,
+  testServerPush,
 } from '../lib/push'
 
 const MINUTES = [0, 5, 10, 15]
@@ -52,6 +53,14 @@ export default function NotifCard() {
     setMsg('')
     const err = await testNotification()
     if (err) setMsg(err)
+  }
+
+  async function doServerTest() {
+    setMsg('')
+    setBusy(true)
+    const err = await testServerPush()
+    setBusy(false)
+    setMsg(err ?? 'Push dari server terkirim ✓ Tunggu notifikasinya.')
   }
 
   return (
@@ -161,6 +170,16 @@ export default function NotifCard() {
           className="mt-4 w-full rounded-2xl border border-ocean-300 bg-ocean-50 py-2.5 text-sm font-semibold text-ocean-600 transition active:scale-[0.98]"
         >
           Kirim notifikasi uji
+        </button>
+      )}
+
+      {pushSupported && isCloudEnabled && notif.enabled && (
+        <button
+          onClick={doServerTest}
+          disabled={busy}
+          className="mt-2 w-full rounded-2xl border border-ocean-700 bg-ocean-700 py-2.5 text-sm font-semibold text-white transition active:scale-[0.98] disabled:opacity-50"
+        >
+          Tes push server
         </button>
       )}
 
