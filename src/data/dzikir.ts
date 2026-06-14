@@ -193,4 +193,16 @@ export const DZIKIR: Dzikir[] = [
     catatan: 'Diajarkan Nabi ﷺ kepada Abu Bakar: dibaca pagi, petang, dan menjelang tidur. HR. Al-Bukhari (Al-Adabul Mufrad 1202), at-Tirmidzi no. 3392 — shahih.',
     waktu: 'both',
   },
+  {
+    no: 17,
+    judul: 'Doa Fitrah (Pagi)',
+    arab: 'أَصْبَحْنَا عَلَى فِطْرَةِ الْإِسْلَامِ وَعَلَى كَلِمَةِ الْإِخْلَاصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ حَنِيفًا مُسْلِمًا وَمَا كَانَ مِنَ الْمُشْرِكِينَ',
+    latin:
+      'Aṣbaḥnā ‘alā fiṭratil-islām, wa ‘alā kalimatil-ikhlāṣ, wa ‘alā dīni nabiyyinā Muḥammadin ṣallallāhu ‘alaihi wa sallam, wa ‘alā millati abīnā Ibrāhīma ḥanīfan musliman wa mā kāna minal-musyrikīn.',
+    arti:
+      'Di waktu pagi kami berada di atas fitrah agama Islam, kalimat ikhlas, agama Nabi kita Muhammad ﷺ, dan agama ayah kami Ibrahim, yang lurus, muslim, dan tidak tergolong orang-orang musyrik.',
+    ulang: 1,
+    catatan: 'HR. Ahmad III/406–407, ad-Darimi II/292, dan Ibnus Sunni dalam Amalul Yaum wal Lailah no. 34 — shahih.',
+    waktu: 'pagi',
+  },
 ]
