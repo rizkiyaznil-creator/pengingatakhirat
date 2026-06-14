@@ -18,13 +18,16 @@ export interface DayScore {
 }
 
 // Hitung skor satu hari. activeHabits = habit yang tidak diarsipkan.
+// haid[key] = hari libur sholat (haid): sholat dikecualikan dari skor (tidak dianggap gagal).
 export function dayScore(
   key: string,
   prayerLogs: PrayerLogs,
   habitLogs: HabitLogs,
   habits: Habit[],
+  haid: Record<string, boolean> = {},
 ): DayScore {
   const pl = prayerLogs[key] ?? {}
+  const isHaid = !!haid[key]
   let prayersDone = 0
   let prayersOnTime = 0
   for (const p of PRAYERS) {
@@ -40,8 +43,8 @@ export function dayScore(
     if (isHabitDone(h, v)) habitsDone++
   }
 
-  const itemsDone = prayersDone + habitsDone
-  const itemsTotal = PRAYERS.length + active.length
+  const itemsDone = (isHaid ? 0 : prayersDone) + habitsDone
+  const itemsTotal = (isHaid ? 0 : PRAYERS.length) + active.length
   return {
     key,
     prayersDone,
@@ -62,13 +65,17 @@ export function overallStreak(
   habitLogs: HabitLogs,
   habits: Habit[],
   today = new Date(),
+  haid: Record<string, boolean> = {},
 ): number {
   let streak = 0
   for (let i = 0; i < 400; i++) {
     const d = addDays(today, -i)
     const key = dateKey(d)
-    const s = dayScore(key, prayerLogs, habitLogs, habits)
-    if (s.ratio >= STREAK_THRESHOLD) {
+    const s = dayScore(key, prayerLogs, habitLogs, habits, haid)
+    if (s.itemsTotal === 0) {
+      // hari libur (haid) tanpa habit aktif — lewati, jangan putus streak
+      continue
+    } else if (s.ratio >= STREAK_THRESHOLD) {
       streak++
     } else if (i === 0) {
       // hari ini belum tercapai — jangan putus, lanjut cek kemarin
@@ -102,10 +109,11 @@ export function habitStreak(
 }
 
 // Streak khusus sholat 5 waktu (semua 5 tercatat non-pending).
-export function prayerStreak(prayerLogs: PrayerLogs, today = new Date()): number {
+export function prayerStreak(prayerLogs: PrayerLogs, today = new Date(), haid: Record<string, boolean> = {}): number {
   let streak = 0
   for (let i = 0; i < 400; i++) {
     const key = dateKey(addDays(today, -i))
+    if (haid[key]) continue // hari libur (haid) — lewati, tidak memutus streak
     const pl = prayerLogs[key] ?? {}
     const all = PRAYERS.every((p) => pl[p] && pl[p] !== 'pending')
     if (all) streak++
@@ -140,14 +148,18 @@ export function consistency(
   habitLogs: HabitLogs,
   habits: Habit[],
   end = new Date(),
+  haid: Record<string, boolean> = {},
 ): number {
   const keys = lastNDays(n, end)
-  if (keys.length === 0) return 0
-  const sum = keys.reduce(
-    (acc, k) => acc + dayScore(k, prayerLogs, habitLogs, habits).ratio,
-    0,
-  )
-  return Math.round((sum / keys.length) * 100)
+  let sum = 0
+  let count = 0
+  for (const k of keys) {
+    const s = dayScore(k, prayerLogs, habitLogs, habits, haid)
+    if (s.itemsTotal === 0) continue // hari libur (haid) tanpa habit — tak dihitung
+    sum += s.ratio
+    count++
+  }
+  return count === 0 ? 0 : Math.round((sum / count) * 100)
 }
 
 // Tren 7 hari terakhir untuk bar chart.
@@ -163,9 +175,10 @@ export function trend7(
   habitLogs: HabitLogs,
   habits: Habit[],
   end = new Date(),
+  haid: Record<string, boolean> = {},
 ): TrendPoint[] {
   return lastNDays(7, end).map((k) => {
-    const s = dayScore(k, prayerLogs, habitLogs, habits)
+    const s = dayScore(k, prayerLogs, habitLogs, habits, haid)
     return { key: k, label: namaHari(fromKey(k), true), done: s.itemsDone, total: s.itemsTotal }
   })
 }

@@ -40,7 +40,11 @@ export default function Sholat() {
   const toggleRawatib = useStore((s) => s.toggleRawatib)
   const dzikirLogs = useStore((s) => s.dzikirLogs)
   const toggleDzikirSholat = useStore((s) => s.toggleDzikirSholat)
+  const haidLogs = useStore((s) => s.haidLogs)
+  const toggleHaid = useStore((s) => s.toggleHaid)
   const today = dateKey(now)
+  const isFemale = profile.gender === 'female'
+  const isHaidToday = isFemale && !!haidLogs[today]
 
   const schedule = useMemo(
     () => getSchedule(profile.lat, profile.lng, profile.method, profile.madhab, now),
@@ -52,7 +56,7 @@ export default function Sholat() {
   const onTime = PRAYERS.filter((p) => log[p] === 'ontime').length
   const onTimeRate = done === 0 ? 0 : Math.round((onTime / done) * 100)
   const qadhaCount = PRAYERS.filter((p) => log[p] === 'qadha').length
-  const streak = prayerStreak(prayerLogs, now)
+  const streak = prayerStreak(prayerLogs, now, haidLogs)
 
   const rawatibToday = rawatibLogs[today] ?? {}
   const rawatibDone = RAWATIB_KEYS.filter((k) => rawatibToday[k]).length
@@ -69,29 +73,69 @@ export default function Sholat() {
         <p className="text-sm text-ocean-900/60">{tanggalPanjang(now)}</p>
       </header>
 
+      {/* Penanda haid (khusus perempuan) */}
+      {isFemale && (
+        <div className="card flex items-center gap-3 px-5 py-4">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-clay-400/20 text-xl">
+            🌸
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="font-semibold leading-tight">Sedang haid</p>
+            <p className="text-xs text-ocean-900/55">
+              {isHaidToday ? 'Hari ini libur sholat — tidak dicatat & tidak qadha' : 'Aktifkan saat sedang haid'}
+            </p>
+          </div>
+          <button
+            onClick={() => toggleHaid(today)}
+            className={`relative h-7 w-12 shrink-0 rounded-full transition ${
+              isHaidToday ? 'bg-clay-500' : 'bg-sand-300'
+            }`}
+            aria-label="Tandai sedang haid"
+          >
+            <span
+              className={`absolute top-0.5 h-6 w-6 rounded-full bg-white transition-all ${
+                isHaidToday ? 'left-[1.4rem]' : 'left-0.5'
+              }`}
+            />
+          </button>
+        </div>
+      )}
+
       {/* Kartu ringkasan hari ini */}
       <div className="card overflow-hidden">
-        <div className="bg-ocean-700 px-5 py-4 text-white">
-          <div className="flex items-end justify-between">
-            <div>
+        <div className={`px-5 py-4 text-white ${isHaidToday ? 'bg-clay-500' : 'bg-ocean-700'}`}>
+          {isHaidToday ? (
+            <div className="py-1">
               <p className="text-xs uppercase tracking-wide text-white/70">Hari ini</p>
-              <p className="text-3xl font-bold">
-                {done}
-                <span className="text-lg font-medium text-white/70">/5 sholat</span>
+              <p className="text-2xl font-bold">Libur sholat 🌸</p>
+              <p className="mt-0.5 text-sm text-white/85">
+                Sedang haid — sholat tidak wajib dan tidak diqadha. Catatan tersimpan di laporan haid.
               </p>
             </div>
-            <div className="text-right">
-              <p className="text-xs text-white/70">On-time rate</p>
-              <p className="text-2xl font-bold">{onTimeRate}%</p>
-            </div>
-          </div>
-          {schedule.next && (
-            <div className="mt-3 flex items-center justify-between rounded-xl bg-ocean-800/60 px-3 py-2 text-sm">
-              <span className="text-white/80">
-                Berikutnya: <b>{PRAYER_LABEL[schedule.next]}</b> {jam(schedule.nextTime!)}
-              </span>
-              <span className="font-semibold">{countdown(schedule.nextTime, now)}</span>
-            </div>
+          ) : (
+            <>
+              <div className="flex items-end justify-between">
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-white/70">Hari ini</p>
+                  <p className="text-3xl font-bold">
+                    {done}
+                    <span className="text-lg font-medium text-white/70">/5 sholat</span>
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-xs text-white/70">On-time rate</p>
+                  <p className="text-2xl font-bold">{onTimeRate}%</p>
+                </div>
+              </div>
+              {schedule.next && (
+                <div className="mt-3 flex items-center justify-between rounded-xl bg-ocean-800/60 px-3 py-2 text-sm">
+                  <span className="text-white/80">
+                    Berikutnya: <b>{PRAYER_LABEL[schedule.next]}</b> {jam(schedule.nextTime!)}
+                  </span>
+                  <span className="font-semibold">{countdown(schedule.nextTime, now)}</span>
+                </div>
+              )}
+            </>
           )}
         </div>
 
@@ -104,6 +148,17 @@ export default function Sholat() {
             const slots = RAWATIB_BY_PRAYER[p]
             return (
               <li key={p} className="px-5 py-2.5">
+                {isHaidToday ? (
+                  <div className="flex w-full items-center gap-3 py-1 opacity-70">
+                    <span className="h-2.5 w-2.5 rounded-full bg-clay-400" />
+                    <div className="flex-1">
+                      <p className="font-semibold leading-tight">{PRAYER_LABEL[p]}</p>
+                      <p className="text-xs text-ocean-900/50">{jam(schedule.times[p])}</p>
+                    </div>
+                    <span className="pill bg-clay-400/20 text-clay-600">Libur</span>
+                  </div>
+                ) : (
+                <>
                 <button
                   onClick={() => cyclePrayer(today, p)}
                   className="flex w-full items-center gap-3 rounded-xl py-1 text-left transition active:bg-sand-100"
@@ -155,6 +210,8 @@ export default function Sholat() {
                     )
                   })()}
                 </div>
+                </>
+                )}
               </li>
             )
           })}
@@ -164,33 +221,37 @@ export default function Sholat() {
         </p>
       </div>
 
-      {/* Ringkasan rawatib */}
-      <div className="card flex items-center gap-3 px-5 py-4">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ocean-100 text-base font-bold text-ocean-600">
-          {rawatibDone}/{RAWATIB_TOTAL}
-        </div>
-        <div className="flex-1">
-          <p className="font-semibold leading-tight">Sunnah rawatib hari ini</p>
-          <p className="text-xs text-ocean-900/55">
-            {rawatibDone === RAWATIB_TOTAL ? 'Lengkap, masyaAllah! 🌿' : `${RAWATIB_TOTAL - rawatibDone} sunnah lagi`}
-            {rStreak > 0 && ` · streak ${rStreak} hari`}
-          </p>
-        </div>
-      </div>
+      {!isHaidToday && (
+        <>
+          {/* Ringkasan rawatib */}
+          <div className="card flex items-center gap-3 px-5 py-4">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-ocean-100 text-base font-bold text-ocean-600">
+              {rawatibDone}/{RAWATIB_TOTAL}
+            </div>
+            <div className="flex-1">
+              <p className="font-semibold leading-tight">Sunnah rawatib hari ini</p>
+              <p className="text-xs text-ocean-900/55">
+                {rawatibDone === RAWATIB_TOTAL ? 'Lengkap, masyaAllah! 🌿' : `${RAWATIB_TOTAL - rawatibDone} sunnah lagi`}
+                {rStreak > 0 && ` · streak ${rStreak} hari`}
+              </p>
+            </div>
+          </div>
 
-      {/* Ringkasan dzikir ba'da sholat */}
-      <div className="card flex items-center gap-3 px-5 py-4">
-        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-clay-400/20 text-base font-bold text-clay-600">
-          {dzikirDone}/5
-        </div>
-        <div className="flex-1">
-          <p className="font-semibold leading-tight">Dzikir setelah sholat</p>
-          <p className="text-xs text-ocean-900/55">
-            {dzikirDone === 5 ? 'Lengkap, masyaAllah! 📿' : `${5 - dzikirDone} sholat lagi`}
-            {dStreak > 0 && ` · streak ${dStreak} hari`}
-          </p>
-        </div>
-      </div>
+          {/* Ringkasan dzikir ba'da sholat */}
+          <div className="card flex items-center gap-3 px-5 py-4">
+            <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-clay-400/20 text-base font-bold text-clay-600">
+              {dzikirDone}/5
+            </div>
+            <div className="flex-1">
+              <p className="font-semibold leading-tight">Dzikir setelah sholat</p>
+              <p className="text-xs text-ocean-900/55">
+                {dzikirDone === 5 ? 'Lengkap, masyaAllah! 📿' : `${5 - dzikirDone} sholat lagi`}
+                {dStreak > 0 && ` · streak ${dStreak} hari`}
+              </p>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Statistik kecil */}
       <div className="grid grid-cols-2 gap-3">

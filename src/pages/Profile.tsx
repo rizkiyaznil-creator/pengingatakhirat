@@ -135,13 +135,32 @@ export default function Profile() {
 
       <NotifCard />
 
-      <div className="card px-5 py-5">
-        <label className="mb-1.5 block text-sm font-semibold">Nama panggilan</label>
-        <input
-          value={profile.name}
-          onChange={(e) => setProfile({ name: e.target.value })}
-          className="w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3 outline-none focus:border-ocean-400"
-        />
+      <div className="card space-y-4 px-5 py-5">
+        <div>
+          <label className="mb-1.5 block text-sm font-semibold">Nama panggilan</label>
+          <input
+            value={profile.name}
+            onChange={(e) => setProfile({ name: e.target.value })}
+            className="w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3 outline-none focus:border-ocean-400"
+          />
+        </div>
+        <div>
+          <label className="mb-1.5 block text-sm font-semibold">Jenis kelamin</label>
+          <div className="grid grid-cols-2 gap-2">
+            {([['male', 'Laki-laki', '👨'], ['female', 'Perempuan', '👩']] as const).map(([g, label, icon]) => (
+              <button
+                key={g}
+                onClick={() => setProfile({ gender: g })}
+                className={`flex items-center justify-center gap-2 rounded-2xl py-3 text-sm font-semibold transition ${
+                  profile.gender === g ? 'bg-ocean-700 text-white' : 'bg-sand-50 text-ocean-900/60 ring-1 ring-sand-200'
+                }`}
+              >
+                <span className="text-lg">{icon}</span>
+                {label}
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
 
       <div className="card space-y-4 px-5 py-5">

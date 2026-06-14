@@ -22,6 +22,8 @@ export interface Habit {
   archived?: boolean
 }
 
+export type Gender = 'male' | 'female'
+
 export interface Profile {
   name: string
   city: string
@@ -29,6 +31,7 @@ export interface Profile {
   lng: number
   method: MethodKey
   madhab: MadhabKey
+  gender?: Gender // jenis kelamin (opsional; fitur haid hanya untuk 'female')
   onboarded: boolean
 }
 
@@ -103,6 +106,7 @@ export interface SyncSnapshot {
   reader: QuranReaderState
   rawatibLogs: Record<string, Record<string, boolean>> // dateKey → slotKey → done
   dzikirLogs: Record<string, Record<string, boolean>> // dateKey → prayer → done (dzikir ba'da sholat)
+  haidLogs: Record<string, boolean> // dateKey → true (hari haid, libur sholat)
   doaFav: string[] // id doa Qur'ani yang difavoritkan
   dashboardShortcuts: string[] // id pintasan di "Akses cepat" Beranda
   notif: NotifSettings
@@ -122,6 +126,7 @@ interface State {
   reader: QuranReaderState
   rawatibLogs: Record<string, Record<string, boolean>>
   dzikirLogs: Record<string, Record<string, boolean>>
+  haidLogs: Record<string, boolean>
   doaFav: string[]
   dashboardShortcuts: string[]
   notif: NotifSettings
@@ -140,6 +145,7 @@ interface State {
   cyclePrayer: (date: string, prayer: PrayerName) => void
   toggleRawatib: (date: string, key: string) => void
   toggleDzikirSholat: (date: string, prayer: PrayerName) => void
+  toggleHaid: (date: string) => void
 
   // actions — habit
   addHabit: (h: Omit<Habit, 'id' | 'order'>) => void
@@ -241,6 +247,7 @@ export const useStore = create<State>()(
       reader: { bookmarks: [] },
       rawatibLogs: {},
       dzikirLogs: {},
+      haidLogs: {},
       doaFav: [],
       dashboardShortcuts: ['sholat', 'habit'],
       notif: { ...DEFAULT_NOTIF },
@@ -296,6 +303,14 @@ export const useStore = create<State>()(
               [date]: { ...day, [prayer]: !day[prayer] },
             },
           }
+        }),
+
+      toggleHaid: (date) =>
+        set((s) => {
+          const next = { ...s.haidLogs }
+          if (next[date]) delete next[date]
+          else next[date] = true
+          return { haidLogs: next }
         }),
 
       addHabit: (h) =>
@@ -461,6 +476,7 @@ export const useStore = create<State>()(
           reader: d.reader ?? { bookmarks: [] },
           rawatibLogs: d.rawatibLogs ?? {},
           dzikirLogs: d.dzikirLogs ?? {},
+          haidLogs: d.haidLogs ?? {},
           doaFav: d.doaFav ?? [],
           dashboardShortcuts: d.dashboardShortcuts ?? ['sholat', 'habit'],
           notif: { ...DEFAULT_NOTIF, ...(d.notif ?? {}) },
@@ -491,6 +507,7 @@ export function defaultSnapshot(): SyncSnapshot {
     reader: { bookmarks: [] },
     rawatibLogs: {},
     dzikirLogs: {},
+    haidLogs: {},
     doaFav: [],
     dashboardShortcuts: ['sholat', 'habit'],
     notif: { ...DEFAULT_NOTIF },
@@ -513,6 +530,7 @@ export function snapshotOf(s: SyncSnapshot): SyncSnapshot {
     reader: s.reader,
     rawatibLogs: s.rawatibLogs,
     dzikirLogs: s.dzikirLogs,
+    haidLogs: s.haidLogs,
     doaFav: s.doaFav,
     dashboardShortcuts: s.dashboardShortcuts,
     notif: s.notif,

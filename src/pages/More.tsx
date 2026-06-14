@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useUi } from '../lib/useUi'
+import { useStore } from '../store/useStore'
 import Quran from './Quran'
 import QuranReader from './QuranReader'
 import Hafalan from './Hafalan'
@@ -10,12 +11,13 @@ import DzikirSholat from './DzikirSholat'
 import Kalender from './Kalender'
 import AsmaulHusna from './AsmaulHusna'
 import HaditsArbain from './HaditsArbain'
+import HaidReport from './HaidReport'
 import { ChevronRight } from '../components/icons'
 import { useBackable } from '../lib/navStack'
 
-type Sub = 'baca' | 'quran' | 'hafalan' | 'muhasabah' | 'doa' | 'dzikir' | 'dzikirsholat' | 'kalender' | 'asma' | 'hadits'
+type Sub = 'baca' | 'quran' | 'hafalan' | 'muhasabah' | 'doa' | 'dzikir' | 'dzikirsholat' | 'kalender' | 'asma' | 'hadits' | 'haid'
 
-const MENU: { id: Sub; icon: string; title: string; sub: string }[] = [
+const MENU: { id: Sub; icon: string; title: string; sub: string; femaleOnly?: boolean }[] = [
   { id: 'baca', icon: '📕', title: 'Baca Al-Qur’an', sub: '114 surah · audio · penanda' },
   { id: 'quran', icon: '📖', title: 'Khatam Qur’an', sub: 'Target & progres bacaan' },
   { id: 'hafalan', icon: '🧠', title: 'Hafalan Qur’an', sub: 'Sabaq–Sabqi–Manzil + talqin' },
@@ -26,10 +28,13 @@ const MENU: { id: Sub; icon: string; title: string; sub: string }[] = [
   { id: 'kalender', icon: '🗓️', title: 'Kalender Hijriah', sub: 'Tanggal Hijriah & puasa sunnah' },
   { id: 'asma', icon: '✨', title: '99 Asmaul Husna', sub: 'Nama-nama indah Allah' },
   { id: 'hadits', icon: '📜', title: 'Hadits Arba’in', sub: '42 hadits Imam An-Nawawi' },
+  { id: 'haid', icon: '🌸', title: 'Catatan Haid', sub: 'Pencatatan & pola siklus', femaleOnly: true },
 ]
 
 export default function More() {
   const [sub, setSub] = useState<Sub | null>(null)
+  const isFemale = useStore((s) => s.profile.gender === 'female')
+  const menu = MENU.filter((m) => !m.femaleOnly || isFemale)
   const consumeSub = useUi((s) => s.consumeSub)
   // Buka modul yang diminta lewat pintasan Beranda.
   useEffect(() => {
@@ -52,6 +57,7 @@ export default function More() {
         {sub === 'kalender' && <Kalender />}
         {sub === 'asma' && <AsmaulHusna />}
         {sub === 'hadits' && <HaditsArbain />}
+        {sub === 'haid' && <HaidReport />}
       </div>
     )
   }
@@ -65,7 +71,7 @@ export default function More() {
 
       <div className="card overflow-hidden">
         <ul className="divide-y divide-sand-200">
-          {MENU.map((m) => (
+          {menu.map((m) => (
             <li key={m.id}>
               <button
                 onClick={() => setSub(m.id)}

@@ -10,6 +10,7 @@ import {
   habitStreak,
   trend7,
 } from '../lib/stats'
+import { haidSummary } from '../lib/haid'
 import { FlameIcon, TrendUpIcon, PlusIcon } from '../components/icons'
 import { SHORTCUTS, SHORTCUT_BY_ID, type Shortcut } from '../lib/shortcuts'
 import { useBackable, navBack } from '../lib/navStack'
@@ -29,9 +30,12 @@ export default function Dashboard() {
   const prayerLogs = useStore((s) => s.prayerLogs)
   const habitLogs = useStore((s) => s.habitLogs)
   const habits = useStore((s) => s.habits)
+  const haidLogs = useStore((s) => s.haidLogs)
   const shortcutIds = useStore((s) => s.dashboardShortcuts)
   const setTab = useUi((s) => s.setTab)
   const goSub = useUi((s) => s.goSub)
+  const isFemale = profile.gender === 'female'
+  const haid = useMemo(() => haidSummary(haidLogs, now), [haidLogs, now])
   const [editing, setEditing] = useState(false)
   useBackable(editing, () => setEditing(false))
 
@@ -43,17 +47,17 @@ export default function Dashboard() {
   const shortcuts = shortcutIds.map((id) => SHORTCUT_BY_ID[id]).filter(Boolean) as Shortcut[]
 
   const stats = useMemo(() => {
-    const cur = consistency(30, prayerLogs, habitLogs, habits, now)
-    const prev = consistency(30, prayerLogs, habitLogs, habits, addDays(now, -30))
-    const streak = overallStreak(prayerLogs, habitLogs, habits, now)
-    const trend = trend7(prayerLogs, habitLogs, habits, now)
+    const cur = consistency(30, prayerLogs, habitLogs, habits, now, haidLogs)
+    const prev = consistency(30, prayerLogs, habitLogs, habits, addDays(now, -30), haidLogs)
+    const streak = overallStreak(prayerLogs, habitLogs, habits, now, haidLogs)
+    const trend = trend7(prayerLogs, habitLogs, habits, now, haidLogs)
     const avgTrend =
       trend.reduce((a, t) => a + t.done, 0) / Math.max(1, trend.length)
     const totalItems = trend[0]?.total ?? 0
 
     // Streak terpanjang (saat ini) per ibadah
     const items: { label: string; days: number }[] = [
-      { label: 'Sholat 5 waktu', days: prayerStreak(prayerLogs, now) },
+      { label: 'Sholat 5 waktu', days: prayerStreak(prayerLogs, now, haidLogs) },
       ...habits
         .filter((h) => !h.archived)
         .map((h) => ({ label: h.name, days: habitStreak(h, habitLogs, now) })),
@@ -61,7 +65,7 @@ export default function Dashboard() {
     items.sort((a, b) => b.days - a.days)
 
     return { cur, prev, delta: cur - prev, streak, trend, avgTrend, totalItems, top: items.slice(0, 3) }
-  }, [prayerLogs, habitLogs, habits, now])
+  }, [prayerLogs, habitLogs, habits, now, haidLogs])
 
   const maxBar = Math.max(stats.totalItems, ...stats.trend.map((t) => t.done), 1)
 
@@ -145,6 +149,35 @@ export default function Dashboard() {
           </div>
         </div>
       </div>
+
+      {/* Catatan haid (khusus perempuan) */}
+      {isFemale && (
+        <button
+          onClick={() => goSub('haid')}
+          className="card flex w-full items-center gap-3 px-5 py-4 text-left transition active:scale-[0.99]"
+        >
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-clay-400/20 text-xl">
+            🌸
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="font-semibold leading-tight">Catatan Haid</p>
+            <p className="text-xs text-ocean-900/55">
+              {haid.isToday
+                ? `Sedang haid — hari ke-${haid.currentDay ?? 1}`
+                : haid.nextStart && haid.daysToNext != null
+                  ? haid.daysToNext >= 0
+                    ? `Prakiraan berikutnya ${haid.daysToNext} hari lagi`
+                    : `Prakiraan terlewat ${Math.abs(haid.daysToNext)} hari`
+                  : 'Ketuk untuk mulai mencatat'}
+            </p>
+          </div>
+          {haid.avgCycle != null && (
+            <span className="shrink-0 rounded-full bg-clay-400/20 px-2.5 py-1 text-xs font-semibold text-clay-600">
+              siklus ~{haid.avgCycle}h
+            </span>
+          )}
+        </button>
+      )}
 
       {/* Streak terpanjang */}
       <div className="card px-5 py-4">

@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useStore } from '../store/useStore'
+import { useStore, type Gender } from '../store/useStore'
 import { getCurrentLocation } from '../lib/geo'
 import { METHOD_LABEL, type MethodKey } from '../lib/prayer'
 import { LocationIcon } from '../components/icons'
@@ -8,6 +8,7 @@ export default function Onboarding() {
   const setProfile = useStore((s) => s.setProfile)
   const profile = useStore((s) => s.profile)
   const [name, setName] = useState('')
+  const [gender, setGender] = useState<Gender | null>(null)
   const [city, setCity] = useState(profile.city)
   const [coords, setCoords] = useState<{ lat: number; lng: number } | null>(null)
   const [method, setMethod] = useState<MethodKey>('Kemenag')
@@ -33,6 +34,7 @@ export default function Onboarding() {
       name: name.trim() || 'Sahabat',
       city: city.trim() || 'Jakarta',
       method,
+      ...(gender ? { gender } : {}),
       ...(coords ?? {}),
       onboarded: true,
     })
@@ -65,6 +67,22 @@ export default function Onboarding() {
         placeholder="mis. Ahmad"
         className="mb-5 w-full rounded-2xl border border-sand-200 bg-sand-50 px-4 py-3.5 outline-none focus:border-ocean-400"
       />
+
+      <label className="mb-1.5 block text-sm font-semibold">Jenis kelamin</label>
+      <div className="mb-5 grid grid-cols-2 gap-2">
+        {([['male', 'Laki-laki', '👨'], ['female', 'Perempuan', '👩']] as const).map(([g, label, icon]) => (
+          <button
+            key={g}
+            onClick={() => setGender(g)}
+            className={`flex items-center justify-center gap-2 rounded-2xl py-3.5 text-sm font-semibold transition ${
+              gender === g ? 'bg-ocean-700 text-white' : 'bg-sand-50 text-ocean-900/60 ring-1 ring-sand-200'
+            }`}
+          >
+            <span className="text-lg">{icon}</span>
+            {label}
+          </button>
+        ))}
+      </div>
 
       <label className="mb-1.5 block text-sm font-semibold">Lokasi (untuk jadwal sholat)</label>
       <button
