@@ -64,6 +64,68 @@ export default function Profile() {
         <h1 className="text-xl font-bold">Profil & Pengaturan</h1>
       </header>
 
+      <div className="card px-5 py-5">
+        <p className="mb-2 text-sm font-semibold">Tampilan</p>
+        <div className="grid grid-cols-3 gap-2">
+          {THEME_OPTS.map((t) => (
+            <button
+              key={t.id}
+              onClick={() => setTheme(t.id)}
+              className={`flex flex-col items-center gap-1 rounded-2xl py-3 text-sm font-semibold transition ${
+                theme === t.id ? 'bg-ocean-700 text-white' : 'bg-sand-200 text-ocean-900/60'
+              }`}
+            >
+              <span className="text-lg">{t.icon}</span>
+              {t.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Ukuran teks — aksesibilitas */}
+      <div className="card px-5 py-5">
+        <p className="text-sm font-semibold">Ukuran teks</p>
+        <p className="mt-0.5 text-xs text-ocean-900/55">Perbesar agar nyaman dibaca.</p>
+
+        <p className="mb-1.5 mt-4 text-xs font-semibold text-ocean-900/60">Teks aplikasi</p>
+        <div className="grid grid-cols-5 gap-1.5">
+          {UI_SCALES.map((s) => (
+            <button
+              key={s.v}
+              onClick={() => setUiScale(s.v)}
+              className={`rounded-xl py-2 text-xs font-semibold transition ${
+                uiScale === s.v ? 'bg-ocean-700 text-white' : 'bg-sand-200 text-ocean-900/60'
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+
+        <p className="mb-1.5 mt-4 text-xs font-semibold text-ocean-900/60">Teks Arab</p>
+        <div className="grid grid-cols-4 gap-1.5">
+          {ARABIC_SCALES.map((s) => (
+            <button
+              key={s.v}
+              onClick={() => setArabicScale(s.v)}
+              className={`rounded-xl py-2 text-xs font-semibold transition ${
+                arabicScale === s.v ? 'bg-ocean-700 text-white' : 'bg-sand-200 text-ocean-900/60'
+              }`}
+            >
+              {s.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Pratinjau */}
+        <div className="mt-4 rounded-2xl bg-sand-100 px-4 py-3">
+          <p className="font-arabic arabic-text text-right leading-loose text-ocean-900" dir="rtl">
+            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
+          </p>
+          <p className="mt-1 text-sm text-ocean-900/70">Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang.</p>
+        </div>
+      </div>
+
       <AccountCard />
 
       <InstallCard />
@@ -137,74 +199,14 @@ export default function Profile() {
         </div>
       </div>
 
-      <div className="card px-5 py-5">
-        <p className="mb-2 text-sm font-semibold">Tampilan</p>
-        <div className="grid grid-cols-3 gap-2">
-          {THEME_OPTS.map((t) => (
-            <button
-              key={t.id}
-              onClick={() => setTheme(t.id)}
-              className={`flex flex-col items-center gap-1 rounded-2xl py-3 text-sm font-semibold transition ${
-                theme === t.id ? 'bg-ocean-700 text-white' : 'bg-sand-200 text-ocean-900/60'
-              }`}
-            >
-              <span className="text-lg">{t.icon}</span>
-              {t.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Ukuran teks — aksesibilitas */}
-      <div className="card px-5 py-5">
-        <p className="text-sm font-semibold">Ukuran teks</p>
-        <p className="mt-0.5 text-xs text-ocean-900/55">Perbesar agar nyaman dibaca.</p>
-
-        <p className="mb-1.5 mt-4 text-xs font-semibold text-ocean-900/60">Teks aplikasi</p>
-        <div className="grid grid-cols-5 gap-1.5">
-          {UI_SCALES.map((s) => (
-            <button
-              key={s.v}
-              onClick={() => setUiScale(s.v)}
-              className={`rounded-xl py-2 text-xs font-semibold transition ${
-                uiScale === s.v ? 'bg-ocean-700 text-white' : 'bg-sand-200 text-ocean-900/60'
-              }`}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
-
-        <p className="mb-1.5 mt-4 text-xs font-semibold text-ocean-900/60">Teks Arab</p>
-        <div className="grid grid-cols-4 gap-1.5">
-          {ARABIC_SCALES.map((s) => (
-            <button
-              key={s.v}
-              onClick={() => setArabicScale(s.v)}
-              className={`rounded-xl py-2 text-xs font-semibold transition ${
-                arabicScale === s.v ? 'bg-ocean-700 text-white' : 'bg-sand-200 text-ocean-900/60'
-              }`}
-            >
-              {s.label}
-            </button>
-          ))}
-        </div>
-
-        {/* Pratinjau */}
-        <div className="mt-4 rounded-2xl bg-sand-100 px-4 py-3">
-          <p className="font-arabic arabic-text text-right leading-loose text-ocean-900" dir="rtl">
-            بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ
-          </p>
-          <p className="mt-1 text-sm text-ocean-900/70">Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang.</p>
-        </div>
-      </div>
-
       <div className="card px-5 py-4">
         <p className="text-sm font-semibold">Tentang</p>
         <p className="mt-1 text-xs leading-relaxed text-ocean-900/55">
           Dawam — pengingat ibadah & pencatat amal harian. Data tersimpan di perangkatmu (privat,
-          bisa dipakai offline). Sinkronisasi antar perangkat & adzan otomatis menyusul di
-          pembaruan berikutnya, insyaAllah.
+          bisa dipakai offline).
+        </p>
+        <p className="mt-2 text-xs font-medium text-ocean-900/70">
+          Didesain oleh Muhammad Rizki Yaznil.
         </p>
         <p className="mt-2 text-[11px] text-ocean-900/35">Versi 0.1.0 · Fase 1</p>
       </div>
