@@ -4,7 +4,6 @@ import { useStore } from '../store/useStore'
 import Quran from './Quran'
 import QuranReader from './QuranReader'
 import Hafalan from './Hafalan'
-import Muhasabah from './Muhasabah'
 import DoaQurani from './DoaQurani'
 import Dzikir from './Dzikir'
 import DzikirSholat from './DzikirSholat'
@@ -16,7 +15,7 @@ import PanduanMusafir from './PanduanMusafir'
 import { ChevronRight } from '../components/icons'
 import { useBackable } from '../lib/navStack'
 
-type Sub = 'baca' | 'quran' | 'hafalan' | 'muhasabah' | 'doa' | 'dzikir' | 'dzikirsholat' | 'kalender' | 'asma' | 'hadits' | 'haid' | 'musafir'
+type Sub = 'baca' | 'quran' | 'hafalan' | 'doa' | 'dzikir' | 'dzikirsholat' | 'kalender' | 'asma' | 'hadits' | 'haid' | 'musafir'
 
 const MENU: { id: Sub; icon: string; title: string; sub: string; femaleOnly?: boolean }[] = [
   { id: 'baca', icon: '📕', title: 'Baca Al-Qur’an', sub: '114 surah · audio · penanda' },
@@ -25,7 +24,6 @@ const MENU: { id: Sub; icon: string; title: string; sub: string; femaleOnly?: bo
   { id: 'doa', icon: '🤲', title: 'Doa dari Al-Qur’an', sub: '36 doa pilihan · teks dari mushaf' },
   { id: 'dzikir', icon: '🌅', title: 'Dzikir Pagi & Petang', sub: 'Dzikir masyhur + penghitung' },
   { id: 'dzikirsholat', icon: '📿', title: 'Dzikir Setelah Sholat', sub: 'Bacaan ba’da sholat fardhu' },
-  { id: 'muhasabah', icon: '🌙', title: 'Muhasabah Malam', sub: 'Refleksi & heatmap mood' },
   { id: 'musafir', icon: '🧳', title: 'Panduan Musafir', sub: 'Doa, qashar, jamak, & tayamum' },
   { id: 'kalender', icon: '🗓️', title: 'Kalender Hijriah', sub: 'Tanggal Hijriah & puasa sunnah' },
   { id: 'asma', icon: '✨', title: '99 Asmaul Husna', sub: 'Nama-nama indah Allah' },
@@ -55,7 +53,6 @@ export default function More() {
         {sub === 'doa' && <DoaQurani />}
         {sub === 'dzikir' && <Dzikir />}
         {sub === 'dzikirsholat' && <DzikirSholat />}
-        {sub === 'muhasabah' && <Muhasabah />}
         {sub === 'kalender' && <Kalender />}
         {sub === 'asma' && <AsmaulHusna />}
         {sub === 'hadits' && <HaditsArbain />}

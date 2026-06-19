@@ -18,7 +18,6 @@ export const SHORTCUTS: Shortcut[] = [
   { id: 'doa', label: 'Doa Qur’ani', sub: 'Doa pilihan', icon: '🤲', kind: 'sub', target: 'doa' },
   { id: 'dzikir', label: 'Dzikir', sub: 'Pagi & petang', icon: '🌅', kind: 'sub', target: 'dzikir' },
   { id: 'dzikirsholat', label: 'Dzikir Sholat', sub: 'Ba’da fardhu', icon: '📿', kind: 'sub', target: 'dzikirsholat' },
-  { id: 'muhasabah', label: 'Muhasabah', sub: 'Refleksi malam', icon: '🌙', kind: 'sub', target: 'muhasabah' },
   { id: 'musafir', label: 'Musafir', sub: 'Qashar & jamak', icon: '🧳', kind: 'sub', target: 'musafir' },
   { id: 'kalender', label: 'Kalender', sub: 'Hijriah & puasa', icon: '🗓️', kind: 'sub', target: 'kalender' },
   { id: 'asma', label: 'Asmaul Husna', sub: '99 nama', icon: '✨', kind: 'sub', target: 'asma' },
