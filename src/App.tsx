@@ -7,6 +7,7 @@ import { isCloudEnabled } from './lib/supabase'
 import BottomNav from './components/BottomNav'
 import AdzanBanner from './components/AdzanBanner'
 import GenderGate from './components/GenderGate'
+import InstallReminder from './components/InstallReminder'
 import Onboarding from './pages/Onboarding'
 import AuthScreen from './pages/AuthScreen'
 import Dashboard from './pages/Dashboard'
@@ -46,6 +47,7 @@ export default function App() {
       </main>
       <BottomNav active={tab} onChange={setTab} />
       {!gender && <GenderGate />}
+      <InstallReminder />
     </div>
   )
 }
