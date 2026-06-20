@@ -12,10 +12,11 @@ import AsmaulHusna from './AsmaulHusna'
 import HaditsArbain from './HaditsArbain'
 import HaidReport from './HaidReport'
 import PanduanMusafir from './PanduanMusafir'
+import PengantinBaru from './PengantinBaru'
 import { ChevronRight } from '../components/icons'
 import { useBackable } from '../lib/navStack'
 
-type Sub = 'baca' | 'quran' | 'hafalan' | 'doa' | 'dzikir' | 'dzikirsholat' | 'kalender' | 'asma' | 'hadits' | 'haid' | 'musafir'
+type Sub = 'baca' | 'quran' | 'hafalan' | 'doa' | 'dzikir' | 'dzikirsholat' | 'kalender' | 'asma' | 'hadits' | 'haid' | 'musafir' | 'pengantin'
 
 const MENU: { id: Sub; icon: string; title: string; sub: string; femaleOnly?: boolean }[] = [
   { id: 'baca', icon: '📕', title: 'Baca Al-Qur’an', sub: '114 surah · audio · penanda' },
@@ -25,6 +26,7 @@ const MENU: { id: Sub; icon: string; title: string; sub: string; femaleOnly?: bo
   { id: 'dzikir', icon: '🌅', title: 'Dzikir Pagi & Petang', sub: 'Dzikir masyhur + penghitung' },
   { id: 'dzikirsholat', icon: '📿', title: 'Dzikir Setelah Sholat', sub: 'Bacaan ba’da sholat fardhu' },
   { id: 'musafir', icon: '🧳', title: 'Panduan Musafir', sub: 'Doa, qashar, jamak, & tayamum' },
+  { id: 'pengantin', icon: '💍', title: 'Pengantin Baru', sub: 'Doa, malam pertama, & nasihat sakinah' },
   { id: 'kalender', icon: '🗓️', title: 'Kalender Hijriah', sub: 'Tanggal Hijriah & puasa sunnah' },
   { id: 'asma', icon: '✨', title: '99 Asmaul Husna', sub: 'Nama-nama indah Allah' },
   { id: 'hadits', icon: '📜', title: 'Hadits Arba’in', sub: '42 hadits Imam An-Nawawi' },
@@ -58,6 +60,7 @@ export default function More() {
         {sub === 'hadits' && <HaditsArbain />}
         {sub === 'haid' && <HaidReport />}
         {sub === 'musafir' && <PanduanMusafir />}
+        {sub === 'pengantin' && <PengantinBaru />}
       </div>
     )
   }
