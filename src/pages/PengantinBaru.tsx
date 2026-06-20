@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { PENGANTIN_DUA } from '../data/pengantin'
 import StickyBack from '../components/StickyBack'
 
@@ -15,6 +15,7 @@ export default function PengantinBaru() {
 
   return (
     <div className="space-y-4 pb-4">
+      <GiftPopup />
       <StickyBack label="Lainnya" />
       <header className="pt-2">
         <h1 className="text-xl font-bold">Pengantin Baru</h1>
@@ -44,6 +45,42 @@ export default function PengantinBaru() {
         Materi bersifat ringkas & lintas-madzhab. Untuk penerapan, rujuk ustadz/kitab terpercaya
         karena ada perbedaan pendapat di antara ulama.
       </p>
+    </div>
+  )
+}
+
+// ---------- Popup hadiah (muncul saat halaman dibuka) ----------
+function GiftPopup() {
+  // Tampil saat halaman dibuka, lalu tutup otomatis setelah 2 detik.
+  const [show, setShow] = useState(true)
+  useEffect(() => {
+    const t = setTimeout(() => setShow(false), 2000)
+    return () => clearTimeout(t)
+  }, [])
+
+  if (!show) return null
+
+  return (
+    <div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-ocean-900/40 px-8 backdrop-blur-sm"
+      onClick={() => setShow(false)}
+    >
+      <div
+        className="relative w-full max-w-xs rounded-3xl bg-white px-6 py-7 text-center shadow-2xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button
+          onClick={() => setShow(false)}
+          aria-label="Tutup"
+          className="absolute right-3 top-3 flex h-7 w-7 items-center justify-center rounded-full bg-sand-100 text-ocean-900/50 transition active:bg-sand-200"
+        >
+          ✕
+        </button>
+        <div className="text-4xl">💝</div>
+        <p className="mt-3 text-lg font-bold leading-snug text-ocean-900">
+          A gift to Zulpan &amp; Nisa
+        </p>
+      </div>
     </div>
   )
 }
