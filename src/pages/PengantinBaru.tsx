@@ -51,10 +51,10 @@ export default function PengantinBaru() {
 
 // ---------- Popup hadiah (muncul saat halaman dibuka) ----------
 function GiftPopup() {
-  // Tampil saat halaman dibuka, lalu tutup otomatis setelah 2 detik.
+  // Tampil saat halaman dibuka, lalu tutup otomatis setelah 5 detik.
   const [show, setShow] = useState(true)
   useEffect(() => {
-    const t = setTimeout(() => setShow(false), 2000)
+    const t = setTimeout(() => setShow(false), 5000)
     return () => clearTimeout(t)
   }, [])
 
