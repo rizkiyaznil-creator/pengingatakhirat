@@ -71,14 +71,14 @@ export default function Dzikir() {
       </div>
 
       <div className="space-y-3">
-        {list.map((d) => {
+        {list.map((d, i) => {
           const c = count[key(d)] ?? 0
           const finished = c >= d.ulang
           return (
             <div key={d.no} className={`card px-5 py-4 transition ${finished ? 'ring-1 ring-ocean-400' : ''}`}>
               <div className="flex items-center gap-2">
                 <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-ocean-100 text-xs font-bold text-ocean-600">
-                  {d.no}
+                  {i + 1}
                 </span>
                 <p className="min-w-0 flex-1 font-semibold leading-tight">{d.judul}</p>
                 {finished && <span className="text-ocean-600">✓</span>}

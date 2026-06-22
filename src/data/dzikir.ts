@@ -1,6 +1,7 @@
 // Dzikir Pagi & Petang — kumpulan dzikir masyhur (rujukan: Hisnul Muslim & hadits sahih).
 // Mohon verifikasi penulisan Arab dengan kitab terpercaya sebelum diamalkan luas.
 // waktu: 'pagi' | 'petang' | 'both' (dibaca pagi & petang dengan teks sama).
+// Urutan tampil mengikuti urutan array ini; nomor badge dihitung dari posisi pada daftar.
 
 export type DzikirWaktu = 'pagi' | 'petang' | 'both'
 
@@ -17,6 +18,16 @@ export interface Dzikir {
 
 export const DZIKIR: Dzikir[] = [
   {
+    no: 18,
+    judul: 'Ta‘awudz',
+    arab: 'أَعُوذُ بِاللَّهِ مِنَ الشَّيْطَانِ الرَّجِيمِ',
+    latin: 'A‘ūżu billāhi minasy-syaiṭānir-rajīm.',
+    arti: 'Aku berlindung kepada Allah dari setan yang terkutuk.',
+    ulang: 1,
+    catatan: 'Dibaca sebagai pembuka sebelum Ayat Kursi & surah-surah pelindung.',
+    waktu: 'both',
+  },
+  {
     no: 1,
     judul: 'Ayat Kursi',
     arab: 'اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ الْحَيُّ الْقَيُّومُ ۚ لَا تَأْخُذُهُ سِنَةٌ وَلَا نَوْمٌ ۚ لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ ۗ مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلَّا بِإِذْنِهِ ۚ يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ ۖ وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلَّا بِمَا شَاءَ ۚ وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ ۖ وَلَا يَئُودُهُ حِفْظُهُمَا ۚ وَهُوَ الْعَلِيُّ الْعَظِيمُ',
@@ -29,14 +40,61 @@ export const DZIKIR: Dzikir[] = [
     waktu: 'both',
   },
   {
-    no: 2,
-    judul: 'Al-Ikhlāṣ, Al-Falaq, An-Nās',
-    arab: 'قُلْ هُوَ اللَّهُ أَحَدٌ … قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ … قُلْ أَعُوذُ بِرَبِّ النَّاسِ …',
-    latin: 'Qul huwallāhu aḥad… Qul a‘ūżu birabbil-falaq… Qul a‘ūżu birabbin-nās…',
-    arti: 'Membaca tiga surah pelindung (Al-Ikhlāṣ, Al-Falaq, An-Nās) masing-masing 3 kali.',
+    no: 19,
+    judul: 'Surah Al-Ikhlāṣ',
+    arab: 'قُلْ هُوَ اللَّهُ أَحَدٌ ۝ اللَّهُ الصَّمَدُ ۝ لَمْ يَلِدْ وَلَمْ يُولَدْ ۝ وَلَمْ يَكُنْ لَهُ كُفُوًا أَحَدٌ',
+    latin:
+      'Qul huwallāhu aḥad. Allāhuṣ-ṣamad. Lam yalid wa lam yūlad. Wa lam yakul-lahū kufuwan aḥad.',
+    arti:
+      'Katakanlah: Dialah Allah Yang Maha Esa. Allah tempat bergantung segala sesuatu. Dia tidak beranak dan tidak diperanakkan. Dan tidak ada sesuatu pun yang setara dengan Dia.',
     ulang: 3,
-    catatan: 'Cukup bagimu dari segala sesuatu (HR. Abu Dawud & Tirmidzi).',
+    catatan: 'Tiga surah pelindung (Al-Ikhlāṣ, Al-Falaq, An-Nās) masing-masing 3×, cukup dari segala sesuatu (HR. Abu Dawud & Tirmidzi).',
     waktu: 'both',
+  },
+  {
+    no: 20,
+    judul: 'Surah Al-Falaq',
+    arab: 'قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ ۝ مِنْ شَرِّ مَا خَلَقَ ۝ وَمِنْ شَرِّ غَاسِقٍ إِذَا وَقَبَ ۝ وَمِنْ شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ ۝ وَمِنْ شَرِّ حَاسِدٍ إِذَا حَسَدَ',
+    latin:
+      'Qul a‘ūżu birabbil-falaq. Min syarri mā khalaq. Wa min syarri ghāsiqin iżā waqab. Wa min syarrin-naffāṡāti fil-‘uqad. Wa min syarri ḥāsidin iżā ḥasad.',
+    arti:
+      'Katakanlah: Aku berlindung kepada Tuhan yang menguasai subuh, dari kejahatan makhluk-Nya, dari kejahatan malam apabila telah gelap gulita, dari kejahatan (perempuan-perempuan) penyihir yang meniup pada buhul-buhul, dan dari kejahatan orang yang dengki apabila ia dengki.',
+    ulang: 3,
+    waktu: 'both',
+  },
+  {
+    no: 21,
+    judul: 'Surah An-Nās',
+    arab: 'قُلْ أَعُوذُ بِرَبِّ النَّاسِ ۝ مَلِكِ النَّاسِ ۝ إِلَٰهِ النَّاسِ ۝ مِنْ شَرِّ الْوَسْوَاسِ الْخَنَّاسِ ۝ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ ۝ مِنَ الْجِنَّةِ وَالنَّاسِ',
+    latin:
+      'Qul a‘ūżu birabbin-nās. Malikin-nās. Ilāhin-nās. Min syarril-waswāsil-khannās. Allażī yuwaswisu fī ṣudūrin-nās. Minal-jinnati wan-nās.',
+    arti:
+      'Katakanlah: Aku berlindung kepada Tuhan manusia, Raja manusia, Sembahan manusia, dari kejahatan (bisikan) setan yang biasa bersembunyi, yang membisikkan (kejahatan) ke dalam dada manusia, dari (golongan) jin dan manusia.',
+    ulang: 3,
+    waktu: 'both',
+  },
+  {
+    no: 4,
+    judul: 'Memasuki Pagi',
+    arab: 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبِّ أَسْأَلُكَ خَيْرَ مَا فِي هَٰذَا الْيَوْمِ وَخَيْرَ مَا بَعْدَهُ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَٰذَا الْيَوْمِ وَشَرِّ مَا بَعْدَهُ، رَبِّ أَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبِّ أَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ',
+    latin:
+      'Aṣbaḥnā wa aṣbaḥal-mulku lillāh, wal-ḥamdu lillāh, lā ilāha illallāhu waḥdahū lā syarīka lah, lahul-mulku wa lahul-ḥamdu wa huwa ‘alā kulli syai’in qadīr. Rabbi as’aluka khaira mā fī hāżal-yaumi wa khaira mā ba‘dah, wa a‘ūżu bika min syarri mā fī hāżal-yaumi wa syarri mā ba‘dah. Rabbi a‘ūżu bika minal-kasali wa sū’il-kibar, rabbi a‘ūżu bika min ‘ażābin fin-nāri wa ‘ażābin fil-qabr.',
+    arti:
+      'Kami memasuki waktu pagi dan kerajaan hanya milik Allah; segala puji bagi Allah, tiada tuhan selain Allah semata, tiada sekutu bagi-Nya; milik-Nya kerajaan dan bagi-Nya pujian, dan Dia Maha Kuasa atas segala sesuatu. Wahai Tuhanku, aku memohon kepada-Mu kebaikan apa yang ada pada hari ini dan kebaikan sesudahnya; aku berlindung kepada-Mu dari keburukan apa yang ada pada hari ini dan keburukan sesudahnya. Wahai Tuhanku, aku berlindung kepada-Mu dari rasa malas dan keburukan masa tua; wahai Tuhanku, aku berlindung kepada-Mu dari siksa di neraka dan siksa di kubur.',
+    ulang: 1,
+    catatan: 'HR. Muslim.',
+    waktu: 'pagi',
+  },
+  {
+    no: 22,
+    judul: 'Berserah Diri (Pagi)',
+    arab: 'اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ',
+    latin: 'Allāhumma bika aṣbaḥnā, wa bika amsainā, wa bika naḥyā, wa bika namūtu, wa ilaikan-nusyūr.',
+    arti:
+      'Ya Allah, dengan (rahmat dan pertolongan)-Mu kami memasuki waktu pagi, dan dengan-Mu kami memasuki waktu petang; dengan-Mu kami hidup dan dengan-Mu kami mati, dan kepada-Mu (kami) dibangkitkan.',
+    ulang: 1,
+    catatan: 'HR. At-Tirmidzi.',
+    waktu: 'pagi',
   },
   {
     no: 3,
@@ -51,15 +109,26 @@ export const DZIKIR: Dzikir[] = [
     waktu: 'both',
   },
   {
-    no: 4,
-    judul: 'Memasuki Pagi',
-    arab: 'أَصْبَحْنَا وَأَصْبَحَ الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ',
+    no: 8,
+    judul: 'Permohonan Kesehatan & Penjagaan',
+    arab: 'اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَٰهَ إِلَّا أَنْتَ، اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْكُفْرِ وَالْفَقْرِ، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ، لَا إِلَٰهَ إِلَّا أَنْتَ',
     latin:
-      'Aṣbaḥnā wa aṣbaḥal-mulku lillāh, wal-ḥamdu lillāh, lā ilāha illallāhu waḥdahū lā syarīka lah, lahul-mulku wa lahul-ḥamdu wa huwa ‘alā kulli syai’in qadīr.',
+      'Allāhumma ‘āfinī fī badanī, allāhumma ‘āfinī fī sam‘ī, allāhumma ‘āfinī fī baṣarī, lā ilāha illā anta. Allāhumma innī a‘ūżu bika minal-kufri wal-faqr, wa a‘ūżu bika min ‘ażābil-qabr, lā ilāha illā anta.',
     arti:
-      'Kami memasuki waktu pagi dan kerajaan hanya milik Allah. Segala puji bagi Allah, tiada tuhan selain Allah semata, tiada sekutu bagi-Nya.',
+      'Ya Allah, sehatkanlah tubuhku; ya Allah, sehatkanlah pendengaranku; ya Allah, sehatkanlah penglihatanku. Tiada tuhan selain Engkau. Ya Allah, aku berlindung kepada-Mu dari kekufuran dan kefakiran, dan aku berlindung kepada-Mu dari siksa kubur. Tiada tuhan selain Engkau.',
+    ulang: 3,
+    waktu: 'both',
+  },
+  {
+    no: 14,
+    judul: 'Ampunan & Keselamatan',
+    arab: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي دِينِي وَدُنْيَايَ وَأَهْلِي وَمَالِي، اللَّهُمَّ اسْتُرْ عَوْرَاتِي وَآمِنْ رَوْعَاتِي، اللَّهُمَّ احْفَظْنِي مِنْ بَيْنِ يَدَيَّ، وَمِنْ خَلْفِي، وَعَنْ يَمِينِي، وَعَنْ شِمَالِي، وَمِنْ فَوْقِي، وَأَعُوذُ بِعَظَمَتِكَ أَنْ أُغْتَالَ مِنْ تَحْتِي',
+    latin:
+      'Allāhumma innī as’alukal-‘afwa wal-‘āfiyata fid-dun-yā wal-ākhirah. Allāhumma innī as’alukal-‘afwa wal-‘āfiyata fī dīnī wa dun-yāya wa ahlī wa mālī. Allāhummastur ‘aurātī wa āmin rau‘ātī. Allāhummaḥfaẓnī mim baini yadayya wa min khalfī wa ‘an yamīnī wa ‘an syimālī wa min fauqī, wa a‘ūżu bi‘aẓamatika an ughtāla min taḥtī.',
+    arti:
+      'Ya Allah, aku memohon kepada-Mu ampunan dan keselamatan di dunia dan akhirat. Ya Allah, aku memohon kepada-Mu ampunan dan keselamatan dalam agamaku, duniaku, keluargaku, dan hartaku. Ya Allah, tutupilah auratku (aib) dan tenteramkanlah aku dari rasa takut. Ya Allah, peliharalah aku dari depan, belakang, kanan, kiri, dan atasku; dan aku berlindung dengan keagungan-Mu agar tidak disambar (binasa) dari bawahku.',
     ulang: 1,
-    waktu: 'pagi',
+    waktu: 'both',
   },
   {
     no: 5,
@@ -90,17 +159,6 @@ export const DZIKIR: Dzikir[] = [
     arti: 'Aku ridha Allah sebagai Tuhan, Islam sebagai agama, dan Muhammad ﷺ sebagai nabi.',
     ulang: 3,
     catatan: 'Allah pasti meridhainya pada hari kiamat.',
-    waktu: 'both',
-  },
-  {
-    no: 8,
-    judul: 'Permohonan Kesehatan & Penjagaan',
-    arab: 'اللَّهُمَّ عَافِنِي فِي بَدَنِي، اللَّهُمَّ عَافِنِي فِي سَمْعِي، اللَّهُمَّ عَافِنِي فِي بَصَرِي، لَا إِلَٰهَ إِلَّا أَنْتَ',
-    latin:
-      'Allāhumma ‘āfinī fī badanī, allāhumma ‘āfinī fī sam‘ī, allāhumma ‘āfinī fī baṣarī, lā ilāha illā anta.',
-    arti:
-      'Ya Allah, sehatkanlah tubuhku, pendengaranku, dan penglihatanku. Tiada tuhan selain Engkau.',
-    ulang: 3,
     waktu: 'both',
   },
   {
@@ -157,16 +215,6 @@ export const DZIKIR: Dzikir[] = [
       'Tiada tuhan selain Allah semata, tiada sekutu bagi-Nya. Milik-Nya kerajaan dan pujian, dan Dia Maha Kuasa atas segala sesuatu.',
     ulang: 10,
     catatan: 'Setara memerdekakan budak & menjadi perisai dari setan (dibaca 10×/100×).',
-    waktu: 'both',
-  },
-  {
-    no: 14,
-    judul: 'Ampunan & Keselamatan',
-    arab: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ الْعَفْوَ وَالْعَافِيَةَ فِي الدُّنْيَا وَالْآخِرَةِ',
-    latin: 'Allāhumma innī as’alukal-‘afwa wal-‘āfiyata fid-dun-yā wal-ākhirah.',
-    arti:
-      'Ya Allah, aku memohon kepada-Mu ampunan dan keselamatan di dunia dan akhirat.',
-    ulang: 1,
     waktu: 'both',
   },
   {
