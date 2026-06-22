@@ -88,12 +88,24 @@ export const DZIKIR: Dzikir[] = [
   {
     no: 5,
     judul: 'Memasuki Petang',
-    arab: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ',
+    arab: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ، رَبَّنَا نَسْأَلُكَ خَيْرَ مَا فِي هَٰذِهِ اللَّيْلَةِ وَخَيْرَ مَا بَعْدَهَا، وَنَعُوذُ بِكَ مِنْ شَرِّ مَا فِي هَٰذِهِ اللَّيْلَةِ وَشَرِّ مَا بَعْدَهَا، رَبَّنَا نَعُوذُ بِكَ مِنَ الْكَسَلِ وَسُوءِ الْكِبَرِ، رَبَّنَا نَعُوذُ بِكَ مِنْ عَذَابٍ فِي النَّارِ وَعَذَابٍ فِي الْقَبْرِ',
     latin:
-      'Amsainā wa amsal-mulku lillāh, wal-ḥamdu lillāh, lā ilāha illallāhu waḥdahū lā syarīka lah, lahul-mulku wa lahul-ḥamdu wa huwa ‘alā kulli syai’in qadīr.',
+      'Amsainā wa amsal-mulku lillāh, wal-ḥamdu lillāh, lā ilāha illallāhu waḥdahū lā syarīka lah, lahul-mulku wa lahul-ḥamdu wa huwa ‘alā kulli syai’in qadīr. Rabbanā nas’aluka khaira mā fī hāżihil-lailati wa khaira mā ba‘dahā, wa na‘ūżu bika min syarri mā fī hāżihil-lailati wa syarri mā ba‘dahā. Rabbanā na‘ūżu bika minal-kasali wa sū’il-kibar, rabbanā na‘ūżu bika min ‘ażābin fin-nāri wa ‘ażābin fil-qabr.',
     arti:
-      'Kami memasuki waktu petang dan kerajaan hanya milik Allah. Segala puji bagi Allah, tiada tuhan selain Allah semata, tiada sekutu bagi-Nya.',
+      'Kami memasuki waktu petang dan kerajaan hanya milik Allah; segala puji bagi Allah, tiada tuhan selain Allah semata, tiada sekutu bagi-Nya; milik-Nya kerajaan dan bagi-Nya pujian, dan Dia Maha Kuasa atas segala sesuatu. Wahai Tuhan kami, kami memohon kepada-Mu kebaikan apa yang ada pada malam ini dan kebaikan sesudahnya; dan kami berlindung kepada-Mu dari keburukan apa yang ada pada malam ini dan keburukan sesudahnya. Wahai Tuhan kami, kami berlindung kepada-Mu dari rasa malas dan keburukan masa tua; wahai Tuhan kami, kami berlindung kepada-Mu dari siksa di neraka dan siksa di kubur.',
     ulang: 1,
+    catatan: 'HR. Muslim.',
+    waktu: 'petang',
+  },
+  {
+    no: 26,
+    judul: 'Berserah Diri (Petang)',
+    arab: 'اللَّهُمَّ بِكَ أَمْسَيْنَا، وَبِكَ أَصْبَحْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ الْمَصِيرُ',
+    latin: 'Allāhumma bika amsainā, wa bika aṣbaḥnā, wa bika naḥyā, wa bika namūtu, wa ilaikal-maṣīr.',
+    arti:
+      'Ya Allah, dengan (rahmat dan pertolongan)-Mu kami memasuki waktu petang, dan dengan-Mu kami memasuki waktu pagi; dengan-Mu kami hidup dan dengan-Mu kami mati, dan kepada-Mu tempat kembali.',
+    ulang: 1,
+    catatan: 'HR. At-Tirmidzi.',
     waktu: 'petang',
   },
   {
