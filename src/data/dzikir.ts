@@ -221,15 +221,38 @@ export const DZIKIR: Dzikir[] = [
     waktu: 'petang',
   },
   {
-    no: 9,
-    judul: 'Cukuplah Allah',
-    arab: 'حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ، عَلَيْهِ تَوَكَّلْتُ، وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ',
-    latin: 'Ḥasbiyallāhu lā ilāha illā huwa, ‘alaihi tawakkaltu, wa huwa rabbul-‘arsyil-‘aẓīm.',
+    no: 13,
+    judul: 'Tahlil Sempurna',
+    arab: 'لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ',
+    latin:
+      'Lā ilāha illallāhu waḥdahū lā syarīka lah, lahul-mulku wa lahul-ḥamdu wa huwa ‘alā kulli syai’in qadīr.',
     arti:
-      'Cukuplah Allah bagiku, tiada tuhan selain Dia. Kepada-Nya aku bertawakal, dan Dia Tuhan ‘Arsy yang agung.',
-    ulang: 7,
-    catatan: 'Allah mencukupi urusan dunia & akhiratnya.',
+      'Tiada tuhan selain Allah semata, tiada sekutu bagi-Nya. Milik-Nya kerajaan dan pujian, dan Dia Maha Kuasa atas segala sesuatu.',
+    ulang: 10,
+    catatan: 'Setara memerdekakan budak & menjadi perisai dari setan (dibaca 10×/100×).',
     waktu: 'both',
+  },
+  {
+    no: 23,
+    judul: 'Dzikir Pemberat Timbangan',
+    arab: 'سُبْحَانَ اللَّهِ وَبِحَمْدِهِ، عَدَدَ خَلْقِهِ، وَرِضَا نَفْسِهِ، وَزِنَةَ عَرْشِهِ، وَمِدَادَ كَلِمَاتِهِ',
+    latin: 'Subḥānallāhi wa biḥamdih, ‘adada khalqih, wa riḍā nafsih, wa zinata ‘arsyih, wa midāda kalimātih.',
+    arti:
+      'Maha Suci Allah dan segala puji bagi-Nya, sebanyak bilangan makhluk-Nya, sejauh keridhaan diri-Nya, seberat timbangan ‘Arsy-Nya, dan sebanyak tinta (penulisan) kalimat-Nya.',
+    ulang: 3,
+    catatan: 'Dzikir yang sangat berat timbangannya. HR. Muslim (dari Juwairiyah).',
+    waktu: 'both',
+  },
+  {
+    no: 24,
+    judul: 'Doa Memohon Ilmu & Amal',
+    arab: 'اللَّهُمَّ إِنِّي أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلًا مُتَقَبَّلًا',
+    latin: 'Allāhumma innī as’aluka ‘ilman nāfi‘ā, wa rizqan ṭayyibā, wa ‘amalan mutaqabbalā.',
+    arti:
+      'Ya Allah, sungguh aku memohon kepada-Mu ilmu yang bermanfaat, rezeki yang baik (halal), dan amal yang diterima.',
+    ulang: 1,
+    catatan: 'Dibaca pagi seusai salam Subuh. HR. Ibnu Majah no. 925 — shahih.',
+    waktu: 'pagi',
   },
   {
     no: 12,
@@ -242,15 +265,24 @@ export const DZIKIR: Dzikir[] = [
     waktu: 'both',
   },
   {
-    no: 13,
-    judul: 'Tahlil Sempurna',
-    arab: 'لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ',
-    latin:
-      'Lā ilāha illallāhu waḥdahū lā syarīka lah, lahul-mulku wa lahul-ḥamdu wa huwa ‘alā kulli syai’in qadīr.',
-    arti:
-      'Tiada tuhan selain Allah semata, tiada sekutu bagi-Nya. Milik-Nya kerajaan dan pujian, dan Dia Maha Kuasa atas segala sesuatu.',
-    ulang: 10,
-    catatan: 'Setara memerdekakan budak & menjadi perisai dari setan (dibaca 10×/100×).',
+    no: 25,
+    judul: 'Istighfar',
+    arab: 'أَسْتَغْفِرُ اللَّهَ وَأَتُوبُ إِلَيْهِ',
+    latin: 'Astagfirullāha wa atūbu ilaih.',
+    arti: 'Aku memohon ampun kepada Allah dan bertobat kepada-Nya.',
+    ulang: 100,
+    catatan: 'Rasulullah ﷺ beristighfar dalam sehari lebih dari 70×/100×. HR. Bukhari & Muslim.',
     waktu: 'both',
+  },
+  {
+    no: 9,
+    judul: 'Cukuplah Allah',
+    arab: 'حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ، عَلَيْهِ تَوَكَّلْتُ، وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ',
+    latin: 'Ḥasbiyallāhu lā ilāha illā huwa, ‘alaihi tawakkaltu, wa huwa rabbul-‘arsyil-‘aẓīm.',
+    arti:
+      'Cukuplah Allah bagiku, tiada tuhan selain Dia. Kepada-Nya aku bertawakal, dan Dia Tuhan ‘Arsy yang agung.',
+    ulang: 7,
+    catatan: 'Allah mencukupi urusan dunia & akhiratnya.',
+    waktu: 'petang',
   },
 ]
