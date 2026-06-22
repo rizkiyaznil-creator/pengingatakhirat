@@ -86,6 +86,17 @@ export const DZIKIR: Dzikir[] = [
     waktu: 'pagi',
   },
   {
+    no: 5,
+    judul: 'Memasuki Petang',
+    arab: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ',
+    latin:
+      'Amsainā wa amsal-mulku lillāh, wal-ḥamdu lillāh, lā ilāha illallāhu waḥdahū lā syarīka lah, lahul-mulku wa lahul-ḥamdu wa huwa ‘alā kulli syai’in qadīr.',
+    arti:
+      'Kami memasuki waktu petang dan kerajaan hanya milik Allah. Segala puji bagi Allah, tiada tuhan selain Allah semata, tiada sekutu bagi-Nya.',
+    ulang: 1,
+    waktu: 'petang',
+  },
+  {
     no: 22,
     judul: 'Berserah Diri (Pagi)',
     arab: 'اللَّهُمَّ بِكَ أَصْبَحْنَا، وَبِكَ أَمْسَيْنَا، وَبِكَ نَحْيَا، وَبِكَ نَمُوتُ، وَإِلَيْكَ النُّشُورُ',
@@ -131,15 +142,28 @@ export const DZIKIR: Dzikir[] = [
     waktu: 'both',
   },
   {
-    no: 5,
-    judul: 'Memasuki Petang',
-    arab: 'أَمْسَيْنَا وَأَمْسَى الْمُلْكُ لِلَّهِ، وَالْحَمْدُ لِلَّهِ، لَا إِلَٰهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ',
+    no: 16,
+    judul: 'Doa Perlindungan',
+    arab: 'اللَّهُمَّ عَالِمَ الْغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَاوَاتِ وَالْأَرْضِ، رَبَّ كُلِّ شَيْءٍ وَمَلِيكَهُ، أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا أَنْتَ، أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي، وَمِنْ شَرِّ الشَّيْطَانِ وَشِرْكِهِ، وَأَنْ أَقْتَرِفَ عَلَى نَفْسِي سُوءًا أَوْ أَجُرَّهُ إِلَى مُسْلِمٍ',
     latin:
-      'Amsainā wa amsal-mulku lillāh, wal-ḥamdu lillāh, lā ilāha illallāhu waḥdahū lā syarīka lah, lahul-mulku wa lahul-ḥamdu wa huwa ‘alā kulli syai’in qadīr.',
+      'Allāhumma ‘ālimal-ghaibi wasy-syahādah, fāṭiras-samāwāti wal-arḍ, rabba kulli syai’in wa malīkah, asyhadu an lā ilāha illā anta, a‘ūżu bika min syarri nafsī, wa min syarrisy-syaiṭāni wa syirkih, wa an aqtarifa ‘alā nafsī sū’an au ajurrahū ilā muslim.',
     arti:
-      'Kami memasuki waktu petang dan kerajaan hanya milik Allah. Segala puji bagi Allah, tiada tuhan selain Allah semata, tiada sekutu bagi-Nya.',
+      'Ya Allah Yang Maha Mengetahui yang gaib dan yang nyata, wahai Rabb pencipta langit dan bumi, Rabb dan Raja segala sesuatu. Aku bersaksi tiada tuhan yang berhak disembah kecuali Engkau. Aku berlindung kepada-Mu dari kejahatan diriku, dari kejahatan setan dan ajakan syiriknya, serta dari berbuat kejelekan atas diriku atau menyeret seorang muslim kepadanya.',
     ulang: 1,
-    waktu: 'petang',
+    catatan: 'Diajarkan Nabi ﷺ kepada Abu Bakar: dibaca pagi, petang, dan menjelang tidur. HR. Al-Bukhari (Al-Adabul Mufrad 1202), at-Tirmidzi no. 3392 — shahih.',
+    waktu: 'both',
+  },
+  {
+    no: 10,
+    judul: 'Tidak Membahayakan dengan Nama-Nya',
+    arab: 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ',
+    latin:
+      'Bismillāhil-lażī lā yaḍurru ma‘asmihī syai’un fil-arḍi wa lā fis-samā’i wa huwas-samī‘ul-‘alīm.',
+    arti:
+      'Dengan nama Allah yang bersama nama-Nya tidak ada sesuatu pun yang membahayakan, di bumi maupun di langit. Dia Maha Mendengar lagi Maha Mengetahui.',
+    ulang: 3,
+    catatan: 'Tidak akan ditimpa bahaya mendadak.',
+    waktu: 'both',
   },
   {
     no: 6,
@@ -162,29 +186,6 @@ export const DZIKIR: Dzikir[] = [
     waktu: 'both',
   },
   {
-    no: 9,
-    judul: 'Cukuplah Allah',
-    arab: 'حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ، عَلَيْهِ تَوَكَّلْتُ، وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ',
-    latin: 'Ḥasbiyallāhu lā ilāha illā huwa, ‘alaihi tawakkaltu, wa huwa rabbul-‘arsyil-‘aẓīm.',
-    arti:
-      'Cukuplah Allah bagiku, tiada tuhan selain Dia. Kepada-Nya aku bertawakal, dan Dia Tuhan ‘Arsy yang agung.',
-    ulang: 7,
-    catatan: 'Allah mencukupi urusan dunia & akhiratnya.',
-    waktu: 'both',
-  },
-  {
-    no: 10,
-    judul: 'Tidak Membahayakan dengan Nama-Nya',
-    arab: 'بِسْمِ اللَّهِ الَّذِي لَا يَضُرُّ مَعَ اسْمِهِ شَيْءٌ فِي الْأَرْضِ وَلَا فِي السَّمَاءِ وَهُوَ السَّمِيعُ الْعَلِيمُ',
-    latin:
-      'Bismillāhil-lażī lā yaḍurru ma‘asmihī syai’un fil-arḍi wa lā fis-samā’i wa huwas-samī‘ul-‘alīm.',
-    arti:
-      'Dengan nama Allah yang bersama nama-Nya tidak ada sesuatu pun yang membahayakan, di bumi maupun di langit. Dia Maha Mendengar lagi Maha Mengetahui.',
-    ulang: 3,
-    catatan: 'Tidak akan ditimpa bahaya mendadak.',
-    waktu: 'both',
-  },
-  {
     no: 11,
     judul: 'Wahai Yang Maha Hidup',
     arab: 'يَا حَيُّ يَا قَيُّومُ بِرَحْمَتِكَ أَسْتَغِيثُ، أَصْلِحْ لِي شَأْنِي كُلَّهُ وَلَا تَكِلْنِي إِلَى نَفْسِي طَرْفَةَ عَيْنٍ',
@@ -193,6 +194,41 @@ export const DZIKIR: Dzikir[] = [
     arti:
       'Wahai Yang Maha Hidup, Maha Berdiri Sendiri, dengan rahmat-Mu aku memohon pertolongan. Perbaikilah seluruh urusanku dan jangan serahkan aku pada diriku walau sekejap mata.',
     ulang: 1,
+    waktu: 'both',
+  },
+  {
+    no: 17,
+    judul: 'Doa Fitrah (Pagi)',
+    arab: 'أَصْبَحْنَا عَلَى فِطْرَةِ الْإِسْلَامِ وَعَلَى كَلِمَةِ الْإِخْلَاصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ حَنِيفًا مُسْلِمًا وَمَا كَانَ مِنَ الْمُشْرِكِينَ',
+    latin:
+      'Aṣbaḥnā ‘alā fiṭratil-islām, wa ‘alā kalimatil-ikhlāṣ, wa ‘alā dīni nabiyyinā Muḥammadin ṣallallāhu ‘alaihi wa sallam, wa ‘alā millati abīnā Ibrāhīma ḥanīfan musliman wa mā kāna minal-musyrikīn.',
+    arti:
+      'Di waktu pagi kami berada di atas fitrah agama Islam, kalimat ikhlas, agama Nabi kita Muhammad ﷺ, dan agama ayah kami Ibrahim, yang lurus, muslim, dan tidak tergolong orang-orang musyrik.',
+    ulang: 1,
+    catatan: 'HR. Ahmad III/406–407, ad-Darimi II/292, dan Ibnus Sunni dalam Amalul Yaum wal Lailah no. 34 — shahih.',
+    waktu: 'pagi',
+  },
+  {
+    no: 15,
+    judul: 'Doa Fitrah (Petang)',
+    arab: 'أَمْسَيْنَا عَلَى فِطْرَةِ الْإِسْلَامِ وَعَلَى كَلِمَةِ الْإِخْلَاصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ حَنِيفًا مُسْلِمًا وَمَا كَانَ مِنَ الْمُشْرِكِينَ',
+    latin:
+      'Amsainā ‘alā fiṭratil-islām, wa ‘alā kalimatil-ikhlāṣ, wa ‘alā dīni nabiyyinā Muḥammadin ṣallallāhu ‘alaihi wa sallam, wa ‘alā millati abīnā Ibrāhīma ḥanīfan musliman wa mā kāna minal-musyrikīn.',
+    arti:
+      'Di waktu sore kami berada di atas fitrah agama Islam, kalimat ikhlas, agama Nabi kita Muhammad ﷺ, dan agama ayah kami Ibrahim, yang lurus, muslim, dan tidak tergolong orang-orang musyrik.',
+    ulang: 1,
+    catatan: 'HR. Ahmad III/406–407, ad-Darimi II/292, dan Ibnus Sunni dalam Amalul Yaum wal Lailah no. 34 — shahih.',
+    waktu: 'petang',
+  },
+  {
+    no: 9,
+    judul: 'Cukuplah Allah',
+    arab: 'حَسْبِيَ اللَّهُ لَا إِلَٰهَ إِلَّا هُوَ، عَلَيْهِ تَوَكَّلْتُ، وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ',
+    latin: 'Ḥasbiyallāhu lā ilāha illā huwa, ‘alaihi tawakkaltu, wa huwa rabbul-‘arsyil-‘aẓīm.',
+    arti:
+      'Cukuplah Allah bagiku, tiada tuhan selain Dia. Kepada-Nya aku bertawakal, dan Dia Tuhan ‘Arsy yang agung.',
+    ulang: 7,
+    catatan: 'Allah mencukupi urusan dunia & akhiratnya.',
     waktu: 'both',
   },
   {
@@ -216,41 +252,5 @@ export const DZIKIR: Dzikir[] = [
     ulang: 10,
     catatan: 'Setara memerdekakan budak & menjadi perisai dari setan (dibaca 10×/100×).',
     waktu: 'both',
-  },
-  {
-    no: 15,
-    judul: 'Doa Fitrah (Petang)',
-    arab: 'أَمْسَيْنَا عَلَى فِطْرَةِ الْإِسْلَامِ وَعَلَى كَلِمَةِ الْإِخْلَاصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ حَنِيفًا مُسْلِمًا وَمَا كَانَ مِنَ الْمُشْرِكِينَ',
-    latin:
-      'Amsainā ‘alā fiṭratil-islām, wa ‘alā kalimatil-ikhlāṣ, wa ‘alā dīni nabiyyinā Muḥammadin ṣallallāhu ‘alaihi wa sallam, wa ‘alā millati abīnā Ibrāhīma ḥanīfan musliman wa mā kāna minal-musyrikīn.',
-    arti:
-      'Di waktu sore kami berada di atas fitrah agama Islam, kalimat ikhlas, agama Nabi kita Muhammad ﷺ, dan agama ayah kami Ibrahim, yang lurus, muslim, dan tidak tergolong orang-orang musyrik.',
-    ulang: 1,
-    catatan: 'HR. Ahmad III/406–407, ad-Darimi II/292, dan Ibnus Sunni dalam Amalul Yaum wal Lailah no. 34 — shahih.',
-    waktu: 'petang',
-  },
-  {
-    no: 16,
-    judul: 'Doa Perlindungan',
-    arab: 'اللَّهُمَّ عَالِمَ الْغَيْبِ وَالشَّهَادَةِ فَاطِرَ السَّمَاوَاتِ وَالْأَرْضِ، رَبَّ كُلِّ شَيْءٍ وَمَلِيكَهُ، أَشْهَدُ أَنْ لَا إِلَٰهَ إِلَّا أَنْتَ، أَعُوذُ بِكَ مِنْ شَرِّ نَفْسِي، وَمِنْ شَرِّ الشَّيْطَانِ وَشِرْكِهِ، وَأَنْ أَقْتَرِفَ عَلَى نَفْسِي سُوءًا أَوْ أَجُرَّهُ إِلَى مُسْلِمٍ',
-    latin:
-      'Allāhumma ‘ālimal-ghaibi wasy-syahādah, fāṭiras-samāwāti wal-arḍ, rabba kulli syai’in wa malīkah, asyhadu an lā ilāha illā anta, a‘ūżu bika min syarri nafsī, wa min syarrisy-syaiṭāni wa syirkih, wa an aqtarifa ‘alā nafsī sū’an au ajurrahū ilā muslim.',
-    arti:
-      'Ya Allah Yang Maha Mengetahui yang gaib dan yang nyata, wahai Rabb pencipta langit dan bumi, Rabb dan Raja segala sesuatu. Aku bersaksi tiada tuhan yang berhak disembah kecuali Engkau. Aku berlindung kepada-Mu dari kejahatan diriku, dari kejahatan setan dan ajakan syiriknya, serta dari berbuat kejelekan atas diriku atau menyeret seorang muslim kepadanya.',
-    ulang: 1,
-    catatan: 'Diajarkan Nabi ﷺ kepada Abu Bakar: dibaca pagi, petang, dan menjelang tidur. HR. Al-Bukhari (Al-Adabul Mufrad 1202), at-Tirmidzi no. 3392 — shahih.',
-    waktu: 'both',
-  },
-  {
-    no: 17,
-    judul: 'Doa Fitrah (Pagi)',
-    arab: 'أَصْبَحْنَا عَلَى فِطْرَةِ الْإِسْلَامِ وَعَلَى كَلِمَةِ الْإِخْلَاصِ، وَعَلَى دِينِ نَبِيِّنَا مُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ، وَعَلَى مِلَّةِ أَبِينَا إِبْرَاهِيمَ حَنِيفًا مُسْلِمًا وَمَا كَانَ مِنَ الْمُشْرِكِينَ',
-    latin:
-      'Aṣbaḥnā ‘alā fiṭratil-islām, wa ‘alā kalimatil-ikhlāṣ, wa ‘alā dīni nabiyyinā Muḥammadin ṣallallāhu ‘alaihi wa sallam, wa ‘alā millati abīnā Ibrāhīma ḥanīfan musliman wa mā kāna minal-musyrikīn.',
-    arti:
-      'Di waktu pagi kami berada di atas fitrah agama Islam, kalimat ikhlas, agama Nabi kita Muhammad ﷺ, dan agama ayah kami Ibrahim, yang lurus, muslim, dan tidak tergolong orang-orang musyrik.',
-    ulang: 1,
-    catatan: 'HR. Ahmad III/406–407, ad-Darimi II/292, dan Ibnus Sunni dalam Amalul Yaum wal Lailah no. 34 — shahih.',
-    waktu: 'pagi',
   },
 ]
