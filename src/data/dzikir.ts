@@ -178,16 +178,6 @@ export const DZIKIR: Dzikir[] = [
     waktu: 'both',
   },
   {
-    no: 6,
-    judul: 'Berlindung dengan Kalimat Allah',
-    arab: 'أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ',
-    latin: 'A‘ūżu bikalimātillāhit-tāmmāti min syarri mā khalaq.',
-    arti: 'Aku berlindung dengan kalimat-kalimat Allah yang sempurna dari kejahatan makhluk-Nya.',
-    ulang: 3,
-    catatan: 'Terutama dibaca petang; tidak ada yang membahayakannya malam itu.',
-    waktu: 'petang',
-  },
-  {
     no: 7,
     judul: 'Ridha kepada Allah',
     arab: 'رَضِيتُ بِاللَّهِ رَبًّا، وَبِالْإِسْلَامِ دِينًا، وَبِمُحَمَّدٍ صَلَّى اللَّهُ عَلَيْهِ وَسَلَّمَ نَبِيًّا',
@@ -230,6 +220,16 @@ export const DZIKIR: Dzikir[] = [
       'Di waktu sore kami berada di atas fitrah agama Islam, kalimat ikhlas, agama Nabi kita Muhammad ﷺ, dan agama ayah kami Ibrahim, yang lurus, muslim, dan tidak tergolong orang-orang musyrik.',
     ulang: 1,
     catatan: 'HR. Ahmad III/406–407, ad-Darimi II/292, dan Ibnus Sunni dalam Amalul Yaum wal Lailah no. 34 — shahih.',
+    waktu: 'petang',
+  },
+  {
+    no: 6,
+    judul: 'Berlindung dengan Kalimat Allah',
+    arab: 'أَعُوذُ بِكَلِمَاتِ اللَّهِ التَّامَّاتِ مِنْ شَرِّ مَا خَلَقَ',
+    latin: 'A‘ūżu bikalimātillāhit-tāmmāti min syarri mā khalaq.',
+    arti: 'Aku berlindung dengan kalimat-kalimat Allah yang sempurna dari kejahatan makhluk-Nya.',
+    ulang: 3,
+    catatan: 'Terutama dibaca petang; tidak ada yang membahayakannya malam itu.',
     waktu: 'petang',
   },
   {
