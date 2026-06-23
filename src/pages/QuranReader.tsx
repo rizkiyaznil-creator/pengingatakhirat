@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { useStore } from '../store/useStore'
 import { SURAH_LIST } from '../data/surahList'
-import { fetchSurah, type Ayah } from '../lib/quranApi'
+import { fetchSurah, BASMALAH, type Ayah } from '../lib/quranApi'
 import StickyBack from '../components/StickyBack'
 import { useBackable } from '../lib/navStack'
 
@@ -156,6 +156,12 @@ function Reader({ surah }: { surah: number }) {
           <p className="text-sm font-semibold text-cheer">Gagal memuat</p>
           <p className="mt-1 text-xs text-ocean-900/55">{err}. Butuh internet saat pertama memuat surah ini.</p>
         </div>
+      )}
+
+      {ayat && !loading && !err && surah !== 1 && surah !== 9 && (
+        <p className="font-arabic arabic-text text-center text-lg leading-loose text-ocean-900" dir="rtl">
+          {BASMALAH}
+        </p>
       )}
 
       {ayat?.map((a) => (
