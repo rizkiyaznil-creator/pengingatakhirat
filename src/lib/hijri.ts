@@ -98,6 +98,13 @@ export function eventsForDay(d: Date): DayEvent[] {
   return out
 }
 
+// Puasa sunnah "spesial" pada satu hari: Arafah, Asyura, Tasua, Ayyamul Bidh
+// (kind 'utama'/'sunnah') — TIDAK termasuk puasa rutin Senin/Kamis ('rutin').
+// Dipakai untuk pengingat H-1 di dalam aplikasi.
+export function specialSunnahFasts(d: Date): DayEvent[] {
+  return eventsForDay(d).filter((e) => e.kind === 'utama' || e.kind === 'sunnah')
+}
+
 // Prioritas warna sel kalender bila satu hari punya beberapa agenda.
 const KIND_RANK: Record<EventKind, number> = {
   raya: 6, larangan: 5, mulia: 4, utama: 3, sunnah: 2, rutin: 1,

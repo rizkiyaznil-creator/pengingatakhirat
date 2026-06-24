@@ -6,6 +6,7 @@ import { useAdzanForeground } from './lib/useAdzanForeground'
 import { isCloudEnabled } from './lib/supabase'
 import BottomNav from './components/BottomNav'
 import AdzanBanner from './components/AdzanBanner'
+import FastReminder from './components/FastReminder'
 import GenderGate from './components/GenderGate'
 import InstallReminder from './components/InstallReminder'
 import Onboarding from './pages/Onboarding'
@@ -38,6 +39,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-sand-100">
       <AdzanBanner alert={alert} onDismiss={dismiss} />
+      <FastReminder />
       <main className="safe-top mx-auto max-w-md px-4 pt-3 safe-bottom">
         {tab === 'beranda' && <Dashboard />}
         {tab === 'sholat' && <Sholat />}
