@@ -181,6 +181,44 @@ function JamakSection() {
           waktu masing-masing). Maliki & Hanbali juga membolehkan jamak karena hujan/uzur tertentu meski tidak safar.
         </Note>
       </div>
+
+      <div className="card px-5 py-4">
+        <p className="font-semibold">Jamak di hari Jumat</p>
+        <p className="mt-1 text-sm leading-relaxed text-ocean-900/80">
+          Bagi musafir, hari Jumat punya <b>dua pilihan — pilih salah satu, jangan digabung.</b>
+        </p>
+
+        <p className="mt-3 text-sm font-semibold text-ocean-900/80">Pilihan 1 — Ikut sholat Jumat</p>
+        <Bullets
+          items={[
+            <span>Bila singgah di daerah yang menegakkan Jumat, ikut Jumat. <b>Jumat sudah menggantikan Dzuhur</b> — tidak perlu Dzuhur lagi.</span>,
+            <span>Jumat tetap <b>2 rakaat</b> (memang jumlahnya, bukan diqashar).</span>,
+            <span>Menjamak <b>Ashar ke Jumat</b> (taqdim): ada perbedaan pendapat — lihat catatan.</span>,
+          ]}
+        />
+        <Note>
+          Sebagian ulama <b>membolehkan</b> musafir menjamak Ashar setelah Jumat, dengan mengqiyaskan Jumat pada
+          Dzuhur. Namun pendapat yang lebih hati-hati (dan lebih kuat menurut banyak ulama): <b>Jumat bukan Dzuhur</b>
+          {' '}dan tidak ada dalil tegas menjamak Ashar ke Jumat — maka <b>Ashar dikerjakan pada waktunya</b>.
+        </Note>
+
+        <p className="mt-4 text-sm font-semibold text-ocean-900/80">Pilihan 2 — Sholat Dzuhur (tanpa Jumat)</p>
+        <Bullets
+          items={[
+            <span>Menurut jumhur, <b>safar menggugurkan kewajiban Jumat</b>, sehingga musafir boleh tidak Jumat dan menggantinya dengan Dzuhur.</span>,
+            <span>Dengan pilihan ini, boleh <b>menjamak-qashar Dzuhur + Ashar</b> (taqdim/ta’khir) seperti hari biasa.</span>,
+            <span><b>Jangan</b> sholat Jumat lalu tetap Dzuhur — cukup salah satu.</span>,
+          ]}
+        />
+        <Dalil>
+          Pada Haji Wada’ yang jatuh hari Jumat, di Arafah Nabi ﷺ <b>menjamak-qashar Dzuhur & Ashar</b> dan
+          tidak menegakkan sholat Jumat (HR. Bukhari–Muslim) — dalil bahwa musafir tidak wajib Jumat.
+        </Dalil>
+        <Note>
+          Bila tidak menyulitkan, <b>tetap ikut Jumat lebih utama</b> karena keutamaannya; rukhsah safar hanya
+          keringanan bagi yang berat menunaikannya.
+        </Note>
+      </div>
     </div>
   )
 }
